@@ -7,7 +7,7 @@
 		android:title="@string/titre_classement"/>
 
 	<item
-		android:id="@+id/navigation_favoris"
+		android:id="@+id/navigation_coupes"
 		android:icon="@drawable/ic_source_fork"
 		android:title="@string/titre_coupes"/>
 
