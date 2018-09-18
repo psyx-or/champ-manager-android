@@ -96,6 +96,15 @@ public class RechercheActivity extends AppCompatActivity {
 	}
 
 	/**
+	 * Redémarrage de l'activité
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		clic = false;
+	}
+
+	/**
 	 * Sauvegarde
 	 * @param outState
 	 */

@@ -1,6 +1,5 @@
 <resources>
 	<string name="app_name">FSGT 38</string>
-	<string name="title_accueil">Accueil</string>
 	<string name="title_favoris">Favoris</string>
 	<string name="title_resultats">Résultats</string>
 
@@ -9,6 +8,9 @@
 	<!-- Global -->
 	<string name="erreur">Erreur</string>
 
+	<!-- Menu -->
+	<string name="titre_classement">Classements</string>
+
 	<!-- Ecran de recherche -->
 	<string name="titre_recherche">Recherche</string>
 	<string name="equipe_nom">%s (%s)</string>
@@ -16,4 +18,5 @@
 	<string name="champ_selection">Ou sélectionner un championnat :</string>
 	<string name="label_chargement">-- Chargement --</string>
 	<string name="label_choix">-- Choisir --</string>
+
 </resources>

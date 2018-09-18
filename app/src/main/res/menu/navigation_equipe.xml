@@ -2,18 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<item
-		android:id="@+id/navigation_accueil"
-		android:icon="@drawable/ic_home_black_24dp"
-		android:title="@string/title_accueil"/>
+		android:id="@+id/navigation_classement"
+		android:icon="@drawable/ic_poll"
+		android:title="@string/titre_classement"/>
 
 	<item
 		android:id="@+id/navigation_favoris"
-		android:icon="@drawable/ic_dashboard_black_24dp"
-		android:title="@string/title_favoris"/>
+		android:icon="@drawable/ic_source_fork"
+		android:title="Coupes"/>
 
 	<item
 		android:id="@+id/navigation_resultats"
-		android:icon="@drawable/ic_notifications_black_24dp"
-		android:title="@string/title_resultats"/>
+		android:icon="@drawable/ic_clipboard_outline"
+		android:title="Matches"/>
+
+	<item
+		android:id="@+id/navigation_historique"
+		android:icon="@drawable/ic_filmstrip"
+		android:title="Historique"/>
+
+	<item
+		android:id="@+id/navigation_contact"
+		android:icon="@drawable/ic_contact_mail"
+		android:title="Coordonnées"/>
 
 </menu>

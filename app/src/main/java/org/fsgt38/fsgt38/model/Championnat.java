@@ -23,6 +23,8 @@ public class Championnat implements Serializable {
 	private int ptdef;
 	private ChampType type;
 
+	private Classement[] classements;
+
 	public Championnat() {
 	}
 

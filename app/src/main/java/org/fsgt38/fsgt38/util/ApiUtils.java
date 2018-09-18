@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.fsgt38.fsgt38.R;
 
 import retrofit2.Call;
@@ -27,9 +30,12 @@ public class ApiUtils {
 	 */
 	public static Retrofit getApi(Context context) {
 		if (retrofit == null) {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
 			retrofit = new Retrofit.Builder()
 					.baseUrl(context.getString(R.string.url_api))
-					.addConverterFactory(JacksonConverterFactory.create())
+					.addConverterFactory(JacksonConverterFactory.create(mapper))
 					.build();
 		}
 
