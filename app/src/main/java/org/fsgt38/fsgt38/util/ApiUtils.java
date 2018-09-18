@@ -3,6 +3,7 @@ package org.fsgt38.fsgt38.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,12 +46,12 @@ public class ApiUtils {
 	public static<T> Call<T> appel(final Activity activity, Call<T> call, final Action<T> fonction) {
 		call.enqueue(new Callback<T>() {
 			@Override
-			public void onResponse(Call<T> call, Response<T> response) {
+			public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
 				fonction.action(response.body());
 			}
 
 			@Override
-			public void onFailure(Call<T> call, final Throwable t) {
+			public void onFailure(@NonNull Call<T> call, @NonNull final Throwable t) {
 				if (call.isCanceled()) return;
 
 				activity.runOnUiThread(new Runnable()

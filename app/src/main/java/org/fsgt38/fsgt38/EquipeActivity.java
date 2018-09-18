@@ -33,8 +33,8 @@ public class EquipeActivity extends AppCompatActivity implements BottomNavigatio
 		setContentView(R.layout.activity_equipe);
 		ButterKnife.bind(this);
 
-		mTextMessage = (TextView) findViewById(R.id.message);
-		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+		mTextMessage = findViewById(R.id.message);
+		BottomNavigationView navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
 
 		mTextMessage.setText("Id " + equipe.getId());

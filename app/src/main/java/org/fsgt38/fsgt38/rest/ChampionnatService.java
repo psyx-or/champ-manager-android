@@ -1,7 +1,6 @@
 package org.fsgt38.fsgt38.rest;
 
 import org.fsgt38.fsgt38.model.Championnat;
-import org.fsgt38.fsgt38.model.Equipe;
 
 import java.util.List;
 

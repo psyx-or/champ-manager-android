@@ -22,7 +22,7 @@ import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,10 +66,10 @@ public class RechercheActivity extends AppCompatActivity {
 		equipeSearchTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				selectionEquipe(parent, view, position, id);
+				selectionEquipe(parent, position);
 			}
 		});
-		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(getString(R.string.label_chargement))));
+		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
 		this.championnats.setVisibility(View.INVISIBLE);
 
 		// Init API
@@ -139,7 +139,7 @@ public class RechercheActivity extends AppCompatActivity {
 	 */
 	private void initChampionnatsSpinner() {
 		// Remplissage de la liste des sports
-		ArrayAdapter<Sport> adapter = new ArrayAdapter<Sport>(this, android.R.layout.simple_spinner_item, new ArrayList<Sport>(mapChampionnats.keySet()));
+		ArrayAdapter<Sport> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(mapChampionnats.keySet()));
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sports.setAdapter(adapter);
 		championnats.setVisibility(View.VISIBLE);
@@ -156,7 +156,7 @@ public class RechercheActivity extends AppCompatActivity {
 
 		// On affiche les championnats du sport
 		Sport sport = (Sport)sports.getItemAtPosition(position);
-		ArrayAdapter<Championnat> adapter = new ArrayAdapter<Championnat>(this, android.R.layout.simple_spinner_item, mapChampionnats.get(sport));
+		ArrayAdapter<Championnat> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mapChampionnats.get(sport));
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		championnats.setAdapter(adapter);
 	}
@@ -214,11 +214,9 @@ public class RechercheActivity extends AppCompatActivity {
 	/**
 	 * Sélection d'une équipe
 	 * @param parent
-	 * @param view
 	 * @param position
-	 * @param id
 	 */
-	public void selectionEquipe(AdapterView<?> parent, View view, int position, long id) {
+	private void selectionEquipe(AdapterView<?> parent, int position) {
 		clic = true;
 		Equipe equipe = (Equipe) parent.getItemAtPosition(position);
 		equipeSearchTxt.setText(equipe.getNom());

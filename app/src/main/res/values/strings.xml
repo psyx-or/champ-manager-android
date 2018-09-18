@@ -18,5 +18,9 @@
 	<string name="champ_selection">Ou sélectionner un championnat :</string>
 	<string name="label_chargement">-- Chargement --</string>
 	<string name="label_choix">-- Choisir --</string>
+	<string name="titre_coupes">Coupes</string>
+	<string name="titre_matches">Matches</string>
+	<string name="titre_historique">Historique</string>
+	<string name="titre_coords">Coordonnées</string>
 
 </resources>

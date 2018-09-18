@@ -9,21 +9,21 @@
 	<item
 		android:id="@+id/navigation_favoris"
 		android:icon="@drawable/ic_source_fork"
-		android:title="Coupes"/>
+		android:title="@string/titre_coupes"/>
 
 	<item
 		android:id="@+id/navigation_resultats"
 		android:icon="@drawable/ic_clipboard_outline"
-		android:title="Matches"/>
+		android:title="@string/titre_matches"/>
 
 	<item
 		android:id="@+id/navigation_historique"
 		android:icon="@drawable/ic_filmstrip"
-		android:title="Historique"/>
+		android:title="@string/titre_historique"/>
 
 	<item
 		android:id="@+id/navigation_contact"
 		android:icon="@drawable/ic_contact_mail"
-		android:title="Coordonnées"/>
+		android:title="@string/titre_coords"/>
 
 </menu>
