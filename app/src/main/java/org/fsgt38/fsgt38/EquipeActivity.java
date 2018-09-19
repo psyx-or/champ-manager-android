@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.fsgt38.fsgt38.activity.equipe.ClassementEquipeFragment;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -39,6 +41,27 @@ public class EquipeActivity extends AppCompatActivity {
 		});
 
 		navigate(R.id.navigation_classement);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_equipe, menu);
+		menu.findItem(R.id.action_fav_off).setVisible(false);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_fav_on:
+				Toast.makeText(this,"On", Toast.LENGTH_LONG).show();
+				return true;
+			case R.id.action_fav_off:
+				Toast.makeText(this,"Off", Toast.LENGTH_LONG).show();
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	private boolean navigate(int id)
