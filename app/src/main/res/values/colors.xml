@@ -4,4 +4,16 @@
 	<color name="colorPrimaryDark">#1c3e98</color>
 	<color name="colorAccent">#FF4081</color>
 	<color name="ic_launcher_background">#FFFFFF</color>
+
+	<!-- Pour les tableaux -->
+	<color name="blanc">#fff</color>
+	<color name="noir">#000</color>
+	<color name="rouge">#f00</color>
+	<color name="vert">#008000</color>
+	<color name="gris">#f2f2f2</color>
+	<color name="bleu_clair">#d5eaff</color>
+	<color name="bleu_marine">#1c3e98</color>
+	<color name="marron_clair">#edead6</color>
+	<color name="marron_moyen">#d0ccbe</color>
+	<color name="marron_fonce">#c7bc8f</color>
 </resources>

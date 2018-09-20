@@ -9,6 +9,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ChampionnatService {
+
+	/**
+	 * @param saison Saison concernée
+	 * @return Liste des championnats d'une saison
+	 */
 	@GET("championnat")
 	Call<List<Championnat>> getChampionnats(@Query("saison") String saison);
 }

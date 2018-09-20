@@ -33,9 +33,21 @@ import butterknife.OnTextChanged;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
+/**
+ * Ecran de recherche d'une équipe ou d'un championnat
+ */
 public class RechercheActivity extends AppCompatActivity {
 
+	// ----------------------------------------------------------------------------------------
+	//    Constantes
+	// ----------------------------------------------------------------------------------------
+
 	private static final String BAK_CHAMP = "bak_champ";
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Membres
+	// ----------------------------------------------------------------------------------------
 
 	@BindView(R.id.equipeSearchTxt) AutoCompleteTextView equipeSearchTxt;
 	@BindView(R.id.spinSport)   	Spinner sports;
@@ -47,9 +59,13 @@ public class RechercheActivity extends AppCompatActivity {
 	private boolean clic = false;
 
 
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
 	/**
-	 * Création
-	 * @param savedInstanceState
+	 * Initialisation de l'écran
+	 * @param savedInstanceState paramètres sauvegardés
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -57,11 +73,12 @@ public class RechercheActivity extends AppCompatActivity {
 
 		super.onCreate(savedInstanceState);
 
-		getSupportActionBar().setTitle(R.string.titre_recherche);
+		if (getSupportActionBar() != null)
+			getSupportActionBar().setTitle(R.string.titre_recherche);
 		setContentView(R.layout.activity_recherche);
 		ButterKnife.bind(this);
 
-		// Init view
+		// Init contrôles
 		equipeSearchTxt.setThreshold(2);
 		equipeSearchTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -71,6 +88,15 @@ public class RechercheActivity extends AppCompatActivity {
 		});
 		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
 		this.championnats.setVisibility(View.INVISIBLE);
+
+
+		// TODO: enlever
+//		Equipe equipe = new Equipe();
+//		equipe.setId(8379);
+//		equipe.setNom("ACJ ELEC");
+//		Intent intent = new Intent(this, EquipeActivity.class);
+//		intent.putExtra(EquipeActivity.KEY_EQUIPE, equipe);
+//		startActivity(intent);
 
 		// Init API
 		Retrofit retrofit = ApiUtils.getApi(this);
@@ -86,7 +112,8 @@ public class RechercheActivity extends AppCompatActivity {
 						public void action(List<Championnat> championnats) {
 							initChampionnats(championnats);
 						}
-					}
+					},
+					false
 			);
 		}
 		else {
@@ -106,7 +133,7 @@ public class RechercheActivity extends AppCompatActivity {
 
 	/**
 	 * Sauvegarde
-	 * @param outState
+	 * @param outState Etat
 	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -115,8 +142,43 @@ public class RechercheActivity extends AppCompatActivity {
 	}
 
 	/**
+	 * Sélection d'un sport
+	 * @param position Index de l'élément sélectionné
+	 */
+	@OnItemSelected(R.id.spinSport)
+	public void selectionSport(int position) {
+
+		if (mapChampionnats == null) return;
+
+		// On affiche les championnats du sport
+		Sport sport = (Sport)sports.getItemAtPosition(position);
+		ArrayAdapter<Championnat> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mapChampionnats.get(sport));
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		championnats.setAdapter(adapter);
+	}
+
+	/**
+	 * Sélection d'un championnat
+	 * @param position Index de l'élément sélectionné
+	 */
+	@OnItemSelected(R.id.spinChampionnat)
+	public void selectionChampionnat(int position) {
+
+		Championnat championnat = (Championnat)championnats.getItemAtPosition(position);
+		if (championnat.getId() == null) return;
+
+		// On affiche les championnats du sport
+		Toast.makeText(this, championnat.toString(), Toast.LENGTH_LONG).show();
+	}
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Méthodes
+	// ----------------------------------------------------------------------------------------
+
+	/**
 	 * Traitement de la liste des championnats
-	 * @param championnats
+	 * @param championnats Liste des championnats
 	 */
 	private void initChampionnats(List<Championnat> championnats) {
 		// Regroupement des championnats par sport
@@ -146,44 +208,11 @@ public class RechercheActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * Sélection d'un sport
-	 * @param position
-	 */
-	@OnItemSelected(R.id.spinSport)
-	public void selectionSport(int position) {
-
-		if (mapChampionnats == null) return;
-
-		// On affiche les championnats du sport
-		Sport sport = (Sport)sports.getItemAtPosition(position);
-		ArrayAdapter<Championnat> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mapChampionnats.get(sport));
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		championnats.setAdapter(adapter);
-	}
-
-	/**
-	 * Sélection d'un championnat
-	 * @param position
-	 */
-	@OnItemSelected(R.id.spinChampionnat)
-	public void selectionChampionnat(int position) {
-
-		Championnat championnat = (Championnat)championnats.getItemAtPosition(position);
-		if (championnat.getId() == null) return;
-
-		// On affiche les championnats du sport
-		Toast.makeText(this, championnat.toString(), Toast.LENGTH_LONG).show();
-	}
-
-	/**
 	 * Recherche d'équipe
-	 * @param s
-	 * @param start
-	 * @param before
-	 * @param count
+	 * @param s Texte de la recherche
 	 */
 	@OnTextChanged(R.id.equipeSearchTxt)
-	public void rechercheEquipe(CharSequence s, int start, int before, int count) {
+	public void rechercheEquipe(CharSequence s) {
 
 		if (callRechercheEquipe != null) callRechercheEquipe.cancel();
 
@@ -202,19 +231,21 @@ public class RechercheActivity extends AppCompatActivity {
 						public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 							TextView view = (TextView) super.getView(position, convertView, parent);
 							Equipe equipe = getItem(position);
-							view.setText(getString(R.string.equipe_nom, equipe.getNom(), equipe.getSport().getNom()));
+							if (equipe != null)
+								view.setText(getString(R.string.equipe_nom, equipe.getNom(), equipe.getSport().getNom()));
 							return view;
 						}
 					});
 					equipeSearchTxt.showDropDown();
-			}
-		});
+				}
+			},
+			false);
 	}
 
 	/**
 	 * Sélection d'une équipe
-	 * @param parent
-	 * @param position
+	 * @param parent Liste des équipes
+	 * @param position Index de l'élément sélectionné
 	 */
 	private void selectionEquipe(AdapterView<?> parent, int position) {
 		clic = true;

@@ -25,6 +25,7 @@ public class Championnat implements Serializable {
 
 	private Classement[] classements;
 
+	@SuppressWarnings("unused")
 	public Championnat() {
 	}
 

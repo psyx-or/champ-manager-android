@@ -1,7 +1,7 @@
 package org.fsgt38.fsgt38.activity.equipe;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v7.widget.RecyclerView;
 
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -19,12 +19,21 @@ import retrofit2.Retrofit;
  */
 public class ClassementEquipeFragment extends ButterFragment {
 
+	// ----------------------------------------------------------------------------------------
+	//    Constantes
+	// ----------------------------------------------------------------------------------------
+
 	private static final String ARG_EQUIPE = "equipe";
 
+
+	// ----------------------------------------------------------------------------------------
+	//    Méthodes statiques
+	// ----------------------------------------------------------------------------------------
+
 	/**
-	 * Instanciate fragment
-	 * @param equipe
-	 * @return
+	 * Constructeur
+	 * @param equipe Equipe dont il faut afficher les championnats
+	 * @return Le fragment
 	 */
 	public static ClassementEquipeFragment newInstance(Equipe equipe) {
 		ClassementEquipeFragment fragment = new ClassementEquipeFragment();
@@ -38,14 +47,30 @@ public class ClassementEquipeFragment extends ButterFragment {
 	//----------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------
 
-	@BindView(R.id.toto)    TextView textView;
+
+	// ----------------------------------------------------------------------------------------
+	//    Membres
+	// ----------------------------------------------------------------------------------------
+
+	@BindView(R.id.liste)    RecyclerView liste;
 	private Equipe equipe;
 
 
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Constructeur
+	 */
 	public ClassementEquipeFragment() {
 		super(R.layout.fragment_classement_equipe);
 	}
 
+	/**
+	 * Initialisation de l'écran
+	 * @param savedInstanceState paramètres sauvegardés
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,8 +88,7 @@ public class ClassementEquipeFragment extends ButterFragment {
 				new ApiUtils.Action<ChampionnatEquipeDTO>() {
 					@Override
 					public void action(ChampionnatEquipeDTO dto) {
-						textView.setText("Champs: " + dto.getChampionnats().length);
-//						initChampionnats(championnats);
+						liste.setAdapter(new ClassementAdapter(dto));
 					}
 				}
 		);

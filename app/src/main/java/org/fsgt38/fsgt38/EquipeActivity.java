@@ -15,12 +15,33 @@ import org.fsgt38.fsgt38.model.Equipe;
 
 import butterknife.ButterKnife;
 
+/**
+ * Ecran affichant une équipe
+ */
 public class EquipeActivity extends AppCompatActivity {
+
+	// ----------------------------------------------------------------------------------------
+	//    Constantes
+	// ----------------------------------------------------------------------------------------
 
 	public static final String KEY_EQUIPE = EquipeActivity.class.getName() + ".equipe";
 
+
+	// ----------------------------------------------------------------------------------------
+	//    Membres
+	// ----------------------------------------------------------------------------------------
+
 	private Equipe equipe;
 
+
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Initialisation de l'écran
+	 * @param savedInstanceState paramètres sauvegardés
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -28,7 +49,8 @@ public class EquipeActivity extends AppCompatActivity {
 
 		equipe = (Equipe) getIntent().getSerializableExtra(KEY_EQUIPE);
 
-		getSupportActionBar().setTitle(equipe.getNom());
+		if (getSupportActionBar() != null)
+			getSupportActionBar().setTitle(equipe.getNom());
 		setContentView(R.layout.activity_equipe);
 		ButterKnife.bind(this);
 
@@ -43,6 +65,11 @@ public class EquipeActivity extends AppCompatActivity {
 		navigate(R.id.navigation_classement);
 	}
 
+	/**
+	 * Initialisation du menu de la barre d'action
+	 * @param menu La zone de menu de la barre d'action
+	 * @return Vrai si le menu doit être affiché
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_equipe, menu);
@@ -50,6 +77,11 @@ public class EquipeActivity extends AppCompatActivity {
 		return true;
 	}
 
+	/**
+	 * Sélection d'un élément dans le menu de la barre d'action
+	 * @param item Element sur lequel on a cliqué
+	 * @return Vrai si le clic a été traité dans la fonction
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -64,8 +96,18 @@ public class EquipeActivity extends AppCompatActivity {
 		}
 	}
 
-	private boolean navigate(int id)
-	{
+
+	// ----------------------------------------------------------------------------------------
+	//    Méthodes
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Affiche le bon fragment
+	 * @param id Element sur lequel on a cliqué
+	 * @return Vrai si le clic a été traité dans la fonction
+	 */
+	private boolean navigate(int id) {
+
 		Fragment fragment = null;
 		switch (id)
 		{

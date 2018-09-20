@@ -9,15 +9,39 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * Un fragment utilisant ButterKnife
+ */
 public abstract class ButterFragment extends Fragment {
 
-	private int layout;
+	// ----------------------------------------------------------------------------------------
+	//    Membres
+	// ----------------------------------------------------------------------------------------
+
+	private final int layout;
 	private Unbinder unbinder;
 
+
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Constructeur
+	 * @param layout Layout
+	 */
 	protected ButterFragment(int layout) {
 		this.layout = layout;
 	}
 
+	/**
+	 * Création des objets de l'écran
+	 *
+	 * @param inflater Le gestionnaire de layout
+	 * @param container Le conteneur du fragment
+	 * @param savedInstanceState Paramètres sauvegardés
+	 * @return Les objets à afficher
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(layout, container, false);
@@ -25,6 +49,9 @@ public abstract class ButterFragment extends Fragment {
 		return view;
 	}
 
+	/**
+	 * Suppression de la vue
+	 */
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();

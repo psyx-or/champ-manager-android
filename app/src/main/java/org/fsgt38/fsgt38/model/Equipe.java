@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 public class Equipe implements Serializable
 {
-	public enum Type { ALLER, ALLER_RETOUR, COUPE }
-
 	private int id;
 	private String nom;
 	private Sport sport;

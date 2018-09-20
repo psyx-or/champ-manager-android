@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="TableauLigne" parent="@android:style/Widget.Button">
+	</style>
+
+	<style name="TableauLigne.Entete">
+		<item name="android:background">@color/gris</item>
+	</style>
+
+	<style name="TableauLigne.Contenu">
+		<item name="android:clickable">true</item>
+	</style>
+
+	<style name="TableauLigne.Contenu.Paire">
+		<item name="android:background">@drawable/tableau_ligne_contenu_paire</item>
+	</style>
+
+	<style name="TableauLigne.Contenu.Impaire">
+		<item name="android:background">@drawable/tableau_ligne_contenu_impaire</item>
+	</style>
+
+	<style name="TableauLigne.Contenu.Selection">
+		<item name="android:background">@drawable/tableau_ligne_contenu_selection</item>
+	</style>
+
+	<style name="TableauLigne.Contenu.Grise">
+		<item name="android:background">@color/gris</item>
+	</style>
+
+	<style name="TableauCellule">
+		<item name="android:gravity">center</item>
+		<item name="android:paddingTop">10dp</item>
+		<item name="android:paddingBottom">10dp</item>
+	</style>
+
+	<style name="TableauCellule.Entete">
+		<item name="android:textStyle">bold</item>
+		<item name="android:paddingTop">0dp</item>
+		<item name="android:paddingBottom">0dp</item>
+	</style>
+
+	<style name="TableauCellule.Gras">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="TableauCellule.Rouge">
+		<item name="android:textColor">@color/rouge</item>
+	</style>
+
+	<style name="TableauCellule.Vert">
+		<item name="android:textColor">@color/vert</item>
+	</style>
+
+</resources>
