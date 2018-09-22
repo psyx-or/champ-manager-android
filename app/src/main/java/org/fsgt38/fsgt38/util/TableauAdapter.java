@@ -1,4 +1,4 @@
-package org.fsgt38.fsgt38.activity.equipe;
+package org.fsgt38.fsgt38.util;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,31 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.fsgt38.fsgt38.R;
-import org.fsgt38.fsgt38.model.dto.ChampionnatEquipeDTO;
+
+import lombok.RequiredArgsConstructor;
 
 /**
- * Adapteur pour les classements d'une équipe
+ * Adapteur pour un tableau
  */
-public class ClassementAdapter extends RecyclerView.Adapter<ClassementViewHolder> {
+@RequiredArgsConstructor
+public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends RecyclerView.Adapter<V> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	private final ChampionnatEquipeDTO dto;
+	private final K clef;
+	private final T[] objs;
+	private final Class<V> clazz;
 
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
 	// ----------------------------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 * @param dto Liste des championnats
-	 */
-	public ClassementAdapter(ChampionnatEquipeDTO dto) {
-		this.dto = dto;
-	}
 
 	/**
 	 * Création d'une ligne
@@ -39,9 +35,14 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementViewHolder
 	 * @return La ligne
 	 */
 	@Override
-	public ClassementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public V onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tableau, parent, false);
-		return new ClassementViewHolder(view);
+		try {
+			return clazz.getConstructor(View.class).newInstance(view);
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -50,8 +51,8 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementViewHolder
 	 * @param position Index du championnat
 	 */
 	@Override
-	public void onBindViewHolder(ClassementViewHolder holder, int position) {
-		holder.affiche(dto.getEquipe(), dto.getChampionnats()[position]);
+	public void onBindViewHolder(V holder, int position) {
+		holder.affiche(clef, objs[position]);
 	}
 
 	/**
@@ -59,6 +60,6 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementViewHolder
 	 */
 	@Override
 	public int getItemCount() {
-		return dto.getChampionnats().length;
+		return objs.length;
 	}
 }

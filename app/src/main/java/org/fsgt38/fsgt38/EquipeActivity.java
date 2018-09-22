@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.fsgt38.fsgt38.activity.equipe.ClassementEquipeFragment;
+import org.fsgt38.fsgt38.activity.equipe.HistoriqueEquipeFragment;
+import org.fsgt38.fsgt38.activity.equipe.ListeEquipeFragment;
 import org.fsgt38.fsgt38.model.Equipe;
 
 import butterknife.ButterKnife;
@@ -62,7 +64,9 @@ public class EquipeActivity extends AppCompatActivity {
 			}
 		});
 
-		navigate(R.id.navigation_classement);
+//		navigate(R.id.navigation_classement);
+		navigation.setSelectedItemId(R.id.navigation_historique);
+//		navigate(R.id.navigation_historique);
 	}
 
 	/**
@@ -112,13 +116,14 @@ public class EquipeActivity extends AppCompatActivity {
 		switch (id)
 		{
 			case R.id.navigation_classement:
-				fragment = ClassementEquipeFragment.newInstance(equipe);
+				fragment = ListeEquipeFragment.newInstance(ClassementEquipeFragment.class, equipe);
 				break;
 			case R.id.navigation_coupes:
 				break;
 			case R.id.navigation_resultats:
 				break;
 			case R.id.navigation_historique:
+				fragment = HistoriqueEquipeFragment.newInstance(HistoriqueEquipeFragment.class, equipe);
 				break;
 			case R.id.navigation_contact:
 				break;

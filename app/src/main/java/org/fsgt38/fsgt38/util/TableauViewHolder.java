@@ -15,15 +15,17 @@ import butterknife.ButterKnife;
 /**
  * Viewholder pour le layout "tableau"
  */
-public class TableauViewHolder extends RecyclerView.ViewHolder {
+public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.titre)	TextView txtTitre;
-	@BindView(R.id.tableau)	TableLayout tableau;
+	@BindView(R.id.titre)	    TextView txtTitre;
+	@BindView(R.id.separateur)  View separateur;
+	@BindView(R.id.tableau)	    TableLayout tableau;
 
+	abstract public void affiche(K clef, T objet);
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -44,7 +46,14 @@ public class TableauViewHolder extends RecyclerView.ViewHolder {
 	 * @param titre Titre du tableau
 	 */
 	protected void init(String titre) {
-		txtTitre.setText(titre);
+		if (titre == null) {
+			txtTitre.setVisibility(View.GONE);
+			separateur.setVisibility(View.GONE);
+		}
+		else {
+			txtTitre.setText(titre);
+		}
+
 		tableau.removeAllViews();
 	}
 

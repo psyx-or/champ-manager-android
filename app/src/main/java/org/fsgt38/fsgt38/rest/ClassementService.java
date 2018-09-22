@@ -16,4 +16,12 @@ public interface ClassementService {
 	 */
 	@GET("classement/equipe/{id}")
 	Call<ChampionnatEquipeDTO> getEquipe(@Path("id") int equipeId, @Query("saison") String saison);
+
+	/**
+	 * @param equipeId Equipe
+	 * @param saison Saison
+	 * @return Historique des classements d'une équipe
+	 */
+	@GET("classement/equipe/{id}/historique")
+	Call<ChampionnatEquipeDTO> getHistoriqueEquipe(@Path("id") int equipeId);
 }

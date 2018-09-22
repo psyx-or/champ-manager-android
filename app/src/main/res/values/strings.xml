@@ -42,5 +42,6 @@
 	<string name="head_saison">Saison</string>
 	<string name="head_poule">Poule</string>
 	<string name="head_classement">Class.</string>
+	<string name="head_champ">Poule</string>
 
 </resources>

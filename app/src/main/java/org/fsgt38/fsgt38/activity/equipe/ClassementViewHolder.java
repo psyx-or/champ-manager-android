@@ -9,13 +9,10 @@ import org.fsgt38.fsgt38.model.Classement;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 /**
  * Un classement d'une équipe
  */
-public class ClassementViewHolder extends TableauViewHolder {
+public class ClassementViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -36,17 +33,6 @@ public class ClassementViewHolder extends TableauViewHolder {
 	 */
 	public void affiche(Equipe equipe, Championnat championnat) {
 		init(championnat.getNom());
-
-		// On trie les classements
-		Arrays.sort(championnat.getClassements(), new Comparator<Classement>() {
-			@Override
-			public int compare(Classement o1, Classement o2) {
-				if (o1.getPosition() == o2.getPosition())
-					return o1.getEquipe().getNom().compareTo(o2.getEquipe().getNom());
-				else
-					return o1.getPosition() - o2.getPosition();
-			}
-		});
 
 		// Gestion de la taille de l'écran
 		boolean grandEcran = false; // TODO
