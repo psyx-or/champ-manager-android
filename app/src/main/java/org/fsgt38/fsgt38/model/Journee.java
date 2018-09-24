@@ -13,4 +13,5 @@ public class Journee {
 	Date debut;
 	Date fin;
 	Match[] matches;
+	Championnat championnat;
 }

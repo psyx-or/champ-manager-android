@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.fsgt38.fsgt38.R;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +46,13 @@ public class ApiUtils {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 
+			OkHttpClient okHttpClient = new OkHttpClient.Builder()
+					.readTimeout(60, TimeUnit.SECONDS)
+					.connectTimeout(60, TimeUnit.SECONDS)
+					.build();
+
 			retrofit = new Retrofit.Builder()
+					.client(okHttpClient)
 					.baseUrl(context.getString(R.string.url_api))
 					.addConverterFactory(JacksonConverterFactory.create(mapper))
 					.build();

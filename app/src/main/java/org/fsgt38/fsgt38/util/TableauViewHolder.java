@@ -1,5 +1,7 @@
 package org.fsgt38.fsgt38.util;
 
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.model.Equipe;
+import org.fsgt38.fsgt38.model.Match;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,5 +151,116 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 		cellule.setText(texte);
 		ligne.addView(cellule);
 		return cellule;
+	}
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Méthodes liées à l'affichage des matches
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Affiche le nom d'une équipe dans le bon style (couleur/gras/barré/...)
+	 * @param ligne La ligne du tableau
+	 * @param equipeSel L'équipe sélectionnée
+	 * @param equipe L'équipe à afficher
+	 * @param score Le score
+	 * @param scoreAdv Le score de l'adversaire
+	 * @param forfait L'équipe a-t-elle fait forfait?
+	 * @param forfaitAdv L'équipe adverse a-t-elle fait forfait?
+	 */
+	protected void addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv) {
+		addCelluleEquipe(ligne, equipeSel, equipe, score, scoreAdv, forfait, forfaitAdv, null);
+	}
+
+	/**
+	 * Affiche le nom d'une équipe dans le bon style (couleur/gras/barré/...)
+	 * @param ligne La ligne du tableau
+	 * @param equipeSel L'équipe sélectionnée
+	 * @param equipe L'équipe à afficher
+	 * @param score Le score
+	 * @param scoreAdv Le score de l'adversaire
+	 * @param forfait L'équipe a-t-elle fait forfait?
+	 * @param forfaitAdv L'équipe adverse a-t-elle fait forfait?
+	 * @param iMatch Index du match donnant l'équipe
+	 */
+	protected void addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv, Integer iMatch) {
+
+		TextView cellule = addCellule(ligne, getNomEquipe(equipe, iMatch));
+
+		if (equipeSel != null) {
+			if (equipe != null && equipe.getId() == equipeSel.getId()) {
+				cellule.setTypeface(cellule.getTypeface(), Typeface.BOLD);
+			}
+			else if (forfait) {
+				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				return;
+			}
+			else {
+				return;
+			}
+		}
+
+		if (forfait) {
+			cellule.setPaintFlags(cellule.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			return;
+		}
+		if (forfaitAdv) {
+			cellule.setTextColor(getColor(R.color.text_success));
+			return;
+		}
+
+		if (score == null || scoreAdv == null)
+			return;
+
+		if (score > scoreAdv)
+			cellule.setTextColor(getColor(R.color.text_success));
+
+		if (score < scoreAdv)
+			cellule.setTextColor(getColor(R.color.text_danger));
+	}
+
+	/**
+	 * Traduit le résultat du match en chaîne de caractère pour l'affichage en gérant les forfaits
+	 * et les matches à jouer
+	 * @param match Le match
+	 * @return La chaîne à afficher
+	 */
+	protected String getDispScore(Match match) {
+		String dispScore1 = getDispScore(match.getScore1(), match.isForfait1());
+		String dispScore2 = getDispScore(match.getScore2(), match.isForfait2());
+		if (dispScore1 == null && dispScore2 == null)
+			return itemView.getContext().getString(R.string.ajouer);
+		else
+			return itemView.getContext().getString(R.string.score, dispScore1, dispScore2);
+	}
+
+	/**
+	 * Traduit un score
+	 * @param score Score
+	 * @param forfait Y a-t-il eu forfait?
+	 * @return La chaîne à afficher
+	 */
+	private String getDispScore(Integer score, boolean forfait) {
+		if (forfait)
+			return itemView.getContext().getString(R.string.forfait);
+		else if (score == null)
+			return null;
+		else
+			return score.toString();
+	}
+
+	/**
+	 * Gère les cas des matches de coupe
+	 * @param equipe Equipe (peut être nulle)
+	 * @param iMatch Numéro du match
+	 * @return Le nom à afficher
+	 */
+	private String getNomEquipe(Equipe equipe, Integer iMatch) {
+		if (equipe != null)
+			return equipe.getNom();
+		else if (iMatch != null)
+			return itemView.getContext().getString(R.string.vainqueur, iMatch);
+		else
+			return itemView.getContext().getString(R.string.adecider);
 	}
 }
