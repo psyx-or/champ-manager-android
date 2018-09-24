@@ -19,7 +19,6 @@ public interface ClassementService {
 
 	/**
 	 * @param equipeId Equipe
-	 * @param saison Saison
 	 * @return Historique des classements d'une équipe
 	 */
 	@GET("classement/equipe/{id}/historique")

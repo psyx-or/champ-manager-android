@@ -35,7 +35,7 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * Constructeur
 	 * @param itemView La vue
 	 */
-	public TableauViewHolder(View itemView) {
+	protected TableauViewHolder(View itemView) {
 		super(itemView);
 
 		ButterKnife.bind(this, itemView);
@@ -55,6 +55,14 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 		}
 
 		tableau.removeAllViews();
+	}
+
+	/**
+	 * @param id Id couleur
+	 * @return La couleur
+	 */
+	protected int getColor(int id) {
+		return itemView.getContext().getResources().getColor(id);
 	}
 
 

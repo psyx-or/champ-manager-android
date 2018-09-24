@@ -16,4 +16,7 @@
 	<color name="marron_clair">#edead6</color>
 	<color name="marron_moyen">#d0ccbe</color>
 	<color name="marron_fonce">#c7bc8f</color>
+	<color name="text_success">#28a745</color>
+	<color name="text_danger">#dc3545</color>
+
 </resources>

@@ -52,9 +52,9 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 					cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
 				}
 				else {
-					addCellule(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2());
+					addCelluleEquipe(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2());
 					addCellule(ligne, getDispScore(match));
-					addCellule(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1());
+					addCelluleEquipe(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1());
 				}
 
 				i++;
@@ -62,7 +62,17 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 		}
 	}
 
-	private void addCellule(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv) {
+	/**
+	 * Affiche le nom d'une équipe dans le bon style (couleur/gras/barré/...)
+	 * @param ligne La ligne du tableau
+	 * @param equipeSel L'équipe sélectionnée
+	 * @param equipe L'équipe à afficher
+	 * @param score Le score
+	 * @param scoreAdv Le score de l'adversaire
+	 * @param forfait L'équipe a-t-elle fait forfait?
+	 * @param forfaitAdv L'équipe adverse a-t-elle fait forfait?
+	 */
+	private void addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv) {
 
 		String nom = equipe == null ? itemView.getContext().getString(R.string.adecider) : equipe.getNom();
 		TextView cellule = addCellule(ligne, nom);
@@ -85,7 +95,7 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 			return;
 		}
 		if (forfaitAdv) {
-			cellule.setTextColor(0xFF28a745);
+			cellule.setTextColor(getColor(R.color.text_success));
 			return;
 		}
 
@@ -93,11 +103,18 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 			return;
 
 		if (score > scoreAdv)
-			cellule.setTextColor(0xFF28a745);
+			cellule.setTextColor(getColor(R.color.text_success));
+
 		if (score < scoreAdv)
-			cellule.setTextColor(0xFFdc3545);
+			cellule.setTextColor(getColor(R.color.text_danger));
 	}
 
+	/**
+	 * Traduit le résultat du match en chaîne de caractère pour l'affichage en gérant les forfaits
+	 * et les matches à jouer
+	 * @param match Le match
+	 * @return La chaîne à afficher
+	 */
 	private String getDispScore(Match match) {
 		String dispScore1 = getDispScore(match.getScore1(), match.isForfait1());
 		String dispScore2 = getDispScore(match.getScore2(), match.isForfait2());
@@ -107,6 +124,12 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 			return itemView.getContext().getString(R.string.score, dispScore1, dispScore2);
 	}
 
+	/**
+	 * Traduit un score
+	 * @param score Score
+	 * @param forfait Y a-t-il eu forfait?
+	 * @return La chaîne à afficher
+	 */
 	private String getDispScore(Integer score, boolean forfait) {
 		if (forfait)
 			return itemView.getContext().getString(R.string.forfait);
