@@ -23,7 +23,7 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 
 	@BindView(R.id.titre)	    TextView txtTitre;
 	@BindView(R.id.separateur)  View separateur;
-	@BindView(R.id.tableau)	    TableLayout tableau;
+	@BindView(R.id.tableau)	    protected TableLayout tableau;
 
 	abstract public void affiche(K clef, T objet);
 
@@ -91,9 +91,9 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param ligne La ligne
 	 * @param idString Identifiant du contenu de la cellule
 	 */
-	protected void addCelluleEntete(TableRow ligne, int idString)
+	protected TextView addCelluleEntete(TableRow ligne, int idString)
 	{
-		addCellule(ligne, itemView.getContext().getString(idString), R.layout.tableau_cellule_entete);
+		return addCellule(ligne, itemView.getContext().getString(idString), R.layout.tableau_cellule_entete);
 	}
 
 	/**
@@ -101,9 +101,9 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param ligne La ligne
 	 * @param val Valeur à afficher
 	 */
-	protected void addCellule(TableRow ligne, int val)
+	protected TextView addCellule(TableRow ligne, int val)
 	{
-		addCellule(ligne, String.valueOf(val));
+		return addCellule(ligne, String.valueOf(val));
 	}
 
 	/**
@@ -112,9 +112,9 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param val Valeur à afficher
 	 * @param layout Style de la cellule
 	 */
-	protected void addCellule(TableRow ligne, int val, int layout)
+	protected TextView addCellule(TableRow ligne, int val, int layout)
 	{
-		addCellule(ligne, String.valueOf(val), layout);
+		return addCellule(ligne, String.valueOf(val), layout);
 	}
 
 	/**
@@ -122,9 +122,9 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param ligne La ligne
 	 * @param texte Texte à afficher
 	 */
-	protected void addCellule(TableRow ligne, CharSequence texte)
+	protected TextView addCellule(TableRow ligne, CharSequence texte)
 	{
-		addCellule(ligne, texte, R.layout.tableau_cellule);
+		return addCellule(ligne, texte, R.layout.tableau_cellule);
 	}
 
 	/**
@@ -133,10 +133,11 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param texte Texte à afficher
 	 * @param layout Style de la cellule
 	 */
-	protected void addCellule(TableRow ligne, CharSequence texte, int layout)
+	protected TextView addCellule(TableRow ligne, CharSequence texte, int layout)
 	{
 		TextView cellule = (TextView) LayoutInflater.from(itemView.getContext()).inflate(layout, null);
 		cellule.setText(texte);
 		ligne.addView(cellule);
+		return cellule;
 	}
 }

@@ -11,7 +11,8 @@ public class Equipe implements Serializable
 {
 	private int id;
 	private String nom;
+	private String terrain;
+	private Creneau[] creneaux;
+	private String position;
 	private Sport sport;
-	private String saison;
-	private Integer ptnul;
 }

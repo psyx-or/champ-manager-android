@@ -24,6 +24,8 @@ public class Championnat implements Serializable {
 	private ChampType type;
 
 	private Classement[] classements;
+	private Journee[] journees;
+
 
 	@SuppressWarnings("unused")
 	public Championnat() {

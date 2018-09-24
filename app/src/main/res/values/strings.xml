@@ -44,4 +44,10 @@
 	<string name="head_classement">Class.</string>
 	<string name="head_champ">Poule</string>
 
+	<!-- Pour les matches -->
+	<string name="adecider">A décider</string>
+	<string name="forfait">FO</string>
+	<string name="ajouer">A jouer</string>
+	<string name="score">%1$s - %2$s</string>
+	<string name="exempt">Exempt: %1$s</string>
 </resources>
