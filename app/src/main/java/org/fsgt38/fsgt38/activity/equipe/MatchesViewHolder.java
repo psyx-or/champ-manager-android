@@ -7,10 +7,13 @@ import android.widget.TextView;
 
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Championnat;
+import org.fsgt38.fsgt38.model.Creneau;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Journee;
 import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
+
+import java.util.Date;
 
 public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
@@ -44,14 +47,24 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
 				int style = (i % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
 
-				TableRow ligne = addLigne(style);
-
 				if (match.getExempt() != null) {
+					// Exempt
+					TableRow ligne = addLigne(style);
 					TextView cellule = addCellule(ligne, itemView.getContext().getString(R.string.exempt, match.getExempt().getNom()));
 					cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
 				}
 				else {
-					// TOCO: date du match
+					// Date de la rencontre
+					if (match.getScore1() == null && match.getScore2() == null && !match.isForfait1() && !match.isForfait2() && journee.getDebut() != null) {
+						TableRow ligne = addLigne(style);
+						TextView cellule = addCellule(ligne, getDateJournee(journee, match));
+						cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
+						cellule.setPadding(0, 0, 0, 0);
+						((TableRow.LayoutParams)cellule.getLayoutParams()).span = 3;
+					}
+
+					// Score
+					TableRow ligne = addLigne(style);
 					addCelluleEquipe(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2());
 					addCellule(ligne, getDispScore(match));
 					addCelluleEquipe(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1());
@@ -59,6 +72,33 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
 				i++;
 			}
+		}
+	}
+
+	/**
+	 * Renvoie la date des rencontres
+	 * @param journee La journée
+	 * @param match Le match
+	 * @return Une chaîne de caractères
+	 */
+	private String getDateJournee(Journee journee, Match match) {
+
+		if (match.getEquipe1() == null) {
+			Date debut = new Date(journee.getDebut().getTime() + 24*3600*1000);
+			return itemView.getContext().getString(R.string.dt_semaine, debut, journee.getFin());
+		}
+		else if (match.getEquipe1().getCreneaux().length == 0) {
+			Date debut = new Date(journee.getDebut().getTime() + 24*3600*1000);
+			return itemView.getContext().getString(R.string.dt_sdf, debut, journee.getFin());
+		}
+		else {
+			StringBuilder str = new StringBuilder();
+			for (Creneau creneau: match.getEquipe1().getCreneaux()) {
+				Date date = new Date(journee.getDebut().getTime() + 24 * 3600 * 1000 + creneau.getJour() * 24 * 3600 * 1000);
+				if (str.length() > 0) str.append('\n');
+				str.append(itemView.getContext().getString(R.string.dt_jour, date, creneau.getHeure()));
+			}
+			return str.toString();
 		}
 	}
 }
