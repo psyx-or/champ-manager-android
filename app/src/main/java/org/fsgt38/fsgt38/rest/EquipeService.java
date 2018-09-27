@@ -6,6 +6,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface EquipeService
@@ -17,4 +18,12 @@ public interface EquipeService
 	 */
 	@GET("equipe/recherche")
 	Call<List<Equipe>> recherche(@Query("q") String q);
+
+	/**
+	 * Récupère les données d'une équipe (dépend des droits de l'utilisateur)
+	 * @param equipeId Equipe
+	 * @return Equipe
+	 */
+	@GET("equipe/{id}")
+	Call<Equipe> get(@Path("id") int equipeId);
 }

@@ -69,6 +69,15 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 		return itemView.getContext().getResources().getColor(id);
 	}
 
+	/**
+	 * @param res String ressource
+	 * @param params Paramètres optionnels
+	 * @return La chaîne
+	 */
+	protected String getString(int res, Object... params) {
+		return itemView.getContext().getString(res, params);
+	}
+
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes liées à la création du tableau
@@ -82,7 +91,6 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	protected TableRow addLigne(int layout)
 	{
 		TableRow ligne = (TableRow) LayoutInflater.from(itemView.getContext()).inflate(layout, null);
-//		ligne.setOnClickListener(this); // TODO
 		tableau.addView(ligne);
 		return ligne;
 	}
@@ -103,9 +111,9 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param ligne La ligne
 	 * @param idString Identifiant du contenu de la cellule
 	 */
-	protected TextView addCelluleEntete(TableRow ligne, int idString)
+	protected TextView addCelluleEntete(TableRow ligne, int idString, Object... params)
 	{
-		return addCellule(ligne, itemView.getContext().getString(idString), R.layout.tableau_cellule_entete);
+		return addCellule(ligne, itemView.getContext().getString(idString, params), R.layout.tableau_cellule_entete);
 	}
 
 	/**

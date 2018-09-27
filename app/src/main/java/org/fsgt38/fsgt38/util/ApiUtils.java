@@ -6,15 +6,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.R;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +55,8 @@ public class ApiUtils {
 			OkHttpClient okHttpClient = new OkHttpClient.Builder()
 					.readTimeout(60, TimeUnit.SECONDS)
 					.connectTimeout(60, TimeUnit.SECONDS)
+					.addInterceptor(new AddCookiesInterceptor())
+					.addInterceptor(new ReceivedCookiesInterceptor())
 					.build();
 
 			retrofit = new Retrofit.Builder()
@@ -148,5 +156,40 @@ public class ApiUtils {
 	 */
 	public interface Action<T> {
 		void action(T arg);
+	}
+
+	/**
+	 * Ajout des cookies à la requête
+	 */
+	public static class AddCookiesInterceptor implements Interceptor {
+
+		@Override
+		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
+			Request.Builder builder = chain.request().newBuilder();
+			for (String cookie : FSGT38Application.getCookies()) {
+				builder.addHeader("Cookie", cookie);
+				Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
+			}
+
+			return chain.proceed(builder.build());
+		}
+	}
+
+	/**
+	 * Sauvegarde des cookies
+	 */
+	public static class ReceivedCookiesInterceptor implements Interceptor {
+		@Override
+		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
+			okhttp3.Response originalResponse = chain.proceed(chain.request());
+
+			if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+
+				HashSet<String> cookies = new HashSet<>(originalResponse.headers("Set-Cookie"));
+				FSGT38Application.setCookies(cookies);
+			}
+
+			return originalResponse;
+		}
 	}
 }

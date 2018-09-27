@@ -11,8 +11,9 @@ public class Equipe implements Serializable
 {
 	private int id;
 	private String nom;
+	private Responsable[] responsables = new Responsable[0];
 	private String terrain;
-	private Creneau[] creneaux;
+	private Creneau[] creneaux = new Creneau[0];
 	private String position;
 	private Sport sport;
 }

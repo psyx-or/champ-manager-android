@@ -1,8 +1,8 @@
 <resources>
 
 	<!--<string name="url_api">http://172.30.74.25/edsa-champ-manager/api/</string>-->
-	<string name="url_api">https://clubs.fsgt38.org/api/</string>
-	<!--<string name="url_api">http://192.168.0.43/edsa-champ-manager/api/</string>-->
+	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
+	<string name="url_api">http://192.168.0.43/edsa-champ-manager/api/</string>
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
@@ -55,4 +55,15 @@
 	<string name="dt_semaine">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty</string>
 	<string name="dt_sdf">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty (pas de terrain)</string>
 	<string name="dt_jour">%1$ta %1$td/%1$tm/%1$ty à %2$tR</string>
+
+	<!-- Ecran d'information -->
+	<string name="responsable">Responsable %1$s</string>
+	<string name="nom">Nom</string>
+	<string name="mail">Mail</string>
+	<string name="tel">Téléphone</string>
+	<string name="terrain">Terrain</string>
+	<string name="creneau">Créneau %1$d</string>
+	<string name="creneau_val">Le %1$tA à %2$tR</string>
+	<string name="adresse">Adresse</string>
+	<string name="pasdeterrain">Pas de terrain</string>
 </resources>
