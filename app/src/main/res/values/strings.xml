@@ -1,6 +1,5 @@
 <resources>
 
-	<!--<string name="url_api">http://172.30.74.25/edsa-champ-manager/api/</string>-->
 	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
 	<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>
 

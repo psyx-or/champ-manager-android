@@ -30,6 +30,7 @@ public class EquipeActivity extends AppCompatActivity {
 	// ----------------------------------------------------------------------------------------
 
 	public static final String KEY_EQUIPE = EquipeActivity.class.getName() + ".equipe";
+	public static final String KEY_ECRAN = EquipeActivity.class.getName() + ".ecran";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -52,8 +53,11 @@ public class EquipeActivity extends AppCompatActivity {
 	{
 		super.onCreate(savedInstanceState);
 
+		// Récupération des paramètres
 		equipe = (Equipe) getIntent().getSerializableExtra(KEY_EQUIPE);
+		int ecran = getIntent().getIntExtra(KEY_ECRAN, R.id.navigation_classement);
 
+		// Mise en place de l'écran
 		if (getSupportActionBar() != null)
 			getSupportActionBar().setTitle(equipe.getNom());
 		setContentView(R.layout.activity_equipe);
@@ -67,8 +71,8 @@ public class EquipeActivity extends AppCompatActivity {
 			}
 		});
 
-//		navigate(R.id.navigation_classement);
-		navigation.setSelectedItemId(R.id.navigation_contact);
+		// Navigation vers le bon fragment
+		navigation.setSelectedItemId(ecran);
 	}
 
 	/**
