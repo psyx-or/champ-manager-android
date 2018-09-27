@@ -62,6 +62,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 				addCellule(ligne, getString(R.string.tel));
 				cellule = addCellule(ligne, responsable.getTel1());
 				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+				cellule.setTextColor(getColor(R.color.text_lien));
 				cellule.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -76,6 +77,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 				addCellule(ligne, getString(R.string.mail));
 				cellule = addCellule(ligne, responsable.getMail());
 				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+				cellule.setTextColor(getColor(R.color.text_lien));
 				cellule.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -106,6 +108,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 		else {
 			cellule = addCellule(ligne, data.getTerrain());
 			cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+			cellule.setTextColor(getColor(R.color.text_lien));
 			cellule.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {

@@ -61,6 +61,7 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 						cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
 						cellule.setPadding(0, 0, 0, 0);
 						((TableRow.LayoutParams)cellule.getLayoutParams()).span = 3;
+						cellule.setTextColor(getColor(R.color.text_lien));
 					}
 
 					// Score

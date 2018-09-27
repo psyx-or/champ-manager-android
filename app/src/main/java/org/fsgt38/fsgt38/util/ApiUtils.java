@@ -161,7 +161,7 @@ public class ApiUtils {
 	/**
 	 * Ajout des cookies à la requête
 	 */
-	public static class AddCookiesInterceptor implements Interceptor {
+	private static class AddCookiesInterceptor implements Interceptor {
 
 		@Override
 		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
@@ -178,7 +178,7 @@ public class ApiUtils {
 	/**
 	 * Sauvegarde des cookies
 	 */
-	public static class ReceivedCookiesInterceptor implements Interceptor {
+	private static class ReceivedCookiesInterceptor implements Interceptor {
 		@Override
 		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
 			okhttp3.Response originalResponse = chain.proceed(chain.request());

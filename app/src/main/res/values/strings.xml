@@ -2,7 +2,7 @@
 
 	<!--<string name="url_api">http://172.30.74.25/edsa-champ-manager/api/</string>-->
 	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
-	<string name="url_api">http://192.168.0.43/edsa-champ-manager/api/</string>
+	<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
@@ -28,7 +28,6 @@
 
 	<!-- Entêtes de tableau -->
 	<string name="head_pos">Pos</string>
-	<string name="head_sport">Sport</string>
 	<string name="head_equipe">Equipe</string>
 	<string name="head_pts">Pts</string>
 	<string name="head_joues">J</string>
@@ -41,8 +40,6 @@
 	<string name="head_diff">Diff</string>
 	<string name="head_pen">Pen</string>
 	<string name="head_saison">Saison</string>
-	<string name="head_poule">Poule</string>
-	<string name="head_classement">Class.</string>
 	<string name="head_champ">Poule</string>
 
 	<!-- Pour les matches -->
@@ -51,7 +48,7 @@
 	<string name="ajouer">A jouer</string>
 	<string name="score">%1$s - %2$s</string>
 	<string name="exempt">Exempt: %1$s</string>
-	<string name="vainqueur">Vainqueur %1$s</string>
+	<string name="vainqueur">Vainqueur %1$d</string>
 	<string name="dt_semaine">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty</string>
 	<string name="dt_sdf">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty (pas de terrain)</string>
 	<string name="dt_jour">%1$ta %1$td/%1$tm/%1$ty à %2$tR</string>

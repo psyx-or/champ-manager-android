@@ -10,7 +10,6 @@
 	<color name="noir">#000</color>
 	<color name="rouge">#f00</color>
 	<color name="vert">#008000</color>
-	<color name="bleu">#00f</color>
 	<color name="gris">#f2f2f2</color>
 	<color name="bleu_clair">#d5eaff</color>
 	<color name="bleu_marine">#1c3e98</color>
@@ -19,5 +18,6 @@
 	<color name="marron_fonce">#c7bc8f</color>
 	<color name="text_success">#28a745</color>
 	<color name="text_danger">#dc3545</color>
+	<color name="text_lien">#00f</color>
 
 </resources>
