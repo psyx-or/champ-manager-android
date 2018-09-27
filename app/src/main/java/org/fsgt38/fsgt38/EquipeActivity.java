@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.fsgt38.fsgt38.activity.equipe.ClassementEquipeFragment;
 import org.fsgt38.fsgt38.activity.equipe.CoupeEquipeFragment;
@@ -83,7 +82,12 @@ public class EquipeActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_equipe, menu);
-		menu.findItem(R.id.action_fav_off).setVisible(false);
+
+		if (FSGT38Application.getEquipesPreferees().contains(equipe))
+			menu.findItem(R.id.action_fav_on).setVisible(false);
+		else
+			menu.findItem(R.id.action_fav_off).setVisible(false);
+
 		return true;
 	}
 
@@ -94,12 +98,15 @@ public class EquipeActivity extends AppCompatActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+
 		switch (item.getItemId()) {
 			case R.id.action_fav_on:
-				Toast.makeText(this,"On", Toast.LENGTH_LONG).show();
+				FSGT38Application.ajouteEquipePreferee(equipe);
+				invalidateOptionsMenu();
 				return true;
 			case R.id.action_fav_off:
-				Toast.makeText(this,"Off", Toast.LENGTH_LONG).show();
+				invalidateOptionsMenu();
+				FSGT38Application.retireEquipePreferee(equipe);
 				return true;
 			default:
 				return false;
