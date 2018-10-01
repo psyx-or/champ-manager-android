@@ -117,6 +117,16 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	}
 
 	/**
+	 * Ajoute une cellule d'entête à une ligne
+	 * @param ligne La ligne
+	 * @param string Contenu de la cellule
+	 */
+	protected TextView addCelluleEntete(TableRow ligne, String string)
+	{
+		return addCellule(ligne, string, R.layout.tableau_cellule_entete);
+	}
+
+	/**
 	 * Ajoute une cellule à une ligne (en utilisant le style de base)
 	 * @param ligne La ligne
 	 * @param val Valeur à afficher

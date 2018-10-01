@@ -62,4 +62,6 @@
 	<string name="creneau_val">Le %1$tA à %2$tR</string>
 	<string name="adresse">Adresse</string>
 	<string name="pasdeterrain">Pas de terrain</string>
+	<string name="finale">Finale</string>
+	<string name="niveau">1/%1$d finale</string>
 </resources>
