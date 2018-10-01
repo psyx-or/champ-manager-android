@@ -89,15 +89,6 @@ public class RechercheActivity extends AppCompatActivity {
 		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
 		this.championnats.setVisibility(View.INVISIBLE);
 
-
-		// TODO: enlever
-//		Equipe equipe = new Equipe();
-//		equipe.setId(8379);
-//		equipe.setNom("ACJ ELEC");
-//		Intent intent = new Intent(this, EquipeActivity.class);
-//		intent.putExtra(EquipeActivity.KEY_EQUIPE, equipe);
-//		startActivity(intent);
-
 		// Init API
 		Retrofit retrofit = ApiUtils.getApi(this);
 		equipeService = retrofit.create(EquipeService.class);

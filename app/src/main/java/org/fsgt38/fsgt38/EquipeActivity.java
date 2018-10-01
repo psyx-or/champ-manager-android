@@ -59,6 +59,7 @@ public class EquipeActivity extends AppCompatActivity {
 		// Mise en place de l'écran
 		if (getSupportActionBar() != null)
 			getSupportActionBar().setTitle(equipe.getNom());
+
 		setContentView(R.layout.activity_equipe);
 		ButterKnife.bind(this);
 
@@ -150,7 +151,6 @@ public class EquipeActivity extends AppCompatActivity {
 
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame, fragment);
-		transaction.addToBackStack(null);
 		transaction.commit();
 
 		return true;

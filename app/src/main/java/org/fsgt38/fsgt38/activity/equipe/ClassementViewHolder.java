@@ -58,6 +58,7 @@ public class ClassementViewHolder extends TableauViewHolder<Equipe, Championnat>
 		// On remplit les lignes
 		int i = 0;
 		int lastPos = 0;
+		ClickListener clickListener = new ClickListener(R.id.navigation_matches);
 		for (Classement classement: championnat.getClassements())
 		{
 			int style = (i % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
@@ -65,7 +66,8 @@ public class ClassementViewHolder extends TableauViewHolder<Equipe, Championnat>
 				style = R.layout.tableau_ligne_contenu_selection;
 
 			ligne = addLigne(style);
-//			ligne.setTag(ligneClassement.opt("nom") + ";" + ligneClassement.opt("idEquipe"));
+			ligne.setTag(classement.getEquipe());
+			ligne.setOnClickListener(clickListener);
 
 			addCellule(ligne, classement.getPosition() == lastPos ? "-" : String.valueOf(classement.getPosition()));
 			addCellule(ligne, classement.getEquipe().getNom());

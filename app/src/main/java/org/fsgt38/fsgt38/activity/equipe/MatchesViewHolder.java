@@ -42,6 +42,8 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 		tableau.setColumnShrinkable(0, true);
 
 		int i = 0;
+		ClickListener clickListenerMatch = new ClickListener(R.id.navigation_matches);
+		ClickListener clickListenerTerrain = new ClickListener(R.id.navigation_contact);
 		for (Journee journee: championnat.getJournees()) {
 			for (Match match: journee.getMatches()) {
 
@@ -57,6 +59,9 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 					// Date de la rencontre
 					if (match.getScore1() == null && match.getScore2() == null && !match.isForfait1() && !match.isForfait2() && journee.getDebut() != null) {
 						TableRow ligne = addLigne(style);
+						ligne.setTag(match.getEquipe1());
+						ligne.setOnClickListener(clickListenerTerrain);
+
 						TextView cellule = addCellule(ligne, getDateJournee(journee, match));
 						cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
 						cellule.setPadding(0, 0, 0, 0);
@@ -66,6 +71,9 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
 					// Score
 					TableRow ligne = addLigne(style);
+					ligne.setTag(getAutreEquipe(equipe, match));
+					ligne.setOnClickListener(clickListenerMatch);
+
 					addCelluleEquipe(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2());
 					addCellule(ligne, getDispScore(match));
 					addCelluleEquipe(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1());
@@ -101,5 +109,20 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 			}
 			return str.toString();
 		}
+	}
+
+	/**
+	 * Renvoie l'autre équipe
+	 * @param equipe Equipe courante
+	 * @param match Match
+	 * @return L'autre équipe
+	 */
+	private Equipe getAutreEquipe(Equipe equipe, Match match) {
+		if (match.getEquipe1() != null && match.getEquipe1() != equipe)
+			return match.getEquipe1();
+		if (match.getEquipe2() != null && match.getEquipe2() != equipe)
+			return match.getEquipe2();
+
+		return null;
 	}
 }
