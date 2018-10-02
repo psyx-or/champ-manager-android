@@ -1,4 +1,4 @@
-package org.fsgt38.fsgt38.activity.equipe;
+package org.fsgt38.fsgt38.activity.commun;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,7 +9,7 @@ import org.fsgt38.fsgt38.model.Equipe;
 /**
  * Affiche un écran pour une équipe suite à un clic sur un élément
  */
-public class ClickListener implements View.OnClickListener {
+public class EquipeClickListener implements View.OnClickListener {
 
 	/** L'écran à afficher */
 	private final int ecran;
@@ -18,7 +18,7 @@ public class ClickListener implements View.OnClickListener {
 	 * Constructeur
 	 * @param ecran L'écran à afficher
 	 */
-	public ClickListener(int ecran) {
+	public EquipeClickListener(int ecran) {
 		this.ecran = ecran;
 	}
 

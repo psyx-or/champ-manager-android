@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -119,6 +118,8 @@ public class RechercheActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		equipeSearchTxt.setText("");
+		championnats.setSelection(0);
 		clic = false;
 	}
 
@@ -158,8 +159,9 @@ public class RechercheActivity extends AppCompatActivity {
 		Championnat championnat = (Championnat)championnats.getItemAtPosition(position);
 		if (championnat.getId() == null) return;
 
-		// On affiche les championnats du sport
-		Toast.makeText(this, championnat.toString(), Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, ChampionnatActivity.class);
+		intent.putExtra(ChampionnatActivity.KEY_CHAMP, championnat);
+		startActivity(intent);
 	}
 
 

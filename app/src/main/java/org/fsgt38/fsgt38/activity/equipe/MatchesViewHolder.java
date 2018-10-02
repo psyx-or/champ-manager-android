@@ -6,6 +6,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.activity.commun.EquipeClickListener;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Creneau;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -42,8 +43,8 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 		tableau.setColumnShrinkable(0, true);
 
 		int i = 0;
-		ClickListener clickListenerMatch = new ClickListener(R.id.navigation_matches);
-		ClickListener clickListenerTerrain = new ClickListener(R.id.navigation_contact);
+		EquipeClickListener clickListenerMatch = new EquipeClickListener(R.id.navigation_matches);
+		EquipeClickListener clickListenerTerrain = new EquipeClickListener(R.id.navigation_contact);
 		for (Journee journee: championnat.getJournees()) {
 			for (Match match: journee.getMatches()) {
 

@@ -1,5 +1,6 @@
 package org.fsgt38.fsgt38.rest;
 
+import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.dto.ChampionnatEquipeDTO;
 
 import retrofit2.Call;
@@ -8,6 +9,14 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ClassementService {
+
+	/**
+	 * Récupère le classement d'un championnat
+	 * @param champId Id champ
+	 * @return Classement
+	 */
+	@GET("classement/{id}")
+	Call<Championnat> get(@Path("id") int champId);
 
 	/**
 	 * @param equipeId Equipe

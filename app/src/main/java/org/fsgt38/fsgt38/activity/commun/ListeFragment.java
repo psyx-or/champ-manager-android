@@ -1,13 +1,14 @@
-package org.fsgt38.fsgt38.activity.equipe;
+package org.fsgt38.fsgt38.activity.commun;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import org.fsgt38.fsgt38.R;
-import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.ButterFragment;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import lombok.Getter;
@@ -15,15 +16,15 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 
 /**
- * Classe mère des fragments de EquipeActivity
+ * Un fragment possédant un objet interne et affichant une liste
  */
-public abstract class ListeEquipeFragment<T> extends ButterFragment {
+public abstract class ListeFragment<E extends Serializable, T> extends ButterFragment {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
 	// ----------------------------------------------------------------------------------------
 
-	private static final String ARG_EQUIPE = "equipe";
+	private static final String ARG_OBJ = "objet";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -33,14 +34,14 @@ public abstract class ListeEquipeFragment<T> extends ButterFragment {
 	/**
 	 * Constructeur
 	 * @param clazz Classe du fragment
-	 * @param equipe Equipe dont il faut afficher les championnats
+	 * @param obj Objet lié au fragment
 	 * @return Le fragment
 	 */
-	public static<T extends Fragment> T newInstance(Class<T> clazz, Equipe equipe) {
+	public static<T extends Fragment, E extends Serializable> T newInstance(Class<T> clazz, E obj) {
 		try {
 			T fragment = clazz.newInstance();
 			Bundle args = new Bundle();
-			args.putSerializable(ARG_EQUIPE, equipe);
+			args.putSerializable(ARG_OBJ, obj);
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -77,7 +78,7 @@ public abstract class ListeEquipeFragment<T> extends ButterFragment {
 	@BindView(R.id.liste)    RecyclerView liste;
 
 	@Getter
-	private Equipe equipe;
+	private E objet;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ public abstract class ListeEquipeFragment<T> extends ButterFragment {
 	/**
 	 * Constructeur
 	 */
-	public ListeEquipeFragment() {
+	public ListeFragment() {
 		super(R.layout.fragment_liste);
 	}
 
@@ -95,12 +96,13 @@ public abstract class ListeEquipeFragment<T> extends ButterFragment {
 	 * Initialisation de l'écran
 	 * @param savedInstanceState paramètres sauvegardés
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		if (getArguments() != null) {
-			equipe = (Equipe) getArguments().getSerializable(ARG_EQUIPE);
+			objet = (E) getArguments().getSerializable(ARG_OBJ);
 		}
 
 		Retrofit retrofit = ApiUtils.getApi(getActivity());

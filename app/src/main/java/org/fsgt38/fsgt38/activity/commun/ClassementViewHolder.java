@@ -1,4 +1,4 @@
-package org.fsgt38.fsgt38.activity.equipe;
+package org.fsgt38.fsgt38.activity.commun;
 
 import android.view.View;
 import android.widget.TableRow;
@@ -58,11 +58,11 @@ public class ClassementViewHolder extends TableauViewHolder<Equipe, Championnat>
 		// On remplit les lignes
 		int i = 0;
 		int lastPos = 0;
-		ClickListener clickListener = new ClickListener(R.id.navigation_matches);
+		EquipeClickListener clickListener = new EquipeClickListener(R.id.navigation_matches);
 		for (Classement classement: championnat.getClassements())
 		{
 			int style = (i % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
-			if (classement.getEquipe().getId() == equipe.getId())
+			if (equipe != null && classement.getEquipe().getId() == equipe.getId())
 				style = R.layout.tableau_ligne_contenu_selection;
 
 			ligne = addLigne(style);

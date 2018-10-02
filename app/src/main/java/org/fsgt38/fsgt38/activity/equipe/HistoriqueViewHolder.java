@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TableRow;
 
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.activity.commun.ChampionnatClickListener;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Classement;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -58,12 +59,15 @@ public class HistoriqueViewHolder extends TableauViewHolder<Equipe, Championnat[
 
 		// On remplit les lignes
 		int i = 0;
+		ChampionnatClickListener clickListener = new ChampionnatClickListener(R.id.navigation_classement);
 		for (Championnat championnat : championnats) {
+			Championnat tag = championnat.toSerializable();
 			for (Classement classement : championnat.getClassements()) {
 				int style = (i % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
 
 				ligne = addLigne(style);
-//			ligne.setTag(ligneClassement.opt("nom") + ";" + ligneClassement.opt("idEquipe"));
+				ligne.setTag(tag);
+				ligne.setOnClickListener(clickListener);
 
 				addCellule(ligne, championnat.getSaison());
 				addCellule(ligne, championnat.getNom());

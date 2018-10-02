@@ -35,6 +35,18 @@ public class Championnat implements Serializable {
 		this.nom = nom;
 	}
 
+	/**
+	 * @return Un résumé du championnat pouvant être sérialisé
+	 */
+	public Championnat toSerializable() {
+		Championnat obj = new Championnat();
+		obj.id = this.id;
+		obj.sport = this.sport;
+		obj.nom = this.nom;
+		obj.saison = this.saison;
+		return obj;
+	}
+
 	@Override
 	public String toString() {
 		return nom;

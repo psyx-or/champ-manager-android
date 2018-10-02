@@ -9,33 +9,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.fsgt38.fsgt38.activity.equipe.ClassementEquipeFragment;
-import org.fsgt38.fsgt38.activity.equipe.CoupeEquipeFragment;
-import org.fsgt38.fsgt38.activity.equipe.HistoriqueEquipeFragment;
-import org.fsgt38.fsgt38.activity.equipe.InfoEquipeFragment;
-import org.fsgt38.fsgt38.activity.equipe.MatchesEquipeFragment;
-import org.fsgt38.fsgt38.model.Equipe;
+import org.fsgt38.fsgt38.activity.championnat.ClassementChampionnatFragment;
+import org.fsgt38.fsgt38.model.Championnat;
 
 import butterknife.ButterKnife;
 
 /**
- * Ecran affichant une équipe
+ * Ecran affichant un championnat
  */
-public class EquipeActivity extends AppCompatActivity {
+public class ChampionnatActivity extends AppCompatActivity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
 	// ----------------------------------------------------------------------------------------
 
-	public static final String KEY_EQUIPE = EquipeActivity.class.getName() + ".equipe";
-	public static final String KEY_ECRAN = EquipeActivity.class.getName() + ".ecran";
+	public static final String KEY_CHAMP = ChampionnatActivity.class.getName() + ".championnat";
+	public static final String KEY_ECRAN = ChampionnatActivity.class.getName() + ".ecran";
 
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	private Equipe equipe;
+	private Championnat championnat;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -52,14 +48,14 @@ public class EquipeActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 
 		// Récupération des paramètres
-		equipe = (Equipe) getIntent().getSerializableExtra(KEY_EQUIPE);
+		championnat = (Championnat) getIntent().getSerializableExtra(KEY_CHAMP);
 		int ecran = getIntent().getIntExtra(KEY_ECRAN, R.id.navigation_classement);
 
 		// Mise en place de l'écran
 		if (getSupportActionBar() != null)
-			getSupportActionBar().setTitle(equipe.getNom());
+			getSupportActionBar().setTitle(championnat.getNom());
 
-		setContentView(R.layout.activity_equipe);
+		setContentView(R.layout.activity_championnat);
 		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -81,12 +77,7 @@ public class EquipeActivity extends AppCompatActivity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_equipe, menu);
-
-		if (FSGT38Application.getEquipesPreferees().contains(equipe))
-			menu.findItem(R.id.action_fav_on).setVisible(false);
-		else
-			menu.findItem(R.id.action_fav_off).setVisible(false);
+//		getMenuInflater().inflate(R.menu.menu_equipe, menu);
 
 		return true;
 	}
@@ -100,14 +91,6 @@ public class EquipeActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.action_fav_on:
-				FSGT38Application.ajouteEquipePreferee(equipe);
-				invalidateOptionsMenu();
-				return true;
-			case R.id.action_fav_off:
-				invalidateOptionsMenu();
-				FSGT38Application.retireEquipePreferee(equipe);
-				return true;
 			default:
 				return false;
 		}
@@ -129,19 +112,10 @@ public class EquipeActivity extends AppCompatActivity {
 		switch (id)
 		{
 			case R.id.navigation_classement:
-				fragment = ClassementEquipeFragment.newInstance(ClassementEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_coupes:
-				fragment = CoupeEquipeFragment.newInstance(CoupeEquipeFragment.class, equipe);
+				fragment = ClassementChampionnatFragment.newInstance(ClassementChampionnatFragment.class, championnat);
 				break;
 			case R.id.navigation_matches:
-				fragment = MatchesEquipeFragment.newInstance(MatchesEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_historique:
-				fragment = HistoriqueEquipeFragment.newInstance(HistoriqueEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_contact:
-				fragment = InfoEquipeFragment.newInstance(InfoEquipeFragment.class, equipe);
+//				fragment = MatchesEquipeFragment.newInstance(MatchesEquipeFragment.class, equipe);
 				break;
 		}
 
