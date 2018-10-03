@@ -3,7 +3,6 @@ package org.fsgt38.fsgt38;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,6 +17,7 @@ import org.fsgt38.fsgt38.model.Sport;
 import org.fsgt38.fsgt38.rest.ChampionnatService;
 import org.fsgt38.fsgt38.rest.EquipeService;
 import org.fsgt38.fsgt38.util.ApiUtils;
+import org.fsgt38.fsgt38.util.FSGT38Activity;
 import org.fsgt38.fsgt38.util.Utils;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import retrofit2.Retrofit;
 /**
  * Ecran de recherche d'une équipe ou d'un championnat
  */
-public class RechercheActivity extends AppCompatActivity {
+public class RechercheActivity extends FSGT38Activity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
@@ -72,8 +72,6 @@ public class RechercheActivity extends AppCompatActivity {
 
 		super.onCreate(savedInstanceState);
 
-		if (getSupportActionBar() != null)
-			getSupportActionBar().setTitle(R.string.titre_recherche);
 		setContentView(R.layout.activity_recherche);
 		ButterKnife.bind(this);
 

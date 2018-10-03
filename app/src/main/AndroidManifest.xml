@@ -27,7 +27,7 @@
 
 		<activity
 			android:name=".RechercheActivity"
-			android:label="@string/app_name"
+			android:label="@string/titre_recherche"
 			android:launchMode="singleTop">
 		</activity>
 
@@ -47,6 +47,11 @@
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".RechercheActivity" />
+		</activity>
+
+		<activity
+			android:name=".LoginActivity"
+			android:label="@string/titre_login">
 		</activity>
 
 	</application>

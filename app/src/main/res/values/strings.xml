@@ -16,6 +16,7 @@
 	<string name="titre_coords">Coordonnées</string>
 	<string name="action_fav_on">Mettre en favori</string>
 	<string name="action_fav_off">Retirer des favoris</string>
+	<string name="action_login">Connexion</string>
 
 	<!-- Ecran de recherche -->
 	<string name="titre_recherche">Recherche</string>
@@ -65,4 +66,10 @@
 	<string name="creneau_val">Le %1$tA à %2$tR</string>
 	<string name="adresse">Adresse</string>
 	<string name="pasdeterrain">Pas de terrain</string>
+
+	<!-- Ecran de login -->
+	<string name="titre_login">Connexion</string>
+	<string name="hint_login">Identifiant</string>
+	<string name="hint_mdp">Mot de passe</string>
+	<string name="btn_connexion">Connexion</string>
 </resources>

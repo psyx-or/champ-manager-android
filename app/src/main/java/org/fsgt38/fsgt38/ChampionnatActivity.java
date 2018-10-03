@@ -5,20 +5,19 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.fsgt38.fsgt38.activity.championnat.ClassementChampionnatFragment;
 import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
 import org.fsgt38.fsgt38.model.Championnat;
+import org.fsgt38.fsgt38.util.FSGT38Activity;
 
 import butterknife.ButterKnife;
 
 /**
  * Ecran affichant un championnat
  */
-public class ChampionnatActivity extends AppCompatActivity {
+public class ChampionnatActivity extends FSGT38Activity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
@@ -69,32 +68,6 @@ public class ChampionnatActivity extends AppCompatActivity {
 
 		// Navigation vers le bon fragment
 		navigation.setSelectedItemId(ecran);
-	}
-
-	/**
-	 * Initialisation du menu de la barre d'action
-	 * @param menu La zone de menu de la barre d'action
-	 * @return Vrai si le menu doit être affiché
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-//		getMenuInflater().inflate(R.menu.menu_equipe, menu);
-
-		return true;
-	}
-
-	/**
-	 * Sélection d'un élément dans le menu de la barre d'action
-	 * @param item Element sur lequel on a cliqué
-	 * @return Vrai si le clic a été traité dans la fonction
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-			default:
-				return false;
-		}
 	}
 
 

@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,13 +14,14 @@ import org.fsgt38.fsgt38.activity.equipe.HistoriqueEquipeFragment;
 import org.fsgt38.fsgt38.activity.equipe.InfoEquipeFragment;
 import org.fsgt38.fsgt38.activity.equipe.MatchesEquipeFragment;
 import org.fsgt38.fsgt38.model.Equipe;
+import org.fsgt38.fsgt38.util.FSGT38Activity;
 
 import butterknife.ButterKnife;
 
 /**
  * Ecran affichant une équipe
  */
-public class EquipeActivity extends AppCompatActivity {
+public class EquipeActivity extends FSGT38Activity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
@@ -81,7 +81,7 @@ public class EquipeActivity extends AppCompatActivity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_equipe, menu);
+		super.onCreateOptionsMenu(menu);
 
 		if (FSGT38Application.getEquipesPreferees().contains(equipe))
 			menu.findItem(R.id.action_fav_on).setVisible(false);
@@ -104,12 +104,14 @@ public class EquipeActivity extends AppCompatActivity {
 				FSGT38Application.ajouteEquipePreferee(equipe);
 				invalidateOptionsMenu();
 				return true;
+
 			case R.id.action_fav_off:
 				invalidateOptionsMenu();
 				FSGT38Application.retireEquipePreferee(equipe);
 				return true;
+
 			default:
-				return false;
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
