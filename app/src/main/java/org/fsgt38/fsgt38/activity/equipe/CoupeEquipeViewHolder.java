@@ -10,7 +10,7 @@ import org.fsgt38.fsgt38.model.Journee;
 import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
 
-public class CoupeViewHolder extends TableauViewHolder<Equipe, Journee> {
+public class CoupeEquipeViewHolder extends TableauViewHolder<Equipe, Journee> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -20,7 +20,7 @@ public class CoupeViewHolder extends TableauViewHolder<Equipe, Journee> {
 	 * Constructeur
 	 * @param itemView Vue
 	 */
-	public CoupeViewHolder(View itemView) {
+	public CoupeEquipeViewHolder(View itemView) {
 		super(itemView);
 	}
 

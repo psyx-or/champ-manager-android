@@ -25,6 +25,6 @@ public class CoupeEquipeFragment extends ListeFragment<Equipe, Journee[]> {
 	@Override
 	protected RecyclerView.Adapter getAdapter(Journee[] finales) {
 
-		return new TableauAdapter<>(getObjet(), finales, CoupeViewHolder.class);
+		return new TableauAdapter<>(getObjet(), finales, CoupeEquipeViewHolder.class);
 	}
 }

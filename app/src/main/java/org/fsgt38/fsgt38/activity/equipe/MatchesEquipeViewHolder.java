@@ -16,7 +16,7 @@ import org.fsgt38.fsgt38.util.TableauViewHolder;
 
 import java.util.Date;
 
-public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
+public class MatchesEquipeViewHolder extends TableauViewHolder<Equipe, Championnat> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -26,7 +26,7 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 	 * Constructeur
 	 * @param itemView Vue
 	 */
-	public MatchesViewHolder(View itemView) {
+	public MatchesEquipeViewHolder(View itemView) {
 		super(itemView);
 	}
 
@@ -55,6 +55,7 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 					TableRow ligne = addLigne(style);
 					TextView cellule = addCellule(ligne, itemView.getContext().getString(R.string.exempt, match.getExempt().getNom()));
 					cellule.setTypeface(cellule.getTypeface(), Typeface.ITALIC);
+					((TableRow.LayoutParams)cellule.getLayoutParams()).span = 3;
 				}
 				else {
 					// Date de la rencontre
@@ -119,9 +120,9 @@ public class MatchesViewHolder extends TableauViewHolder<Equipe, Championnat> {
 	 * @return L'autre équipe
 	 */
 	private Equipe getAutreEquipe(Equipe equipe, Match match) {
-		if (match.getEquipe1() != null && match.getEquipe1() != equipe)
+		if (match.getEquipe1() != null && match.getEquipe1().getId() != equipe.getId())
 			return match.getEquipe1();
-		if (match.getEquipe2() != null && match.getEquipe2() != equipe)
+		if (match.getEquipe2() != null && match.getEquipe2().getId() != equipe.getId())
 			return match.getEquipe2();
 
 		return null;

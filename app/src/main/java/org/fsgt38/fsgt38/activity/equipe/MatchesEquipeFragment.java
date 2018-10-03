@@ -24,6 +24,6 @@ public class MatchesEquipeFragment extends ListeFragment<Equipe, Championnat[]> 
 
 	@Override
 	protected RecyclerView.Adapter getAdapter(Championnat[] data) {
-		return new TableauAdapter<>(getObjet(), data, MatchesViewHolder.class);
+		return new TableauAdapter<>(getObjet(), data, MatchesEquipeViewHolder.class);
 	}
 }

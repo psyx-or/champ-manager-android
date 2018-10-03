@@ -25,6 +25,6 @@ public class HistoriqueEquipeFragment extends ListeFragment<Equipe, ChampionnatE
 	@Override
 	protected RecyclerView.Adapter getAdapter(ChampionnatEquipeDTO data) {
 
-		return new TableauAdapter<>(getObjet(), new Championnat[][] {data.getChampionnats()}, HistoriqueViewHolder.class);
+		return new TableauAdapter<>(getObjet(), new Championnat[][] {data.getChampionnats()}, HistoriqueEquipeViewHolder.class);
 	}
 }

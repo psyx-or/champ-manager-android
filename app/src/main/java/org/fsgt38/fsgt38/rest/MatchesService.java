@@ -11,6 +11,13 @@ import retrofit2.http.Query;
 public interface MatchesService {
 
 	/**
+	 * Renvoie la liste des matches d'un championnat
+	 * @param champId
+	 */
+	@GET("match/{id}")
+	Call<Championnat> liste(@Path("id") int champId);
+
+	/**
 	 * Renvoie la liste des matches d'une équipe pour la saison courante
 	 * @param equipeId Equipe
 	 * @param saison Saison

@@ -186,8 +186,8 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param forfait L'équipe a-t-elle fait forfait?
 	 * @param forfaitAdv L'équipe adverse a-t-elle fait forfait?
 	 */
-	protected void addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv) {
-		addCelluleEquipe(ligne, equipeSel, equipe, score, scoreAdv, forfait, forfaitAdv, null);
+	protected TextView addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv) {
+		return addCelluleEquipe(ligne, equipeSel, equipe, score, scoreAdv, forfait, forfaitAdv, null);
 	}
 
 	/**
@@ -201,7 +201,7 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 * @param forfaitAdv L'équipe adverse a-t-elle fait forfait?
 	 * @param iMatch Index du match donnant l'équipe
 	 */
-	protected void addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv, Integer iMatch) {
+	protected TextView addCelluleEquipe(TableRow ligne, Equipe equipeSel, Equipe equipe, Integer score, Integer scoreAdv, boolean forfait, boolean forfaitAdv, Integer iMatch) {
 
 		TextView cellule = addCellule(ligne, getNomEquipe(equipe, iMatch));
 
@@ -211,30 +211,32 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 			}
 			else if (forfait) {
 				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-				return;
+				return cellule;
 			}
 			else {
-				return;
+				return cellule;
 			}
 		}
 
 		if (forfait) {
 			cellule.setPaintFlags(cellule.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-			return;
+			return cellule;
 		}
 		if (forfaitAdv) {
 			cellule.setTextColor(getColor(R.color.text_success));
-			return;
+			return cellule;
 		}
 
 		if (score == null || scoreAdv == null)
-			return;
+			return cellule;
 
 		if (score > scoreAdv)
 			cellule.setTextColor(getColor(R.color.text_success));
 
 		if (score < scoreAdv)
 			cellule.setTextColor(getColor(R.color.text_danger));
+
+		return cellule;
 	}
 
 	/**

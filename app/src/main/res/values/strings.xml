@@ -1,7 +1,7 @@
 <resources>
 
-	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
-	<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>
+	<string name="url_api">https://clubs.fsgt38.org/api/</string>
+	<!--<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>-->
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
@@ -53,6 +53,7 @@
 	<string name="dt_jour">%1$ta %1$td/%1$tm/%1$ty à %2$tR</string>
 	<string name="finale">Finale</string>
 	<string name="niveau">1/%1$d finale</string>
+	<string name="journee_i">Journée %1$d</string>
 
 	<!-- Ecran d'information -->
 	<string name="responsable">Responsable %1$s</string>

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.fsgt38.fsgt38.activity.championnat.ClassementChampionnatFragment;
+import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 
 import butterknife.ButterKnife;
@@ -115,7 +116,7 @@ public class ChampionnatActivity extends AppCompatActivity {
 				fragment = ClassementChampionnatFragment.newInstance(ClassementChampionnatFragment.class, championnat);
 				break;
 			case R.id.navigation_matches:
-//				fragment = MatchesEquipeFragment.newInstance(MatchesEquipeFragment.class, equipe);
+				fragment = MatchesChampionnatFragment.newInstance(MatchesChampionnatFragment.class, championnat);
 				break;
 		}
 

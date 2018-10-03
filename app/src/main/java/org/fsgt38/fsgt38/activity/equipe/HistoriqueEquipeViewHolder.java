@@ -13,7 +13,7 @@ import org.fsgt38.fsgt38.util.TableauViewHolder;
 /**
  * L'historique d'une équipe
  */
-public class HistoriqueViewHolder extends TableauViewHolder<Equipe, Championnat[]> {
+public class HistoriqueEquipeViewHolder extends TableauViewHolder<Equipe, Championnat[]> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -23,7 +23,7 @@ public class HistoriqueViewHolder extends TableauViewHolder<Equipe, Championnat[
 	 * Constructeur
 	 * @param itemView Vue
 	 */
-	public HistoriqueViewHolder(View itemView) {
+	public HistoriqueEquipeViewHolder(View itemView) {
 		super(itemView);
 	}
 
