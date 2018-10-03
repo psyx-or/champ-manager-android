@@ -12,7 +12,7 @@ public interface MatchesService {
 
 	/**
 	 * Renvoie la liste des matches d'un championnat
-	 * @param champId
+	 * @param champId Championnat
 	 */
 	@GET("match/{id}")
 	Call<Championnat> liste(@Path("id") int champId);

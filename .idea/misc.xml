@@ -4,6 +4,7 @@
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="butterknife.*" />
     </list>
+    <pattern value="org.fsgt38.fsgt38.model.Equipe" method="Equipe" />
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
