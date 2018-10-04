@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
 
-	<string name="url_api">https://clubs.fsgt38.org/api/</string>
-	<!--<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>-->
+	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
+	<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
@@ -25,6 +25,7 @@
 	<string name="champ_selection">Ou sélectionner un championnat :</string>
 	<string name="label_chargement">-- Chargement --</string>
 	<string name="label_choix">-- Choisir --</string>
+	<string name="favoris">Favoris</string>
 
 	<!-- Entêtes de tableau -->
 	<string name="head_pos">Pos</string>

@@ -1,5 +1,6 @@
 package org.fsgt38.fsgt38.util;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +35,9 @@ public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends Recycl
 	 * @param viewType Type de vue
 	 * @return La ligne
 	 */
+	@NonNull
 	@Override
-	public V onCreateViewHolder(ViewGroup parent, int viewType) {
+	public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tableau, parent, false);
 		try {
 			return clazz.getConstructor(View.class).newInstance(view);
@@ -51,7 +53,7 @@ public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends Recycl
 	 * @param position Index du championnat
 	 */
 	@Override
-	public void onBindViewHolder(V holder, int position) {
+	public void onBindViewHolder(@NonNull V holder, int position) {
 		holder.affiche(clef, objs[position]);
 	}
 

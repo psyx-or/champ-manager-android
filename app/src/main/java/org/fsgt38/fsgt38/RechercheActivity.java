@@ -3,6 +3,7 @@ package org.fsgt38.fsgt38;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.fsgt38.fsgt38.activity.recherche.EquipeAdapter;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Sport;
@@ -21,9 +23,11 @@ import org.fsgt38.fsgt38.util.FSGT38Activity;
 import org.fsgt38.fsgt38.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +52,8 @@ public class RechercheActivity extends FSGT38Activity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
+	@BindView(R.id.favoris)         View zoneFavoris;
+	@BindView(R.id.listeFavoris)    RecyclerView listeEquipes;
 	@BindView(R.id.equipeSearchTxt) AutoCompleteTextView equipeSearchTxt;
 	@BindView(R.id.spinSport)   	Spinner sports;
 	@BindView(R.id.spinChampionnat)	Spinner championnats;
@@ -76,6 +82,7 @@ public class RechercheActivity extends FSGT38Activity {
 		ButterKnife.bind(this);
 
 		// Init contrôles
+		initFavoris();
 		equipeSearchTxt.setThreshold(2);
 		equipeSearchTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -116,6 +123,7 @@ public class RechercheActivity extends FSGT38Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		initFavoris();
 		equipeSearchTxt.setText("");
 		championnats.setSelection(0);
 		clic = false;
@@ -166,6 +174,24 @@ public class RechercheActivity extends FSGT38Activity {
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
 	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Initialise la liste des favoris
+	 */
+	private void initFavoris() {
+		// Init favoris
+		Set<Equipe> favoris = FSGT38Application.getEquipesPreferees();
+		if (favoris.isEmpty()) {
+			zoneFavoris.setVisibility(View.GONE);
+		}
+		else {
+			Equipe[] equipes = favoris.toArray(new Equipe[]{});
+			Arrays.sort(equipes);
+
+			zoneFavoris.setVisibility(View.VISIBLE);
+			listeEquipes.setAdapter(new EquipeAdapter(equipes));
+		}
+	}
 
 	/**
 	 * Traitement de la liste des championnats

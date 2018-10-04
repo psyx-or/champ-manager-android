@@ -84,9 +84,9 @@ public class EquipeActivity extends FSGT38Activity {
 		super.onCreateOptionsMenu(menu);
 
 		if (FSGT38Application.getEquipesPreferees().contains(equipe))
-			menu.findItem(R.id.action_fav_on).setVisible(false);
+			menu.findItem(R.id.action_fav_off).setVisible(true);
 		else
-			menu.findItem(R.id.action_fav_off).setVisible(false);
+			menu.findItem(R.id.action_fav_on).setVisible(true);
 
 		return true;
 	}

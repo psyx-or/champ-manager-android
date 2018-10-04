@@ -1,5 +1,9 @@
 package org.fsgt38.fsgt38.model;
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 import lombok.EqualsAndHashCode;
@@ -9,7 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Equipe implements Serializable
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Equipe implements Serializable, Comparable<Equipe>
 {
 	private static final String SEPARATEUR = ";";
 
@@ -43,5 +48,15 @@ public class Equipe implements Serializable
 	 */
 	public String serialize() {
 		return id + SEPARATEUR + nom;
+	}
+
+	/**
+	 * Comparaison de deux équipes
+	 * @param equipe Autre équipe
+	 * @return -1/0/1
+	 */
+	@Override
+	public int compareTo(@NonNull Equipe equipe) {
+		return nom.compareTo(equipe.nom);
 	}
 }
