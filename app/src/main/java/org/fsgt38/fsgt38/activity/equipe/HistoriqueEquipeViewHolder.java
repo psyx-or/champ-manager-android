@@ -1,5 +1,6 @@
 package org.fsgt38.fsgt38.activity.equipe;
 
+import android.content.res.Configuration;
 import android.view.View;
 import android.widget.TableRow;
 
@@ -36,7 +37,7 @@ public class HistoriqueEquipeViewHolder extends TableauViewHolder<Equipe, Champi
 		init(null);
 
 		// Gestion de la taille de l'écran
-		boolean grandEcran = false; // TODO
+		boolean grandEcran = itemView.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
 		// Entête
 		TableRow ligne = addLigneEntete();

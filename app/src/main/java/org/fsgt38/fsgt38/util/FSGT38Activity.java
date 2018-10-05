@@ -38,6 +38,11 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
+			case R.id.action_refresh:
+				ApiUtils.videCache();
+				recreate();
+				return true;
+
 			case R.id.action_login:
 				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);

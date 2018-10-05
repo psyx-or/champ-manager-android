@@ -17,6 +17,7 @@ public class FSGT38Application extends Application {
 
 	private static final String PREF_EQUIPES_PREFEREES = "equipes";
 	private static final String PREF_COOKIE = "cookie";
+	private static final String PREF_ASTUCE_ROTATION = "astuce_rotation";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -61,6 +62,22 @@ public class FSGT38Application extends Application {
 	 */
 	public static Set<String> getCookies() {
 		return sp.getStringSet(PREF_COOKIE, new HashSet<String>());
+	}
+
+	/**
+	 * Sauvegarde que l'astuce de rotation a déjà été affichée
+	 */
+	public static void setAstuceRotation() {
+		sp.edit()
+			.putBoolean(PREF_ASTUCE_ROTATION, false)
+			.apply();
+	}
+
+	/**
+	 * @return Vrai si l'astuce de rotation a déjà été affichée
+	 */
+	public static boolean withAstuceRotation() {
+		return sp.getBoolean(PREF_ASTUCE_ROTATION, true);
 	}
 
 

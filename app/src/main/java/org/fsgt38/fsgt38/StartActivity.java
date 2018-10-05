@@ -19,17 +19,18 @@ public class StartActivity extends Activity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// TODO: enlever
-//		Equipe equipe = new Equipe();
-////		equipe.setId(74);
-//		equipe.setId(8379);
-//		equipe.setNom("ACJ ELEC");
-////		equipe.setId(81);
-////		equipe.setNom("SMUV 1");
-//		Intent intent = new Intent(this, EquipeActivity.class);
-//		intent.putExtra(EquipeActivity.KEY_EQUIPE, equipe);
-//		intent.putExtra(EquipeActivity.KEY_ECRAN, R.id.navigation_contact);
-//		startActivity(intent);
+//		Retrofit retrofit = ApiUtils.getApi(this);
+//		ApiUtils.appel(
+//				this,
+//				retrofit.create(AuthentService.class).authentifie("acjelectronic", "toto", "on"),
+//				new ApiUtils.Action<Equipe>() {
+//					@Override
+//					public void action(Equipe equipe) {
+//						equipe.getId();
+//					}
+//				},
+//				false
+//		);
 
 		Set<Equipe> equipesPreferees = FSGT38Application.getEquipesPreferees();
 		if (equipesPreferees.size() == 1) {

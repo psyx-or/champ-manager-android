@@ -16,6 +16,7 @@ import org.fsgt38.fsgt38.R;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -37,6 +38,7 @@ public class ApiUtils {
 	// ----------------------------------------------------------------------------------------
 
 	private static Retrofit retrofit;
+	private static Map<String, Object> cache = new LRUMap<>(20);
 
 
 	// ----------------------------------------------------------------------------------------
@@ -91,7 +93,17 @@ public class ApiUtils {
 	 * @param <T> Type du résultat de la méthode REST
 	 * @return Paramètre call
 	 */
+	@SuppressWarnings("unchecked")
 	public static<T> Call<T> appel(final Activity activity, final Call<T> call, final Action<T> fonction, boolean withWaiter) {
+
+		// On vérifie si la réponse est dans le cache
+		final boolean isGet = call.request().method().equals("GET");
+		final String url = call.request().url().toString();
+		T result = (T)cache.get(url);
+		if (isGet && result != null) {
+			fonction.action(result);
+			return call;
+		}
 
 		// Mise en place du sablier
 		ProgressDialog tmpWaiter = null;
@@ -112,8 +124,15 @@ public class ApiUtils {
 
 			@Override
 			public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
+
+				T body = response.body();
+
+				// On enregistre dans le cache
+				if (isGet)
+					cache.put(url, body);
+
 				// C'est OK => on transmet et on cache le waiter
-				fonction.action(response.body());
+				fonction.action(body);
 				if (waiter!=null && waiter.isShowing())
 					waiter.dismiss();
 			}
@@ -145,6 +164,12 @@ public class ApiUtils {
 		return call;
 	}
 
+	/**
+	 * Vide le cache
+	 */
+	public static void videCache() {
+		cache.clear();
+	}
 
 	// ----------------------------------------------------------------------------------------
 	//    Classes internes

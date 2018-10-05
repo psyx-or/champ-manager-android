@@ -67,7 +67,8 @@ public class ChampionnatActivity extends FSGT38Activity {
 		});
 
 		// Navigation vers le bon fragment
-		navigation.setSelectedItemId(ecran);
+		if (savedInstanceState == null)
+			navigation.setSelectedItemId(ecran);
 	}
 
 

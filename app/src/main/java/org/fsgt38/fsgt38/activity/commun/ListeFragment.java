@@ -3,6 +3,9 @@ package org.fsgt38.fsgt38.activity.commun;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.util.ApiUtils;
@@ -104,6 +107,19 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 		if (getArguments() != null) {
 			objet = (E) getArguments().getSerializable(ARG_OBJ);
 		}
+	}
+
+	/**
+	 * Création des objets de l'écran
+	 *
+	 * @param inflater Le gestionnaire de layout
+	 * @param container Le conteneur du fragment
+	 * @param savedInstanceState Paramètres sauvegardés
+	 * @return Les objets à afficher
+	 */
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 
 		Retrofit retrofit = ApiUtils.getApi(getActivity());
 
@@ -117,5 +133,7 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 					}
 				}
 		);
+
+		return view;
 	}
 }

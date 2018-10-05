@@ -16,6 +16,7 @@
 	<string name="titre_coords">Coordonnées</string>
 	<string name="action_fav_on">Mettre en favori</string>
 	<string name="action_fav_off">Retirer des favoris</string>
+	<string name="action_refresh">Rafraîchir</string>
 	<string name="action_login">Connexion</string>
 
 	<!-- Ecran de recherche -->

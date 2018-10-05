@@ -1,5 +1,6 @@
 package org.fsgt38.fsgt38.activity.commun;
 
+import android.content.res.Configuration;
 import android.view.View;
 import android.widget.TableRow;
 
@@ -35,7 +36,7 @@ public class ClassementViewHolder extends TableauViewHolder<Equipe, Championnat>
 		init(championnat.getNom());
 
 		// Gestion de la taille de l'écran
-		boolean grandEcran = false; // TODO
+		boolean grandEcran = itemView.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
 		// Entête
 		TableRow ligne = addLigneEntete();
