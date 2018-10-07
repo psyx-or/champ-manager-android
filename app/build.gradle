@@ -6,8 +6,8 @@ android {
 		applicationId "org.fsgt38.fsgt38"
 		minSdkVersion 19
 		targetSdkVersion 27
-		versionCode 1
-		versionName "1.0"
+		versionCode 3
+		versionName '2.0'
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 	buildTypes {
@@ -20,6 +20,8 @@ android {
 		main.res.srcDirs = ['src/main/res', 'src/main/res.tableau']
 	}
 	buildToolsVersion '28.0.3'
+	productFlavors {
+	}
 }
 
 dependencies {
