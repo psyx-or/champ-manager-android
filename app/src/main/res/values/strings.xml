@@ -7,6 +7,7 @@
 	<string name="app_name">FSGT 38</string>
 	<string name="erreur">Erreur</string>
 	<string name="chargement">Chargement en cours…</string>
+	<string name="vide">Pas d\'élément à afficher</string>
 
 	<!-- Menu -->
 	<string name="titre_classement">Classements</string>
@@ -74,4 +75,5 @@
 	<string name="hint_login">Identifiant</string>
 	<string name="hint_mdp">Mot de passe</string>
 	<string name="btn_connexion">Connexion</string>
+	<string name="erreur_login">Identifiants incorrects</string>
 </resources>

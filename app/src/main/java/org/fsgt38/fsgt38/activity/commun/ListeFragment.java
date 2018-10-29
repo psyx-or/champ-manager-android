@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.util.ApiUtils;
@@ -78,7 +79,8 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.liste)    RecyclerView liste;
+	@BindView(R.id.liste)   RecyclerView liste;
+	@BindView(R.id.vide)	TextView txtVide;
 
 	@Getter
 	private E objet;
@@ -129,7 +131,14 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 				new ApiUtils.Action<T>() {
 					@Override
 					public void action(T obj) {
-						liste.setAdapter(getAdapter(obj));
+						RecyclerView.Adapter adapter = getAdapter(obj);
+						if (adapter.getItemCount() == 0) {
+							liste.setVisibility(View.GONE);
+							txtVide.setVisibility(View.VISIBLE);
+						}
+						else {
+							liste.setAdapter(adapter);
+						}
 					}
 				}
 		);
