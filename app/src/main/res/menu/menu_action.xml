@@ -22,10 +22,10 @@
 		android:title="@string/action_refresh"
 		app:showAsAction="always"/>
 
-	<!--<item-->
-		<!--android:id="@+id/action_login"-->
-		<!--android:icon="@drawable/ic_key"-->
-		<!--android:title="@string/action_login"-->
-		<!--app:showAsAction="always"/>-->
+	<item
+		android:id="@+id/action_login"
+		android:icon="@drawable/ic_key"
+		android:title="@string/action_login"
+		app:showAsAction="always"/>
 
 </menu>

@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +14,6 @@ import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.R;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -191,10 +189,11 @@ public class ApiUtils {
 		@Override
 		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
 			Request.Builder builder = chain.request().newBuilder();
-			for (String cookie : FSGT38Application.getCookies()) {
-				builder.addHeader("Cookie", cookie);
-				Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
-			}
+
+			if (FSGT38Application.getSessionId() != null)
+				builder.addHeader("Cookie", FSGT38Application.getSessionId());
+			else if (FSGT38Application.getRememberMe() != null)
+				builder.addHeader("Cookie", FSGT38Application.getRememberMe());
 
 			return chain.proceed(builder.build());
 		}
@@ -204,17 +203,43 @@ public class ApiUtils {
 	 * Sauvegarde des cookies
 	 */
 	private static class ReceivedCookiesInterceptor implements Interceptor {
+
 		@Override
 		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
 			okhttp3.Response originalResponse = chain.proceed(chain.request());
 
-			if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+			for (String cookieStr: originalResponse.headers("Set-Cookie")) {
 
-				HashSet<String> cookies = new HashSet<>(originalResponse.headers("Set-Cookie"));
-				FSGT38Application.setCookies(cookies);
+				String[] vals = traduitCookie(cookieStr);
+				switch (vals[0]) {
+					case "PHPSESSID":
+						FSGT38Application.setSessionId(vals[1]);
+						break;
+
+					case "REMEMBERME":
+						FSGT38Application.setRememberMe(vals[1]);
+						break;
+				}
 			}
 
 			return originalResponse;
+		}
+
+		/**
+		 * Récupère la valeur d'un cookie
+		 * @param cookieStr Valeur brute
+		 * @return Valeur traduite
+		 */
+		public static String[] traduitCookie(String cookieStr) {
+			String cookie = cookieStr.replaceFirst(";.*", "");
+			String[] vals = cookie.split("=");
+
+			if (vals[1].equalsIgnoreCase("deleted"))
+				vals[1] = null;
+			else
+				vals[1] = cookie;
+
+			return vals;
 		}
 	}
 }

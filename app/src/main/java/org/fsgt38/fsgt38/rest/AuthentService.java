@@ -10,9 +10,11 @@ import retrofit2.http.POST;
 public interface AuthentService {
 
 	/**
-	 * Essaie de se connecter si creds est fourni.
+	 * Essaie de se connecter si les infos sont fournies.
 	 * Vérifie si l'utilisateur est connecté sinon.
-	 * @param creds
+	 * @param login Login
+	 * @param mdp Mot de passe
+	 * @param remember "on"
 	 */
 	@FormUrlEncoded
 	@POST("me")

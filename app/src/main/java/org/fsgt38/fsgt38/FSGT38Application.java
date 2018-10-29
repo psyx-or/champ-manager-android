@@ -9,6 +9,9 @@ import org.fsgt38.fsgt38.model.Equipe;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class FSGT38Application extends Application {
 
 	// ----------------------------------------------------------------------------------------
@@ -16,7 +19,7 @@ public class FSGT38Application extends Application {
 	// ----------------------------------------------------------------------------------------
 
 	private static final String PREF_EQUIPES_PREFEREES = "equipes";
-	private static final String PREF_COOKIE = "cookie";
+	private static final String PREF_REMEMBER_ME = "cookie_remmeber_me";
 	private static final String PREF_ASTUCE_ROTATION = "astuce_rotation";
 
 
@@ -26,7 +29,18 @@ public class FSGT38Application extends Application {
 
 	/** Le gestionnaire android des préférences */
 	private static SharedPreferences sp;
+	/** Les équipes préférées */
 	private static Set<Equipe> equipesPreferees;
+
+	/** La session PHP courante */
+	@Setter
+	@Getter
+	private static String sessionId;
+
+	/** L'équipe connectée */
+	@Setter
+	@Getter
+	private static Equipe equipe;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -48,20 +62,23 @@ public class FSGT38Application extends Application {
 	// ----------------------------------------------------------------------------------------
 
 	/**
-	 * Modifie les cookies
-	 * @param cookies Cookies
+	 * Sauvegarde le cookie rememberme
+	 * @param rememberMe Cookie remember me
 	 */
-	public static void setCookies(Set<String> cookies) {
-		sp.edit()
-			.putStringSet(PREF_COOKIE, cookies)
-			.apply();
+	public static void setRememberMe(String rememberMe) {
+		if (rememberMe != null) {
+			sp.edit().putString(PREF_REMEMBER_ME, rememberMe).apply();
+		}
+		else {
+			sp.edit().remove(PREF_REMEMBER_ME).apply();
+		}
 	}
 
 	/**
-	 * @return Les cookies
+	 * @return Le cookie rememberme
 	 */
-	public static Set<String> getCookies() {
-		return sp.getStringSet(PREF_COOKIE, new HashSet<String>());
+	public static String getRememberMe() {
+		return sp.getString(PREF_REMEMBER_ME, null);
 	}
 
 	/**
