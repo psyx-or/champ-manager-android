@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -98,7 +99,11 @@ public class RechercheActivity extends FSGT38Activity {
 		equipeService = retrofit.create(EquipeService.class);
 
 		// Récupère les championnats
-		if (savedInstanceState == null) {
+		if (savedInstanceState != null && savedInstanceState.getSerializable(BAK_CHAMP) != null) {
+			mapChampionnats = (HashMap<Sport, List<Championnat>>) savedInstanceState.getSerializable(BAK_CHAMP);
+			initChampionnatsSpinner();
+		}
+		else {
 			ApiUtils.appel(
 					this,
 					retrofit.create(ChampionnatService.class).getChampionnats(Utils.getSaison()),
@@ -110,10 +115,6 @@ public class RechercheActivity extends FSGT38Activity {
 					},
 					false
 			);
-		}
-		else {
-			mapChampionnats = (HashMap<Sport, List<Championnat>>) savedInstanceState.getSerializable(BAK_CHAMP);
-			initChampionnatsSpinner();
 		}
 	}
 
@@ -253,7 +254,12 @@ public class RechercheActivity extends FSGT38Activity {
 							return view;
 						}
 					});
-					equipeSearchTxt.showDropDown();
+
+					try {
+						equipeSearchTxt.showDropDown();
+					}
+					catch (WindowManager.BadTokenException ignore) {
+					}
 				}
 			},
 			false);
