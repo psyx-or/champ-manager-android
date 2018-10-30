@@ -28,4 +28,16 @@
 		android:title="@string/action_login"
 		app:showAsAction="always"/>
 
+	<item
+		android:id="@+id/action_saisie"
+		android:icon="@drawable/ic_pencil"
+		android:title="@string/action_saisie"
+		app:showAsAction="always"/>
+
+	<item
+		android:id="@+id/action_logout"
+		android:icon="@drawable/ic_run"
+		android:title="@string/action_logout"
+		app:showAsAction="always"/>
+
 </menu>

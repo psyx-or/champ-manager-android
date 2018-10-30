@@ -54,6 +54,14 @@
 			android:label="@string/titre_login">
 		</activity>
 
+		<activity
+			android:name=".ResultatsActivity"
+			android:label="@string/titre_resultats">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".RechercheActivity" />
+		</activity>
+
 	</application>
 
 </manifest>

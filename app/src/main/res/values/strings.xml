@@ -19,6 +19,8 @@
 	<string name="action_fav_off">Retirer des favoris</string>
 	<string name="action_refresh">Rafraîchir</string>
 	<string name="action_login">Connexion</string>
+	<string name="action_saisie">Saisie des résultats</string>
+	<string name="action_logout">Déconnexion</string>
 
 	<!-- Ecran de recherche -->
 	<string name="titre_recherche">Recherche</string>
@@ -79,4 +81,7 @@
 
 	<!-- Ecran de démarrage -->
 	<string name="splash">Pratiquez le sport qui vous plaît comme il vous plaît!</string>
+
+	<!-- Ecran des résultats -->
+	<string name="titre_resultats">Résultats</string>
 </resources>

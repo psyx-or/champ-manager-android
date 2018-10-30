@@ -5,14 +5,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.LoginActivity;
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.ResultatsActivity;
 
 public abstract class FSGT38Activity extends AppCompatActivity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
 	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Redémarrage de l'activité
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		invalidateOptionsMenu();
+	}
 
 	/**
 	 * Initialisation du menu de la barre d'action
@@ -25,6 +36,13 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 
 		menu.findItem(R.id.action_fav_on).setVisible(false);
 		menu.findItem(R.id.action_fav_off).setVisible(false);
+
+		if (FSGT38Application.getEquipe() == null)
+			menu.findItem(R.id.action_saisie).setVisible(false);
+		else
+			menu.findItem(R.id.action_login).setVisible(false);
+
+		menu.findItem(R.id.action_logout).setVisible(false);
 
 		return true;
 	}
@@ -46,6 +64,18 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 			case R.id.action_login:
 				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
+				return true;
+
+			case R.id.action_saisie:
+				intent = new Intent(this, ResultatsActivity.class);
+				startActivity(intent);
+				return true;
+
+			case R.id.action_logout:
+				FSGT38Application.setEquipe(null);
+				FSGT38Application.setSessionId(null);
+				FSGT38Application.setRememberMe(null);
+				invalidateOptionsMenu();
 				return true;
 
 			default:

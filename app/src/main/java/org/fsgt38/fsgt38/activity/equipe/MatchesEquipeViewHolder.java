@@ -40,7 +40,7 @@ public class MatchesEquipeViewHolder extends TableauViewHolder<Equipe, Championn
 		tableau.setShrinkAllColumns(false);
 		tableau.setColumnShrinkable(0, true);
 		tableau.setColumnShrinkable(1, false);
-		tableau.setColumnShrinkable(0, true);
+		tableau.setColumnShrinkable(2, true);
 
 		int i = 0;
 		EquipeClickListener clickListenerMatch = new EquipeClickListener(R.id.navigation_matches);

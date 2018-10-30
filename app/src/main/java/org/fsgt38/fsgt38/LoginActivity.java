@@ -1,6 +1,7 @@
 package org.fsgt38.fsgt38;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -85,7 +86,9 @@ public class LoginActivity extends AppCompatActivity {
 						}
 						else {
 							FSGT38Application.setEquipe(equipe);
-							// TODO: rediriger vers la maj des scores
+							Intent intent = new Intent(LoginActivity.this, ResultatsActivity.class);
+							startActivity(intent);
+							finish();
 						}
 					}
 				}
