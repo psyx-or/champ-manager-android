@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 
+import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -53,8 +54,10 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 
 				// Statut de la rencontre
 				ImageView bouton = new ImageView(itemView.getContext());
-				if (match.getEquipe1() != null && match.getEquipe2() != null) {
-
+				if (match.getEquipe1() == null || match.getEquipe2() == null) {
+					style = R.layout.tableau_ligne_grisee;
+				}
+				else {
 					if (match.getValide() == Boolean.TRUE) {
 						// Match validé
 						style = R.layout.tableau_ligne_grisee;
@@ -126,10 +129,14 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 		}
 	}
 
+	/**
+	 * Indique si la saisie est toujours autorisée pour une journée
+	 * @param date Date de fin de la journée
+	 * @return Vrai si la saisie est interdite
+	 */
 	private boolean isDateKO(Date date) {
-//						else if (moment(match.journee.fin).add(this.dureeSaisie, 'days').isBefore(moment().startOf('day'))) {
 		if (date == null) return false;
 
-		return new LocalDate(date.getTime()).plusDays(15).isBefore(new LocalDate());
+		return new LocalDate(date.getTime()).plusDays(FSGT38Application.getDureeSaisie()).isBefore(new LocalDate());
 	}
 }

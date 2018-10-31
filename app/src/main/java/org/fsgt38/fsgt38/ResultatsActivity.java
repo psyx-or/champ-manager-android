@@ -1,19 +1,39 @@
 package org.fsgt38.fsgt38;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import org.fsgt38.fsgt38.activity.resultats.ResultatsFragment;
+import org.fsgt38.fsgt38.activity.resultats.ResultatsViewHolder;
+import org.fsgt38.fsgt38.model.Championnat;
+import org.fsgt38.fsgt38.rest.MatchesService;
+import org.fsgt38.fsgt38.rest.ParametreService;
+import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
+import org.fsgt38.fsgt38.util.TableauAdapter;
+import org.fsgt38.fsgt38.util.Utils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Retrofit;
+
+import static org.fsgt38.fsgt38.FSGT38Application.PARAM_DUREE_SAISIE;
 
 /**
  * Ecran affichant l'écran de saisie des résultats
  */
 public class ResultatsActivity extends FSGT38Activity {
+
+	// ----------------------------------------------------------------------------------------
+	//    Membres
+	// ----------------------------------------------------------------------------------------
+
+	@BindView(R.id.liste)	RecyclerView liste;
+	@BindView(R.id.vide)	TextView txtVide;
+
 
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
@@ -31,10 +51,23 @@ public class ResultatsActivity extends FSGT38Activity {
 		setContentView(R.layout.activity_resultats);
 		ButterKnife.bind(this);
 
-		if (savedInstanceState == null) {
-			FragmentTransaction transaction = getFragmentManager().beginTransaction();
-			transaction.replace(R.id.frame, new ResultatsFragment());
-			transaction.commit();
+		final Retrofit retrofit = ApiUtils.getApi(this);
+
+		if (FSGT38Application.getDureeSaisie() == null) {
+			ApiUtils.appel(
+					this,
+					retrofit.create(ParametreService.class).get(PARAM_DUREE_SAISIE),
+					new ApiUtils.Action<String>() {
+						@Override
+						public void action(String valeur) {
+							FSGT38Application.setDureeSaisie(Integer.valueOf(valeur));
+							chargeMatches(retrofit);
+						}
+					}
+			);
+		}
+		else {
+			chargeMatches(retrofit);
 		}
 	}
 
@@ -65,5 +98,29 @@ public class ResultatsActivity extends FSGT38Activity {
 			finish();
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Lance le chargement des matches
+	 * @param retrofit API
+	 */
+	private void chargeMatches(Retrofit retrofit) {
+		ApiUtils.appel(
+				this,
+				retrofit.create(MatchesService.class).listeEquipe(FSGT38Application.getEquipe().getId(), Utils.getSaison()),
+				new ApiUtils.Action<Championnat[]>() {
+					@Override
+					public void action(Championnat[] data) {
+						RecyclerView.Adapter adapter = new TableauAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
+						if (adapter.getItemCount() == 0) {
+							liste.setVisibility(View.GONE);
+							txtVide.setVisibility(View.VISIBLE);
+						}
+						else {
+							liste.setAdapter(adapter);
+						}
+					}
+				}
+		);
 	}
 }
