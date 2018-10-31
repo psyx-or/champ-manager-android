@@ -69,28 +69,24 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 					else if (match.getValide() == null) {
 						// Match à jouer
 						bouton.setImageResource(R.drawable.ic_pencil);
-						bouton.setColorFilter(getColor(R.color.vert));
+						bouton.setColorFilter(getColor(R.color.text_success));
 					}
 					else {
 						// Match joué
 						bouton.setImageResource(R.drawable.ic_pencil);
-						bouton.setColorFilter(getColor(R.color.noir));
+						if (championnat.getFpForm() != null && (
+								equipe.getId() == match.getEquipe1().getId() && !match.isHasFpFeuille1() ||
+								equipe.getId() == match.getEquipe2().getId() && !match.isHasFpFeuille2())) {
+
+							// Il faut saisir le fair-play
+							bouton.setColorFilter(getColor(R.color.text_danger));
+						}
+						else {
+							// Pas de fair-play ou fair-play déjà rempli
+							bouton.setColorFilter(getColor(R.color.noir));
+						}
 					}
 				}
-				/*
-				calculeStatut(match: MatchExt): void {
-
-					else {
-						if (!this.avecFP ||
-								this.equipe.id == match.equipe1.id && !match.hasFpFeuille1 ||
-								this.equipe.id == match.equipe2.id && !match.hasFpFeuille2)
-							match.statut = StatutMatch.JOUE;
-						else
-							match.statut = StatutMatch.JOUE_FP;
-					}
-				}
-
-				 */
 
 				// Score
 				TableRow ligne = addLigne(style);

@@ -25,6 +25,7 @@ public class Championnat implements Serializable {
 
 	private Classement[] classements;
 	private Journee[] journees;
+	private FPForm fpForm;
 
 
 	@SuppressWarnings("unused")
