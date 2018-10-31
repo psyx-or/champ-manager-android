@@ -36,7 +36,7 @@ public class ApiUtils {
 	// ----------------------------------------------------------------------------------------
 
 	private static Retrofit retrofit;
-	private static Map<String, Object> cache = new LRUMap<>(20);
+	private static final Map<String, Object> cache = new LRUMap<>(20);
 
 
 	// ----------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ public class ApiUtils {
 		 * @param cookieStr Valeur brute
 		 * @return Valeur traduite
 		 */
-		public static String[] traduitCookie(String cookieStr) {
+		private static String[] traduitCookie(String cookieStr) {
 			String cookie = cookieStr.replaceFirst(";.*", "");
 			String[] vals = cookie.split("=");
 

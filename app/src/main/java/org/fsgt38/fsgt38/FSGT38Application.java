@@ -88,7 +88,7 @@ public class FSGT38Application extends Application {
 	 * @param savedInstanceState Bundle de sauvegarde
 	 */
 	public static void onRestoreInstanceState(Bundle savedInstanceState) {
-		if (savedInstanceState == null) return;;
+		if (savedInstanceState == null) return;
 
 		if (savedInstanceState.containsKey(BAK_SESSION_ID))
 			sessionId = savedInstanceState.getString(BAK_SESSION_ID);

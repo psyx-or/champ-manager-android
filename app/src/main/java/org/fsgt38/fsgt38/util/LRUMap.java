@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
  */
 public class LRUMap<K,V> extends LinkedHashMap<K,V>
 {
-	private int capacite;
+	private final int capacite;
 
 	public LRUMap(int capacite) {
 		this.capacite = capacite;
