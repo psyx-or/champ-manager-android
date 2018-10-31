@@ -2,6 +2,7 @@ package org.fsgt38.fsgt38;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import org.fsgt38.fsgt38.model.Equipe;
@@ -18,9 +19,15 @@ public class FSGT38Application extends Application {
 	//    Constantes
 	// ----------------------------------------------------------------------------------------
 
+	public static final String PARAM_DUREE_SAISIE = "DUREE_SAISIE";
+
 	private static final String PREF_EQUIPES_PREFEREES = "equipes";
 	private static final String PREF_REMEMBER_ME = "cookie_remmeber_me";
 	private static final String PREF_ASTUCE_ROTATION = "astuce_rotation";
+
+	private static final String BAK_SESSION_ID = "bak_session_id";
+	private static final String BAK_EQUIPE = "bak_equipe";
+	private static final String BAK_DUREE_SAISIE = "bak_duree_saisie";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -42,6 +49,11 @@ public class FSGT38Application extends Application {
 	@Getter
 	private static Equipe equipe;
 
+	/** Durée pendant laquelle la saisie des résultats est autorisée */
+	@Setter
+	@Getter
+	private static Integer dureeSaisie;
+
 
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
@@ -54,6 +66,36 @@ public class FSGT38Application extends Application {
 	public void onCreate() {
 		super.onCreate();
 		sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	}
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Sauvegarde / Restauration
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Sauvegarde l'état courant de l'application
+	 * @param outState Bundle de sauvegarde
+	 */
+	public static void onSaveInstanceState(Bundle outState) {
+		outState.putString(BAK_SESSION_ID, sessionId);
+		outState.putSerializable(BAK_EQUIPE, equipe);
+		outState.putSerializable(BAK_DUREE_SAISIE, dureeSaisie);
+	}
+
+	/**
+	 * Restaure l'état courant de l'application
+	 * @param savedInstanceState Bundle de sauvegarde
+	 */
+	public static void onRestoreInstanceState(Bundle savedInstanceState) {
+		if (savedInstanceState == null) return;;
+
+		if (savedInstanceState.containsKey(BAK_SESSION_ID))
+			sessionId = savedInstanceState.getString(BAK_SESSION_ID);
+		if (savedInstanceState.containsKey(BAK_EQUIPE))
+			equipe = (Equipe) savedInstanceState.getSerializable(BAK_EQUIPE);
+		if (savedInstanceState.containsKey(BAK_DUREE_SAISIE))
+			dureeSaisie = (Integer) savedInstanceState.getSerializable(BAK_DUREE_SAISIE);
 	}
 
 

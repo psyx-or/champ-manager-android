@@ -1,6 +1,7 @@
 package org.fsgt38.fsgt38.util;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,26 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
 	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Initialisation de l'écran
+	 * @param savedInstanceState paramètres sauvegardés
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		FSGT38Application.onRestoreInstanceState(savedInstanceState);
+	}
+
+	/**
+	 * Sauvegarde
+	 * @param outState Etat
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		FSGT38Application.onSaveInstanceState(outState);
+	}
 
 	/**
 	 * Redémarrage de l'activité

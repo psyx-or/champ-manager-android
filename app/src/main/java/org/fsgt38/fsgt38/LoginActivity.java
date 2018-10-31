@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		FSGT38Application.onRestoreInstanceState(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
 		ButterKnife.bind(this);
@@ -45,6 +46,16 @@ public class LoginActivity extends AppCompatActivity {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 		}
+	}
+
+	/**
+	 * Sauvegarde
+	 * @param outState Etat
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		FSGT38Application.onSaveInstanceState(outState);
 	}
 
 	/**
