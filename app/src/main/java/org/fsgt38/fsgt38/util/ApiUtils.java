@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -126,7 +127,7 @@ public class ApiUtils {
 				T body = response.body();
 
 				// On enregistre dans le cache
-				if (isGet)
+				if (isGet && !(body instanceof ResponseBody))
 					cache.put(url, body);
 
 				// C'est OK => on transmet et on cache le waiter

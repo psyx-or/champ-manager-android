@@ -1,10 +1,12 @@
 package org.fsgt38.fsgt38.activity.resultats;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 
 import org.fsgt38.fsgt38.FSGT38Application;
+import org.fsgt38.fsgt38.ImageActivity;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
@@ -34,7 +36,7 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 	 * @param equipe Equipe
 	 * @param championnat Championnat
 	 */
-	public void affiche(Equipe equipe, Championnat championnat) {
+	public void affiche(final Equipe equipe, Championnat championnat) {
 		init(championnat.getNom());
 		tableau.setShrinkAllColumns(false);
 		tableau.setColumnShrinkable(0, true);
@@ -44,7 +46,7 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 		int i = 0;
 //		EquipeClickListener clickListenerMatch = new EquipeClickListener(R.id.navigation_matches);
 		for (Journee journee: championnat.getJournees()) {
-			for (Match match: journee.getMatches()) {
+			for (final Match match: journee.getMatches()) {
 
 				if (match.getExempt() != null) {
 					continue;
@@ -108,10 +110,9 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 						@Override
 						public void onClick(View view)
 						{
-//								navigation.selectionMenu(
-//										(MainActivity) getActivity(),
-//										MenuContextuelDialog.MenuItem.FEUILLE_MATCH,
-//										new MenuContextuelDialog.Options(null, null, null, null, null, null, null, match.optString("feuille")));
+							Intent intent = new Intent(itemView.getContext(), ImageActivity.class);
+							intent.putExtra(ImageActivity.KEY_FICHIER, match.getFeuille());
+							itemView.getContext().startActivity(intent);
 						}
 					});
 				}

@@ -4,18 +4,18 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.rest.AuthentService;
 import org.fsgt38.fsgt38.util.ApiUtils;
+import org.fsgt38.fsgt38.util.FSGT38PopupActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Retrofit;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends FSGT38PopupActivity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
@@ -34,38 +34,11 @@ public class LoginActivity extends AppCompatActivity {
 	 * @param savedInstanceState paramètres sauvegardés
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		FSGT38Application.onRestoreInstanceState(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
 		ButterKnife.bind(this);
-
-		if (getSupportActionBar() != null) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-		}
-	}
-
-	/**
-	 * Sauvegarde
-	 * @param outState Etat
-	 */
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		FSGT38Application.onSaveInstanceState(outState);
-	}
-
-	/**
-	 * Appui sur la croix
-	 * @return false;
-	 */
-	@Override
-	public boolean onSupportNavigateUp() {
-		finish();
-		return false;
 	}
 
 	/**

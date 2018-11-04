@@ -11,6 +11,9 @@ import org.fsgt38.fsgt38.LoginActivity;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.ResultatsActivity;
 
+/**
+ * Activité gérant la barre d'action
+ */
 public abstract class FSGT38Activity extends AppCompatActivity {
 
 	// ----------------------------------------------------------------------------------------

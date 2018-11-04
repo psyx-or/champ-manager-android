@@ -84,4 +84,7 @@
 
 	<!-- Ecran des résultats -->
 	<string name="titre_resultats">Résultats</string>
+
+	<!-- Ecran image -->
+	<string name="titre_feuille">Feuille de match</string>
 </resources>
