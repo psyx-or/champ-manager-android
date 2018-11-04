@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
@@ -21,8 +22,11 @@ public class IntentUtils
 	public static void ouvrePDF(Context context, File fic)
 	{
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setDataAndType(Uri.fromFile(fic), "application/pdf");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		intent.setDataAndType(FileProvider.getUriForFile(
+				context,
+				context.getApplicationContext().getPackageName() + ".provider",
+				fic), "application/pdf");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		context.startActivity(intent);
 	}
 
