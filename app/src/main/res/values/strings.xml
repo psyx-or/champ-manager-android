@@ -87,4 +87,14 @@
 
 	<!-- Ecran image -->
 	<string name="titre_feuille">Feuille de match</string>
+
+	<!-- Ecran fair-play -->
+	<string name="titre_fairplay">Feuille de fair-play</string>
+	<string name="eval_ko">Mauvais</string>
+	<string name="eval_normal">Normal</string>
+	<string name="eval_ok">Bon</string>
+	<string name="eval_oui">Oui</string>
+	<string name="eval_non">Non</string>
+	<string name="erreur_incomplet">Veuillez répondre à toutes les questions</string>
+	<string name="menu_envoyer">Envoyer</string>
 </resources>
