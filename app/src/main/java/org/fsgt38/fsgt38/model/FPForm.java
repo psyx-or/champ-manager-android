@@ -10,6 +10,5 @@ import lombok.Setter;
 public class FPForm implements Serializable {
 	private int id;
 	private String libelle;
-//	private categories: FPCategorie[] = [];
-//	private champModeles: ChampModele[] = [];
+	private FPCategorie[] categories;
 }
