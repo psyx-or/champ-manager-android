@@ -6,7 +6,7 @@ import org.fsgt38.fsgt38.activity.commun.ClassementViewHolder;
 import org.fsgt38.fsgt38.activity.commun.ListeFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.rest.ClassementService;
-import org.fsgt38.fsgt38.util.TableauAdapter;
+import org.fsgt38.fsgt38.util.SimpleAdapter;
 import org.fsgt38.fsgt38.util.Utils;
 
 import retrofit2.Call;
@@ -28,6 +28,6 @@ public class ClassementChampionnatFragment extends ListeFragment<Championnat, Ch
 		// On trie les classements
 		Utils.trieClassements(data);
 
-		return new TableauAdapter<>(null, new Championnat[]{data}, ClassementViewHolder.class);
+		return new SimpleAdapter<>(null, new Championnat[]{data}, ClassementViewHolder.class);
 	}
 }

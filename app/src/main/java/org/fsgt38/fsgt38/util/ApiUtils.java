@@ -124,6 +124,13 @@ public class ApiUtils {
 			@Override
 			public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
 
+				// On vérifie le code retour HTTP
+				if (!response.isSuccessful()) {
+					onFailure(call, new Exception(response.message() + " (" + response.code() + ")"));
+					return;
+				}
+
+				// C'est bon => on récupère la réposne
 				T body = response.body();
 
 				// On enregistre dans le cache

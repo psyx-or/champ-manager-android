@@ -2,7 +2,6 @@ package org.fsgt38.fsgt38.util;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
@@ -14,12 +13,11 @@ import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Match;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Viewholder pour le layout "tableau"
  */
-public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
+public abstract class TableauViewHolder<K,T> extends SimpleAdapter.ViewHolder<K,T> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
@@ -29,7 +27,6 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	@BindView(R.id.separateur)  View separateur;
 	@BindView(R.id.tableau)	    protected TableLayout tableau;
 
-	abstract public void affiche(K clef, T objet);
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -41,8 +38,6 @@ public abstract class TableauViewHolder<K,T> extends RecyclerView.ViewHolder {
 	 */
 	protected TableauViewHolder(View itemView) {
 		super(itemView);
-
-		ButterKnife.bind(this, itemView);
 	}
 
 	/**

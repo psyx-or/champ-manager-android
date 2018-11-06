@@ -8,13 +8,35 @@ import android.view.ViewGroup;
 
 import org.fsgt38.fsgt38.R;
 
+import butterknife.ButterKnife;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Adapteur pour un tableau
  */
 @RequiredArgsConstructor
-public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends RecyclerView.Adapter<V> {
+@AllArgsConstructor
+public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends RecyclerView.Adapter<V> {
+
+	// ----------------------------------------------------------------------------------------
+	//    Classe outil
+	// ----------------------------------------------------------------------------------------
+
+	public static abstract class ViewHolder<K,T> extends RecyclerView.ViewHolder {
+
+		abstract public void affiche(K clef, T objet);
+
+		/**
+		 * Constructeur
+		 * @param itemView La vue
+		 */
+		protected ViewHolder(View itemView) {
+			super(itemView);
+
+			ButterKnife.bind(this, itemView);
+		}
+	}
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
@@ -23,6 +45,7 @@ public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends Recycl
 	private final K clef;
 	private final T[] objs;
 	private final Class<V> clazz;
+	private int layout = R.layout.tableau;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -38,7 +61,7 @@ public class TableauAdapter<K,T,V extends TableauViewHolder<K,T>> extends Recycl
 	@NonNull
 	@Override
 	public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tableau, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 		try {
 			return clazz.getConstructor(View.class).newInstance(view);
 		}

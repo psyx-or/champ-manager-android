@@ -11,7 +11,7 @@ import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.dto.ChampionnatEquipeDTO;
 import org.fsgt38.fsgt38.rest.ClassementService;
-import org.fsgt38.fsgt38.util.TableauAdapter;
+import org.fsgt38.fsgt38.util.SimpleAdapter;
 import org.fsgt38.fsgt38.util.Utils;
 
 import retrofit2.Call;
@@ -46,6 +46,6 @@ public class ClassementEquipeFragment extends ListeFragment<Equipe, ChampionnatE
 			Utils.trieClassements(championnat);
 		}
 
-		return new TableauAdapter<>(getObjet(), data.getChampionnats(), ClassementViewHolder.class);
+		return new SimpleAdapter<>(getObjet(), data.getChampionnats(), ClassementViewHolder.class);
 	}
 }

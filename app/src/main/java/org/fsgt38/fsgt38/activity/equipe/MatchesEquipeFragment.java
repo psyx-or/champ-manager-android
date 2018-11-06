@@ -6,7 +6,7 @@ import org.fsgt38.fsgt38.activity.commun.ListeFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.rest.MatchesService;
-import org.fsgt38.fsgt38.util.TableauAdapter;
+import org.fsgt38.fsgt38.util.SimpleAdapter;
 import org.fsgt38.fsgt38.util.Utils;
 
 import retrofit2.Call;
@@ -24,6 +24,6 @@ public class MatchesEquipeFragment extends ListeFragment<Equipe, Championnat[]> 
 
 	@Override
 	protected RecyclerView.Adapter getAdapter(Championnat[] data) {
-		return new TableauAdapter<>(getObjet(), data, MatchesEquipeViewHolder.class);
+		return new SimpleAdapter<>(getObjet(), data, MatchesEquipeViewHolder.class);
 	}
 }

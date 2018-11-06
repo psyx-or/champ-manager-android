@@ -13,7 +13,7 @@ import org.fsgt38.fsgt38.rest.MatchesService;
 import org.fsgt38.fsgt38.rest.ParametreService;
 import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
-import org.fsgt38.fsgt38.util.TableauAdapter;
+import org.fsgt38.fsgt38.util.SimpleAdapter;
 import org.fsgt38.fsgt38.util.Utils;
 
 import butterknife.BindView;
@@ -111,7 +111,7 @@ public class ResultatsActivity extends FSGT38Activity {
 				new ApiUtils.Action<Championnat[]>() {
 					@Override
 					public void action(Championnat[] data) {
-						RecyclerView.Adapter adapter = new TableauAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
+						RecyclerView.Adapter adapter = new SimpleAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
 						if (adapter.getItemCount() == 0) {
 							liste.setVisibility(View.GONE);
 							txtVide.setVisibility(View.VISIBLE);
