@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 
 import org.fsgt38.fsgt38.FSGT38Application;
+import org.fsgt38.fsgt38.FairplayActivity;
 import org.fsgt38.fsgt38.ImageActivity;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Championnat;
@@ -36,7 +37,7 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 	 * @param equipe Equipe
 	 * @param championnat Championnat
 	 */
-	public void affiche(final Equipe equipe, Championnat championnat) {
+	public void affiche(final Equipe equipe, final Championnat championnat) {
 		init(championnat.getNom());
 		tableau.setShrinkAllColumns(false);
 		tableau.setColumnShrinkable(0, true);
@@ -44,7 +45,6 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 		tableau.setColumnShrinkable(2, true);
 
 		int i = 0;
-//		EquipeClickListener clickListenerMatch = new EquipeClickListener(R.id.navigation_matches);
 		for (Journee journee: championnat.getJournees()) {
 			for (final Match match: journee.getMatches()) {
 
@@ -92,12 +92,25 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 
 				// Score
 				TableRow ligne = addLigne(style);
-//					ligne.setTag(getAutreEquipe(equipe, match));
-//					ligne.setOnClickListener(clickListenerMatch);
-
 				addCelluleEquipe(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2());
 				addCellule(ligne, getDispScore(match));
 				addCelluleEquipe(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1());
+
+				// Gestion du clic
+				ligne.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						if (championnat.getFpForm() != null) {
+							Intent intent = new Intent(itemView.getContext(), FairplayActivity.class);
+							intent.putExtra(FairplayActivity.KEY_MATCH, match.getId());
+							intent.putExtra(FairplayActivity.KEY_EQUIPE, equipe.getId() == match.getEquipe1().getId() ? 1 : 2);
+							itemView.getContext().startActivity(intent);
+						}
+						else {
+							// TODO
+						}
+					}
+				});
 
 				// Feuille de match
 				ImageView image = new ImageView(itemView.getContext());

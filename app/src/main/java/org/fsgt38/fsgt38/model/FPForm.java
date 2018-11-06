@@ -1,6 +1,7 @@
 package org.fsgt38.fsgt38.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +11,5 @@ import lombok.Setter;
 public class FPForm implements Serializable {
 	private int id;
 	private String libelle;
-	private FPCategorie[] categories;
+	private List<FPCategorie> categories;
 }

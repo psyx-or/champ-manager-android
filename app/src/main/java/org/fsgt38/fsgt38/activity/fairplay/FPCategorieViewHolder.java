@@ -2,6 +2,7 @@ package org.fsgt38.fsgt38.activity.fairplay;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.fsgt38.fsgt38.FairplayActivity;
@@ -10,6 +11,7 @@ import org.fsgt38.fsgt38.model.FPCategorie;
 import org.fsgt38.fsgt38.util.SimpleAdapter;
 
 import butterknife.BindView;
+import butterknife.OnTextChanged;
 
 /**
  * Une liste de question
@@ -22,6 +24,9 @@ public class FPCategorieViewHolder extends SimpleAdapter.ViewHolder<FairplayActi
 
 	@BindView(R.id.titre)	    TextView txtTitre;
 	@BindView(R.id.liste)   	RecyclerView liste;
+	@BindView(R.id.editText)	EditText editText;
+
+	private FairplayActivity activity;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -42,8 +47,34 @@ public class FPCategorieViewHolder extends SimpleAdapter.ViewHolder<FairplayActi
 	 * @param categorie Classement
 	 */
 	public void affiche(FairplayActivity activity, FPCategorie categorie) {
+		this.activity = activity;
+
 		txtTitre.setText(categorie.getLibelle());
-		liste.removeAllViews();
-		liste.setAdapter(new SimpleAdapter<>(activity, categorie.getQuestions(), FPQuestionViewHolder.class, R.layout.layout_question_eval));
+
+		if (categorie.getQuestions() == null) {
+			liste.setVisibility(View.GONE);
+			editText.setVisibility(View.VISIBLE);
+			editText.setText(activity.getCommentaire());
+		}
+		else {
+			liste.setVisibility(View.VISIBLE);
+			editText.setVisibility(View.GONE);
+			liste.removeAllViews();
+			liste.setAdapter(new SimpleAdapter<>(activity, categorie.getQuestions(), FPQuestionViewHolder.class, R.layout.layout_question_eval));
+		}
+	}
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
+	/**
+	 * Edition du commentaire
+	 * @param s Nouveau commentaire
+	 */
+	@OnTextChanged(R.id.editText)
+	protected void setCommentaire(CharSequence s) {
+		activity.setCommentaire(s.toString());
 	}
 }

@@ -17,11 +17,11 @@ import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38PopupActivity;
 import org.fsgt38.fsgt38.util.SimpleAdapter;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Getter;
 import retrofit2.Retrofit;
 
 /**
@@ -43,9 +43,28 @@ public class FairplayActivity extends FSGT38PopupActivity {
 
 	@BindView(R.id.liste)	RecyclerView liste;
 
-	@Getter
-	private Map<Integer, Integer> reponses;
 	private FPFeuilleAfficheDTO dto;
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Getters & Setters
+	// ----------------------------------------------------------------------------------------
+
+	public Integer getReponse(int questionId) {
+		return dto.getReponses().get(questionId);
+	}
+
+	public void setReponse(int questionId, int reponse) {
+		dto.getReponses().put(questionId, reponse);
+	}
+
+	public String getCommentaire() {
+		return dto.getFpFeuille().getCommentaire();
+	}
+
+	public void setCommentaire(String commentaire) {
+		dto.getFpFeuille().setCommentaire(commentaire);
+	}
 
 
 	// ----------------------------------------------------------------------------------------
@@ -62,7 +81,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		super.onCreate(savedInstanceState);
 
 		// Mise en place de l'écran
-		setContentView(R.layout.activity_fairplay);
+		setContentView(R.layout.fragment_liste);
 		ButterKnife.bind(this);
 
 		// Récupération des données
@@ -107,7 +126,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		// On vérifie que tout est rempli
 		for (FPCategorie cat: dto.getFpForm().getCategories()) {
 			for (FPQuestion question : cat.getQuestions()) {
-				if (reponses.get(question.getId()) == null) {
+				if (getReponse(question.getId()) == null) {
 					new AlertDialog.Builder(this)
 							.setTitle(R.string.erreur)
 							.setMessage(R.string.erreur_incomplet)
@@ -146,14 +165,19 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	 */
 	private void afficheFeuille(FPFeuilleAfficheDTO dto) {
 		this.dto = dto;
-		reponses = dto.getReponses();
-		liste.setAdapter(new SimpleAdapter<>(this, dto.getFpForm().getCategories(), FPCategorieViewHolder.class, R.layout.layout_liste_liste));
+
+		List<FPCategorie> categories = new ArrayList<>(dto.getFpForm().getCategories());
+		FPCategorie catCommentaire = new FPCategorie();
+		catCommentaire.setLibelle(getString(R.string.lbl_commentaire));
+		categories.add(catCommentaire);
+
+		liste.setAdapter(new SimpleAdapter<>(this, categories.toArray(new FPCategorie[0]), FPCategorieViewHolder.class, R.layout.layout_categorie));
 	}
 
 	/**
 	 * Fonction appelée une fois que la modification a été acceptée sur le serveur
 	 */
-	private void onFeuilleModifiee() {
+	private void onFeuilleModifiee() {//TODO
 		ApiUtils.videCache();
 
 		Intent intent = new Intent(this, EquipeActivity.class);

@@ -97,4 +97,6 @@
 	<string name="eval_non">Non</string>
 	<string name="erreur_incomplet">Veuillez répondre à toutes les questions</string>
 	<string name="menu_envoyer">Envoyer</string>
+	<string name="lbl_commentaire">Commentaire</string>
+	<string name="hint_commentaire">Pas de commentaire</string>
 </resources>

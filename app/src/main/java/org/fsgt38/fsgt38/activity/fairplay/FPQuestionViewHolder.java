@@ -73,7 +73,7 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 				break;
 		}
 
-		Integer reponse = activity.getReponses().get(question.getId());
+		Integer reponse = activity.getReponse(question.getId());
 		if (reponse == null) {
 			grpEval.clearCheck();
 		}
@@ -86,12 +86,17 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 		}
 	}
 
+
+	// ----------------------------------------------------------------------------------------
+	//    Gestion des événements
+	// ----------------------------------------------------------------------------------------
+
 	/**
 	 * Appui sur un bouton de réponse
 	 * @param radioButton Bouton appuyé
 	 */
 	@OnClick({R.id.btnKO, R.id.btnNormal, R.id.btnOK})
 	protected void onCheckedChanged(RadioButton radioButton) {
-		activity.getReponses().put(question.getId(), Integer.parseInt((String)radioButton.getTag()));
+		activity.setReponse(question.getId(), Integer.parseInt((String)radioButton.getTag()));
 	}
 }
