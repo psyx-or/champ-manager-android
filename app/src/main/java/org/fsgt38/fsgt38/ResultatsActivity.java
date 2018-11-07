@@ -48,7 +48,7 @@ public class ResultatsActivity extends FSGT38Activity {
 	{
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_resultats);
+		setContentView(R.layout.fragment_liste);
 		ButterKnife.bind(this);
 
 		final Retrofit retrofit = ApiUtils.getApi(this);

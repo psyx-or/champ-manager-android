@@ -9,7 +9,7 @@ import org.fsgt38.fsgt38.R;
 /**
  * Activité affichant une croix dans la barre d'action
  */
-public class FSGT38PopupActivity extends AppCompatActivity {
+public abstract class FSGT38PopupActivity extends AppCompatActivity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
