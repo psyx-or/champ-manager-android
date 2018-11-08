@@ -72,6 +72,11 @@
 			android:label="@string/titre_fairplay">
 		</activity>
 
+		<activity
+			android:name=".ResultatMatchActivity"
+			android:label="@string/resultat">
+		</activity>
+
 		<provider
 			android:name="android.support.v4.content.FileProvider"
 			android:authorities="${applicationId}.provider"

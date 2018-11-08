@@ -17,15 +17,15 @@ public class IntentUtils
 	/**
 	 * Ouverture d'un fichier PDF
 	 * @param context Le contexte
-	 * @param fic Le fichier à ouvrir (doit être accessible publiquement)
+	 * @param fichier Le fichier à ouvrir
 	 */
-	public static void ouvrePDF(Context context, File fic)
+	public static void ouvrePDF(Context context, File fichier)
 	{
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setDataAndType(FileProvider.getUriForFile(
 				context,
 				context.getApplicationContext().getPackageName() + ".provider",
-				fic), "application/pdf");
+				fichier), "application/pdf");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		context.startActivity(intent);
 	}
@@ -68,7 +68,10 @@ public class IntentUtils
 		final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		if (intent.resolveActivity(activity.getPackageManager()) != null)
 		{
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fichier));
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(
+					activity,
+					activity.getApplicationContext().getPackageName() + ".provider",
+					fichier));
 			activity.startActivityForResult(intent, 0);
 			return true;
 		}

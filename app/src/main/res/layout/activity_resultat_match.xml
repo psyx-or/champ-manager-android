@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="16dp"
+              tools:ignore="LabelFor">
+
+	<TableLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal">
+
+		<!-- Equipe 1 -->
+		<TableRow
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"	>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/equipe1"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:inputType="number"
+				android:ems="2"
+				android:id="@+id/score1"
+				android:maxLength="2"
+				android:importantForAutofill="no"
+				tools:targetApi="o"
+				android:gravity="center"/>
+		</TableRow>
+
+		<!-- Equipe 2 -->
+		<TableRow
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/equipe2"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:inputType="number"
+				android:ems="2"
+				android:maxLength="2"
+				android:id="@+id/score2"
+				android:importantForAutofill="no"
+				tools:targetApi="o"
+				android:gravity="center"/>
+		</TableRow>
+
+		<!-- Feuille de match -->
+		<TableRow
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/feuille_match"
+				android:layout_gravity="center_vertical"/>
+
+			<ImageButton
+				android:id="@+id/btnCapture"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_marginStart="16dp"
+				android:background="@drawable/ic_camera"
+				android:contentDescription="@string/feuille_match_capture"/>
+		</TableRow>
+
+	</TableLayout>
+
+	<!-- Bouton d'envoi -->
+	<Button
+		android:id="@+id/btnEnvoi"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:text="@string/btn_envoi"/>
+
+	<!-- Prévisualisation de la feuille de match -->
+	<ImageView
+		android:layout_width="100dp"
+		android:layout_height="100dp"
+		android:layout_marginTop="16dp"
+		android:minHeight="100dp"
+		android:minWidth="100dp"
+		android:id="@+id/feuilleMatch"
+		android:layout_gravity="center_horizontal"
+		android:contentDescription="@string/feuille_match_visu"
+		android:visibility="gone"/>
+
+</LinearLayout>

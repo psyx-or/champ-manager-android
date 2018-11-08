@@ -99,4 +99,13 @@
 	<string name="menu_envoyer">Envoyer</string>
 	<string name="lbl_commentaire">Commentaire</string>
 	<string name="hint_commentaire">Pas de commentaire</string>
+
+	<!-- Ecran de saisie des résultats -->
+	<string name="feuille_match">Feuille de match</string>
+	<string name="feuille_match_capture">Capture de la feuille de match</string>
+	<string name="feuille_match_visu">Visualisation de la feuille de match</string>
+	<string name="resultat">Résultat</string>
+	<string name="btn_envoi">Envoyer</string>
+	<string name="erreur_appareil_photo">Aucun appareil photo détecté</string>
+
 </resources>

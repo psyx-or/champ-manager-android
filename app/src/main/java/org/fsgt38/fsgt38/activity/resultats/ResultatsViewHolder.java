@@ -9,6 +9,7 @@ import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.FairplayActivity;
 import org.fsgt38.fsgt38.ImageActivity;
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.ResultatMatchActivity;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Journee;
@@ -102,12 +103,15 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 					public void onClick(View view) {
 						if (championnat.getFpForm() != null) {
 							Intent intent = new Intent(itemView.getContext(), FairplayActivity.class);
-							intent.putExtra(FairplayActivity.KEY_MATCH, match.getId());
-							intent.putExtra(FairplayActivity.KEY_EQUIPE, equipe.getId() == match.getEquipe1().getId() ? 1 : 2);
+							intent.putExtra(FairplayActivity.KEY_MATCH, match);
+							intent.putExtra(FairplayActivity.KEY_EQUIPE_NUM, equipe.getId() == match.getEquipe1().getId() ? 1 : 2);
 							itemView.getContext().startActivity(intent);
 						}
 						else {
-							// TODO
+							// TODO: rediriger vers les coupes
+							Intent intent = new Intent(itemView.getContext(), ResultatMatchActivity.class);
+							intent.putExtra(ResultatMatchActivity.KEY_MATCH, match);
+							itemView.getContext().startActivity(intent);
 						}
 					}
 				});

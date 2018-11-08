@@ -11,6 +11,7 @@ import org.fsgt38.fsgt38.activity.fairplay.FPCategorieViewHolder;
 import org.fsgt38.fsgt38.model.FPCategorie;
 import org.fsgt38.fsgt38.model.FPFeuille;
 import org.fsgt38.fsgt38.model.FPQuestion;
+import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.model.dto.FPFeuilleAfficheDTO;
 import org.fsgt38.fsgt38.rest.FairplayService;
 import org.fsgt38.fsgt38.util.ApiUtils;
@@ -34,7 +35,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	// ----------------------------------------------------------------------------------------
 
 	public static final String KEY_MATCH = FairplayActivity.class.getName() + ".match";
-	public static final String KEY_EQUIPE = FairplayActivity.class.getName() + ".equipe";
+	public static final String KEY_EQUIPE_NUM = FairplayActivity.class.getName() + ".equipe";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -43,6 +44,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 
 	@BindView(R.id.liste)	RecyclerView liste;
 
+	private Match match;
 	private FPFeuilleAfficheDTO dto;
 
 
@@ -85,12 +87,13 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		ButterKnife.bind(this);
 
 		// Récupération des données
+		match = (Match) getIntent().getSerializableExtra(KEY_MATCH);
 		Retrofit retrofit = ApiUtils.getApi(this);
 		ApiUtils.appel(
 				this,
 				retrofit.create(FairplayService.class).getFeuille(
-						getIntent().getIntExtra(KEY_MATCH, -1),
-						getIntent().getIntExtra(KEY_EQUIPE, -1)),
+						match.getId(),
+						getIntent().getIntExtra(KEY_EQUIPE_NUM, -1)),
 				new ApiUtils.Action<FPFeuilleAfficheDTO>() {
 					@Override
 					public void action(FPFeuilleAfficheDTO dto) {
@@ -180,9 +183,10 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	private void onFeuilleModifiee() {//TODO
 		ApiUtils.videCache();
 
-		Intent intent = new Intent(this, EquipeActivity.class);
-		intent.putExtra(EquipeActivity.KEY_EQUIPE, FSGT38Application.getEquipe());
+		Intent intent = new Intent(this, ResultatMatchActivity.class);
+		intent.putExtra(ResultatMatchActivity.KEY_MATCH, match);
 		startActivity(intent);
+
 		finish();
 	}
 }
