@@ -48,8 +48,4 @@
 		<item name="android:textColor">@color/rouge</item>
 	</style>
 
-	<style name="TableauCellule.Vert">
-		<item name="android:textColor">@color/vert</item>
-	</style>
-
 </resources>
