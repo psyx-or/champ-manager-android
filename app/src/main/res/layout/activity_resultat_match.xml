@@ -20,12 +20,12 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/equipe1"/>
+				android:id="@+id/equipe1"
+				android:layout_marginEnd="16dp"	/>
 
 			<EditText
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
 				android:inputType="number"
 				android:ems="2"
 				android:id="@+id/score1"
@@ -35,20 +35,42 @@
 				android:gravity="center"/>
 		</TableRow>
 
-		<!-- Equipe 2 -->
+		<!-- Forfait 1 -->
 		<TableRow
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
+			android:layout_height="fill_parent"	>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/equipe2"/>
+				android:layout_gravity="center_vertical"
+				android:layout_marginEnd="16dp"
+				android:gravity="end"
+				android:text="@string/lbl_forfait"
+				android:textStyle="italic"/>
+
+			<CheckBox
+				android:id="@+id/forfait1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"/>
+		</TableRow>
+
+		<!-- Equipe 2 -->
+		<TableRow
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_marginTop="16dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/equipe2"
+				android:layout_marginEnd="16dp"/>
 
 			<EditText
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
 				android:inputType="number"
 				android:ems="2"
 				android:maxLength="2"
@@ -58,22 +80,44 @@
 				android:gravity="center"/>
 		</TableRow>
 
+		<!-- Forfait 2 -->
+		<TableRow
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"	>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				android:layout_marginEnd="16dp"
+				android:gravity="end"
+				android:text="@string/lbl_forfait"
+				android:textStyle="italic"/>
+
+			<CheckBox
+				android:id="@+id/forfait2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"/>
+		</TableRow>
+
 		<!-- Feuille de match -->
 		<TableRow
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
+			android:layout_height="fill_parent"
+			android:layout_marginTop="16dp">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/feuille_match"
-				android:layout_gravity="center_vertical"/>
+				android:layout_gravity="center_vertical"
+				android:layout_marginEnd="16dp"/>
 
 			<ImageButton
 				android:id="@+id/btnCapture"
 				android:layout_width="40dp"
 				android:layout_height="40dp"
-				android:layout_marginStart="16dp"
 				android:background="@drawable/ic_camera"
 				android:contentDescription="@string/feuille_match_capture"/>
 		</TableRow>

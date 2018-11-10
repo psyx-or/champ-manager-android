@@ -36,6 +36,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 
 	public static final String KEY_MATCH = FairplayActivity.class.getName() + ".match";
 	public static final String KEY_EQUIPE_NUM = FairplayActivity.class.getName() + ".equipe";
+	public static final String KEY_CHAMP_TYPE = ResultatMatchActivity.class.getName() + ".champType";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -185,6 +186,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 
 		Intent intent = new Intent(this, ResultatMatchActivity.class);
 		intent.putExtra(ResultatMatchActivity.KEY_MATCH, match);
+		intent.putExtra(ResultatMatchActivity.KEY_CHAMP_TYPE, getIntent().getSerializableExtra(KEY_CHAMP_TYPE));
 		startActivity(intent);
 
 		finish();

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,15 +17,17 @@ import org.fsgt38.fsgt38.util.IntentUtils;
 import org.fsgt38.fsgt38.util.Utils;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
+
+import static org.fsgt38.fsgt38.model.Championnat.ChampType;
 
 /**
  * Activité de saisie du résultat d'un match
@@ -36,6 +39,7 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 	// ----------------------------------------------------------------------------------------
 
 	public static final String KEY_MATCH = ResultatMatchActivity.class.getName() + ".match";
+	public static final String KEY_CHAMP_TYPE = ResultatMatchActivity.class.getName() + ".champType";
 
 
 	// ----------------------------------------------------------------------------------------
@@ -47,8 +51,10 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 
 	@BindView(R.id.equipe1)	        public TextView txtEquipe1;
 	@BindView(R.id.score1)	        public EditText txtScore1;
+	@BindView(R.id.forfait1)        public CheckBox chkForfait1;
 	@BindView(R.id.equipe2)	        public TextView txtEquipe2;
 	@BindView(R.id.score2)	        public EditText txtScore2;
+	@BindView(R.id.forfait2)        public CheckBox chkForfait2;
 	@BindView(R.id.feuilleMatch)	public ImageView imgFeuilleMatch;
 
 
@@ -60,6 +66,7 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 	 * Initialisation de l'écran
 	 * @param savedInstanceState paramètres sauvegardés
 	 */
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -72,16 +79,22 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 		// Initialisation
 		match = (Match) getIntent().getSerializableExtra(KEY_MATCH);
 
-		String score1 = match.getScore1() == null ? "" : "" + match.getScore1();
-		String score2 = match.getScore2() == null ? "" : "" + match.getScore2();
 		txtEquipe1.setText(match.getEquipe1().getNom());
-		txtScore1.setText(score1);
-		txtScore1.setSelection(score1.length());
+		if (match.getScore1() != null) {
+			String score1 = "" + match.getScore1();
+			txtScore1.setText(score1);
+			txtScore1.setSelection(score1.length());
+		}
+		chkForfait1.setChecked(match.isForfait1());
 		txtEquipe2.setText(match.getEquipe2().getNom());
-		txtScore2.setText(score2);
-		txtScore2.setSelection(score2.length());
+		if (match.getScore2() != null) {
+			String score2 = "" + match.getScore2();
+			txtScore2.setText(score2);
+			txtScore2.setSelection(score2.length());
+		}
+		chkForfait2.setChecked(match.isForfait2());
 
-		// Gestion de la prévisualisation de la feuille de match
+		// Réinitialisation de la feuille de match
 		fic = new File(getCacheDir(),"capture.jpg");
 		if (fic.exists() && savedInstanceState == null)
 			fic.delete();
@@ -101,27 +114,24 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 			afficheBitmap();
 	}
 
+	@OnCheckedChanged(R.id.forfait1)
+	public void forfait1() {
+		txtScore1.setEnabled(!chkForfait1.isChecked());
+	}
+
+	@OnCheckedChanged(R.id.forfait2)
+	public void forfait2() {
+		txtScore2.setEnabled(!chkForfait2.isChecked());
+	}
+
 	/**
 	 * Lancement de la capture d'écran
 	 */
 	@OnClick(R.id.btnCapture)
-	protected void captureFeuille()
-	{
-		// On crée le fichier
-		if (!fic.exists())
-		{
-			try
-			{
-				fic.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
+	protected void captureFeuille()	{
 
-		if (!IntentUtils.ouvreAppareilPhoto(this, fic))
-		{
+		// On ouvre l'appareil photo
+		if (!IntentUtils.ouvreAppareilPhoto(this, fic)) {
 			new AlertDialog.Builder(this)
 					.setTitle(R.string.erreur)
 					.setMessage(R.string.erreur_appareil_photo)
@@ -136,18 +146,26 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 	@OnClick(R.id.btnEnvoi)
 	protected void envoyer() {
 
-		// TODO: un truc correct
-		RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fic);
+		// Gestion des scores
+		Integer score1 = null;
+		if (!chkForfait1.isChecked() && txtScore1.getText().length() > 0)
+			score1 = Integer.valueOf(txtScore1.getText().toString());
+		Integer score2 = null;
+		if (!chkForfait2.isChecked() && txtScore2.getText().length() > 0)
+			score2 = Integer.valueOf(txtScore2.getText().toString());
 
-		MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("feuille",fic.getName(),requestFile);
+		// Gestion de la feuille de match
+		MultipartBody.Part multipartBody = null;
+		if (fic.exists()) {
+			RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fic);
+			multipartBody = MultipartBody.Part.createFormData("feuille",fic.getName(),requestFile);
+		}
 
-
-		// On effectue la modification
+		// On envoie au serveur
 		Retrofit retrofit = ApiUtils.getApi(this);
 		ApiUtils.appel(
 				this,
-				retrofit.create(MatchesService.class).majMatch(match.getId(), null, null, false, false, multipartBody),
-//				retrofit.create(MatchesService.class).majMatch(match.getId(), Integer.valueOf(txtScore1.getText().toString()), Integer.valueOf(txtScore2.getText().toString()), false, false, fic),
+				retrofit.create(MatchesService.class).majMatch(match.getId(), score1, score2, chkForfait1.isChecked(), chkForfait2.isChecked(), multipartBody),
 				new ApiUtils.Action<Object>() {
 					@Override
 					public void action(Object ignore) {
@@ -177,9 +195,10 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 	private void onMatchModifie() {
 		ApiUtils.videCache();
 
-		// TODO: redirection coupes
+		ChampType champType = (ChampType) getIntent().getSerializableExtra(KEY_CHAMP_TYPE);
 		Intent intent = new Intent(this, EquipeActivity.class);
 		intent.putExtra(EquipeActivity.KEY_EQUIPE, FSGT38Application.getEquipe());
+		intent.putExtra(EquipeActivity.KEY_ECRAN, champType == ChampType.COUPE ? R.id.navigation_coupes : R.id.navigation_classement);
 		startActivity(intent);
 		finish();
 	}

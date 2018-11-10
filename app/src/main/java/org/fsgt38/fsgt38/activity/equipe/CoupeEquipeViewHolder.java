@@ -1,6 +1,7 @@
 package org.fsgt38.fsgt38.activity.equipe;
 
 import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Journee;
 import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
+import org.fsgt38.fsgt38.util.Utils;
 
 public class CoupeEquipeViewHolder extends TableauViewHolder<Equipe, Journee> {
 
@@ -55,22 +57,26 @@ public class CoupeEquipeViewHolder extends TableauViewHolder<Equipe, Journee> {
 		// Ajout de la phase
 		if (niveau != compteur.lastNiveau) {
 			TableRow ligne = addLigneEntete();
+			ligne.setClickable(false);
+			if (compteur.i > 0)
+				((TableLayout.LayoutParams) ligne.getLayoutParams()).setMargins(0, Utils.convertDpToPixel(16, itemView.getContext()),0,0);
 			TextView cellule = addCelluleEntete(ligne, getTxtJournee(niveau));
-//			cellule.setPadding(0, 0, 0, 0);
 			((TableRow.LayoutParams) cellule.getLayoutParams()).span = 3;
-//			cellule.setTextColor(getColor(R.color.text_lien));
 			compteur.lastNiveau = niveau;
+			compteur.iStyle = 1;
 		}
 
 		compteur.i++;
+		compteur.iStyle++;
 
 		// Ajout du match
-		int style = (compteur.i % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
+		int style = (compteur.iStyle % 2 == 0) ? R.layout.tableau_ligne_contenu_paire : R.layout.tableau_ligne_contenu_impaire;
 		if (match.getEquipe1() != null && match.getEquipe1().getId() == equipe.getId() ||
 			match.getEquipe2() != null && match.getEquipe2().getId() == equipe.getId())
 			style = R.layout.tableau_ligne_contenu_selection;
 
 		TableRow ligne = addLigne(style);
+		ligne.setClickable(false);
 		addCellule(ligne, compteur.i);
 		addCelluleEquipe(ligne, equipe, match.getEquipe1(), match.getScore1(), match.getScore2(), match.isForfait1(), match.isForfait2(), i1);
 		addCelluleEquipe(ligne, equipe, match.getEquipe2(), match.getScore2(), match.getScore1(), match.isForfait2(), match.isForfait1(), i2);
@@ -96,5 +102,6 @@ public class CoupeEquipeViewHolder extends TableauViewHolder<Equipe, Journee> {
 	private class Compteur {
 		int i = 0;
 		int lastNiveau = 0;
+		int iStyle = 0;
 	}
 }

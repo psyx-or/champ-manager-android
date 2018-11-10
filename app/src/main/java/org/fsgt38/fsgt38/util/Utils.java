@@ -3,10 +3,12 @@ package org.fsgt38.fsgt38.util;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -44,13 +46,15 @@ public class Utils {
 	 */
 	public static ProgressDialog creeWaiter(Context context, DialogInterface.OnCancelListener listener)
 	{
-		return ProgressDialog.show(
+		ProgressDialog dialog = ProgressDialog.show(
 				context,
 				context.getString(R.string.app_name),
 				context.getString(R.string.chargement),
 				true,
 				true,
 				listener);
+		dialog.setCancelable(false);
+		return dialog;
 	}
 
 	/**
@@ -78,6 +82,7 @@ public class Utils {
 	{
 		view.post(new Runnable()
 		{
+			@SuppressWarnings("ConstantConditions")
 			@Override
 			public void run()
 			{
@@ -168,5 +173,18 @@ public class Utils {
 		}
 
 		return inSampleSize;
+	}
+
+	/**
+	 * This method converts dp unit to equivalent pixels, depending on device density.
+	 *
+	 * @param dp A value in dp (density independent pixels) unit. Which we need to convert into pixels
+	 * @param context Context to get resources and device specific display metrics
+	 * @return A float value to represent px equivalent to dp depending on device density
+	 */
+	public static int convertDpToPixel(float dp, Context context){
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		return Math.round(dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
 	}
 }

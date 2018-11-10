@@ -8,6 +8,7 @@
 	<string name="erreur">Erreur</string>
 	<string name="chargement">Chargement en cours…</string>
 	<string name="vide">Pas d\'élément à afficher</string>
+	<string name="erreur_pdf">Pas de lecteur PDF sur cet appareil</string>
 
 	<!-- Menu -->
 	<string name="titre_classement">Classements</string>
@@ -107,5 +108,6 @@
 	<string name="resultat">Résultat</string>
 	<string name="btn_envoi">Envoyer</string>
 	<string name="erreur_appareil_photo">Aucun appareil photo détecté</string>
+	<string name="lbl_forfait">Forfait</string>
 
 </resources>

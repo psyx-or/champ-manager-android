@@ -101,8 +101,8 @@ public class ImageActivity extends FSGT38PopupActivity {
 				output.close();
 
 				// On lance le lecteur de PDF
-				IntentUtils.ouvrePDF(this, fic);
-				finish();
+				if (IntentUtils.ouvrePDF(this, fic))
+					finish();
 			}
 			catch (final IOException e) {
 				// Gestion des erreurs

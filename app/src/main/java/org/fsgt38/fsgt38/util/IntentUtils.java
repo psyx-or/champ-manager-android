@@ -1,11 +1,15 @@
 package org.fsgt38.fsgt38.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+
+import org.fsgt38.fsgt38.R;
 
 import java.io.File;
 
@@ -19,15 +23,26 @@ public class IntentUtils
 	 * @param context Le contexte
 	 * @param fichier Le fichier à ouvrir
 	 */
-	public static void ouvrePDF(Context context, File fichier)
+	public static boolean ouvrePDF(Context context, File fichier)
 	{
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setDataAndType(FileProvider.getUriForFile(
-				context,
-				context.getApplicationContext().getPackageName() + ".provider",
-				fichier), "application/pdf");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-		context.startActivity(intent);
+		try {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setDataAndType(FileProvider.getUriForFile(
+					context,
+					context.getApplicationContext().getPackageName() + ".provider",
+					fichier), "application/pdf");
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			context.startActivity(intent);
+			return true;
+		}
+		catch (ActivityNotFoundException e) {
+			new AlertDialog.Builder(context)
+					.setTitle(R.string.erreur)
+					.setMessage(R.string.erreur_pdf)
+					.setPositiveButton(android.R.string.yes, null)
+					.show();
+			return false;
+		}
 	}
 
 	/**
