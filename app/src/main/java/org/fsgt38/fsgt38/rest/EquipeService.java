@@ -25,5 +25,5 @@ public interface EquipeService
 	 * @return Equipe
 	 */
 	@GET("equipe/{id}")
-	Call<Equipe> get(@Path("id") int equipeId);
+	Call<Equipe> get(@Path("id") int equipeId, @Query("saison") String saison);
 }
