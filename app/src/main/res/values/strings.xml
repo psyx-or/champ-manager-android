@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
 
-	<!--<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
-	<string name="url_api">http://10.0.2.2/edsa-champ-manager/api/</string>
+<!--	<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
+	<string name="url_api">http://10.0.2.2/champ-manager/api/</string>
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
@@ -100,6 +100,8 @@
 	<string name="menu_envoyer">Envoyer</string>
 	<string name="lbl_commentaire">Commentaire</string>
 	<string name="hint_commentaire">Pas de commentaire</string>
+	<string name="fp_forfait">Le match a-t-il été joué?</string>
+	<string name="fp_joue">Match joué</string>
 
 	<!-- Ecran de saisie des résultats -->
 	<string name="feuille_match">Feuille de match</string>

@@ -77,7 +77,8 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 					else {
 						// Match joué
 						bouton.setImageResource(R.drawable.ic_pencil);
-						if (championnat.getFpForm() != null && (
+						if (championnat.getFpForm() != null &&
+						    !match.isForfait1() && !match.isForfait2() && (
 								equipe.getId() == match.getEquipe1().getId() && !match.isHasFpFeuille1() ||
 								equipe.getId() == match.getEquipe2().getId() && !match.isHasFpFeuille2())) {
 
@@ -85,7 +86,7 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 							bouton.setColorFilter(getColor(R.color.text_danger));
 						}
 						else {
-							// Pas de fair-play ou fair-play déjà rempli
+							// Pas de fair-play ou fair-play déjà rempli ou forfait (=> pas besoin de feuille de fair-play)
 							bouton.setColorFilter(getColor(R.color.noir));
 						}
 					}
@@ -99,22 +100,19 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 
 				// Gestion du clic
 				if (style != R.layout.tableau_ligne_grisee) {
-					ligne.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View view) {
-							if (championnat.getFpForm() != null) {
-								Intent intent = new Intent(itemView.getContext(), FairplayActivity.class);
-								intent.putExtra(FairplayActivity.KEY_MATCH, match);
-								intent.putExtra(FairplayActivity.KEY_EQUIPE_NUM, equipe.getId() == match.getEquipe1().getId() ? 1 : 2);
-								intent.putExtra(FairplayActivity.KEY_CHAMP_TYPE, championnat.getType());
-								itemView.getContext().startActivity(intent);
-							}
-							else {
-								Intent intent = new Intent(itemView.getContext(), ResultatMatchActivity.class);
-								intent.putExtra(ResultatMatchActivity.KEY_MATCH, match);
-								intent.putExtra(ResultatMatchActivity.KEY_CHAMP_TYPE, championnat.getType());
-								itemView.getContext().startActivity(intent);
-							}
+					ligne.setOnClickListener(view -> {
+						if (championnat.getFpForm() != null) {
+							Intent intent = new Intent(itemView.getContext(), FairplayActivity.class);
+							intent.putExtra(FairplayActivity.KEY_MATCH, match);
+							intent.putExtra(FairplayActivity.KEY_EQUIPE_NUM, equipe.getId() == match.getEquipe1().getId() ? 1 : 2);
+							intent.putExtra(FairplayActivity.KEY_CHAMP_TYPE, championnat.getType());
+							itemView.getContext().startActivity(intent);
+						}
+						else {
+							Intent intent = new Intent(itemView.getContext(), ResultatMatchActivity.class);
+							intent.putExtra(ResultatMatchActivity.KEY_MATCH, match);
+							intent.putExtra(ResultatMatchActivity.KEY_CHAMP_TYPE, championnat.getType());
+							itemView.getContext().startActivity(intent);
 						}
 					});
 				}
@@ -125,15 +123,10 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 				{
 					image.setImageResource(R.drawable.ic_clipboard_outline);
 					image.setClickable(true);
-					image.setOnClickListener(new View.OnClickListener()
-					{
-						@Override
-						public void onClick(View view)
-						{
-							Intent intent = new Intent(itemView.getContext(), ImageActivity.class);
-							intent.putExtra(ImageActivity.KEY_FICHIER, match.getFeuille());
-							itemView.getContext().startActivity(intent);
-						}
+					image.setOnClickListener(view -> {
+						Intent intent = new Intent(itemView.getContext(), ImageActivity.class);
+						intent.putExtra(ImageActivity.KEY_FICHIER, match.getFeuille());
+						itemView.getContext().startActivity(intent);
 					});
 				}
 				ligne.addView(image);

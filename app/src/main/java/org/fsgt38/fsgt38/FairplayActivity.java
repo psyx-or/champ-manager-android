@@ -3,13 +3,11 @@ package org.fsgt38.fsgt38;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.fsgt38.fsgt38.activity.fairplay.FPCategorieViewHolder;
 import org.fsgt38.fsgt38.model.FPCategorie;
-import org.fsgt38.fsgt38.model.FPFeuille;
 import org.fsgt38.fsgt38.model.FPQuestion;
 import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.model.dto.FPFeuilleAfficheDTO;
@@ -21,6 +19,7 @@ import org.fsgt38.fsgt38.util.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
@@ -95,12 +94,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 				retrofit.create(FairplayService.class).getFeuille(
 						match.getId(),
 						getIntent().getIntExtra(KEY_EQUIPE_NUM, -1)),
-				new ApiUtils.Action<FPFeuilleAfficheDTO>() {
-					@Override
-					public void action(FPFeuilleAfficheDTO dto) {
-						afficheFeuille(dto);
-					}
-				}
+				this::afficheFeuille
 		);
 	}
 
@@ -147,12 +141,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		ApiUtils.appel(
 				this,
 				retrofit.create(FairplayService.class).majFeuille(dto.getMatchId(),	dto),
-				new ApiUtils.Action<FPFeuille>() {
-					@Override
-					public void action(FPFeuille dto) {
-						onFeuilleModifiee();
-					}
-				}
+				dto -> onFeuilleModifiee()
 		);
 
 		return true;
@@ -170,6 +159,14 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	private void afficheFeuille(FPFeuilleAfficheDTO dto) {
 		this.dto = dto;
 
+		if (dto.getFpFeuille().getId() == null) {
+			new AlertDialog.Builder(this)
+					.setMessage(R.string.fp_forfait)
+					.setPositiveButton(R.string.fp_joue, null)
+					.setNegativeButton(R.string.lbl_forfait, (dialog, which) -> onFeuilleModifiee())
+					.show();
+		}
+
 		List<FPCategorie> categories = new ArrayList<>(dto.getFpForm().getCategories());
 		FPCategorie catCommentaire = new FPCategorie();
 		catCommentaire.setLibelle(getString(R.string.lbl_commentaire));
@@ -181,7 +178,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	/**
 	 * Fonction appelée une fois que la modification a été acceptée sur le serveur
 	 */
-	private void onFeuilleModifiee() {//TODO
+	private void onFeuilleModifiee() {
 		ApiUtils.videCache();
 
 		Intent intent = new Intent(this, ResultatMatchActivity.class);
