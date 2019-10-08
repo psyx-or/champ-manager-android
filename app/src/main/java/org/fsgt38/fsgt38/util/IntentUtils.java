@@ -7,11 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 
 import org.fsgt38.fsgt38.R;
 
 import java.io.File;
+
+import androidx.core.content.FileProvider;
 
 /**
  * Fonctions permettant de faire le lien avec d'autres applications

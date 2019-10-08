@@ -1,10 +1,11 @@
 package org.fsgt38.fsgt38.util;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Activité affichant une croix dans la barre d'action

@@ -2,7 +2,6 @@ package org.fsgt38.fsgt38.util;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,6 +9,8 @@ import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.LoginActivity;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.ResultatsActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Activité gérant la barre d'action

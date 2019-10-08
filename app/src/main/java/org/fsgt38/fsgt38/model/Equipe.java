@@ -1,11 +1,10 @@
 package org.fsgt38.fsgt38.model;
 
-import android.support.annotation.NonNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

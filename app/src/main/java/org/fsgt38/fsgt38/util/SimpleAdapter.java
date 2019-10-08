@@ -1,13 +1,13 @@
 package org.fsgt38.fsgt38.util;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.fsgt38.fsgt38.R;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.ButterKnife;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

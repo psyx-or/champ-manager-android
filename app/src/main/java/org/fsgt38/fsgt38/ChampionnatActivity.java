@@ -3,15 +3,16 @@ package org.fsgt38.fsgt38;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.fsgt38.fsgt38.activity.championnat.ClassementChampionnatFragment;
 import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
+import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 
 /**

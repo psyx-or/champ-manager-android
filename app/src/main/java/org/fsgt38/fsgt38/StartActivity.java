@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.rest.AuthentService;
@@ -12,6 +11,7 @@ import org.fsgt38.fsgt38.util.ApiUtils;
 
 import java.util.Set;
 
+import androidx.annotation.Nullable;
 import retrofit2.Retrofit;
 
 /**

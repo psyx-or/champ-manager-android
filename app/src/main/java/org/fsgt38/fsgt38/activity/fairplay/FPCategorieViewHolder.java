@@ -1,6 +1,5 @@
 package org.fsgt38.fsgt38.activity.fairplay;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +9,7 @@ import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.FPCategorie;
 import org.fsgt38.fsgt38.util.SimpleAdapter;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 

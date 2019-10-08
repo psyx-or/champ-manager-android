@@ -3,7 +3,8 @@ package org.fsgt38.fsgt38;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.rest.AuthentService;
