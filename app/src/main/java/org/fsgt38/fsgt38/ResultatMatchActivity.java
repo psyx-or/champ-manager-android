@@ -166,12 +166,7 @@ public class ResultatMatchActivity extends FSGT38PopupActivity {
 		ApiUtils.appel(
 				this,
 				retrofit.create(MatchesService.class).majMatch(match.getId(), score1, score2, chkForfait1.isChecked(), chkForfait2.isChecked(), multipartBody),
-				new ApiUtils.Action<Object>() {
-					@Override
-					public void action(Object ignore) {
-						onMatchModifie();
-					}
-				}
+				ignore -> onMatchModifie()
 		);
 	}
 

@@ -39,12 +39,9 @@ public class StartActivity extends Activity {
 			ApiUtils.appel(
 					this,
 					retrofit.create(AuthentService.class).authentifie(null, null, null),
-					new ApiUtils.Action<Equipe>() {
-						@Override
-						public void action(Equipe equipe) {
-							FSGT38Application.setEquipe(equipe);
-							termine();
-						}
+					equipe -> {
+						FSGT38Application.setEquipe(equipe);
+						termine();
 					},
 					false
 			);

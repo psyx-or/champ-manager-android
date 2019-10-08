@@ -16,7 +16,6 @@ import org.fsgt38.fsgt38.activity.equipe.MatchesEquipeFragment;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
-import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 
 /**
@@ -64,12 +63,7 @@ public class EquipeActivity extends FSGT38Activity {
 		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
-		navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				return navigate(item.getItemId());
-			}
-		});
+		navigation.setOnNavigationItemSelectedListener(item -> navigate(item.getItemId()));
 
 		// Navigation vers le bon fragment
 		if (savedInstanceState == null)

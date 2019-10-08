@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -107,14 +106,7 @@ public class ApiUtils {
 		// Mise en place du sablier
 		ProgressDialog tmpWaiter = null;
 		if (withWaiter) {
-			tmpWaiter = Utils.creeWaiter(activity, new DialogInterface.OnCancelListener()
-			{
-				@Override
-				public void onCancel(DialogInterface dialogInterface)
-				{
-					call.cancel();
-				}
-			});
+			tmpWaiter = Utils.creeWaiter(activity, dialogInterface -> call.cancel());
 		}
 
 		// Appel REST
@@ -152,18 +144,11 @@ public class ApiUtils {
 
 				if (call.isCanceled()) return;
 
-				activity.runOnUiThread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						new AlertDialog.Builder(activity)
-								.setTitle(R.string.erreur)
-								.setMessage(t.getLocalizedMessage())
-								.setPositiveButton(android.R.string.yes, null)
-								.show();
-					}
-				});
+				activity.runOnUiThread(() -> new AlertDialog.Builder(activity)
+						.setTitle(R.string.erreur)
+						.setMessage(t.getLocalizedMessage())
+						.setPositiveButton(android.R.string.yes, null)
+						.show());
 			}
 		});
 

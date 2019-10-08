@@ -14,13 +14,11 @@ import android.widget.ImageView;
 
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.model.Championnat;
-import org.fsgt38.fsgt38.model.Classement;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
 
 import androidx.exifinterface.media.ExifInterface;
 
@@ -63,14 +61,11 @@ public class Utils {
 	 * @param championnat Championnat
 	 */
 	public static void trieClassements(Championnat championnat) {
-		Arrays.sort(championnat.getClassements(), new Comparator<Classement>() {
-			@Override
-			public int compare(Classement o1, Classement o2) {
-				if (o1.getPosition() == o2.getPosition())
-					return o1.getEquipe().getNom().compareTo(o2.getEquipe().getNom());
-				else
-					return o1.getPosition() - o2.getPosition();
-			}
+		Arrays.sort(championnat.getClassements(), (o1, o2) -> {
+			if (o1.getPosition() == o2.getPosition())
+				return o1.getEquipe().getNom().compareTo(o2.getEquipe().getNom());
+			else
+				return o1.getPosition() - o2.getPosition();
 		});
 	}
 
@@ -81,15 +76,9 @@ public class Utils {
 	 */
 	public static void montreClavier(final Context context, final View view)
 	{
-		view.post(new Runnable()
-		{
-			@SuppressWarnings("ConstantConditions")
-			@Override
-			public void run()
-			{
-				InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-			}
+		view.post(() -> {
+			InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
 		});
 	}
 

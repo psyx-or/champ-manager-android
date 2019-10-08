@@ -19,7 +19,6 @@ import java.io.OutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 /**
@@ -68,12 +67,7 @@ public class ImageActivity extends FSGT38PopupActivity {
 		ApiUtils.appel(
 				this,
 				retrofit.create(MatchesService.class).getFeuille(fichier),
-				new ApiUtils.Action<ResponseBody>() {
-					@Override
-					public void action(ResponseBody feuille) {
-						afficheImage(feuille.byteStream());
-					}
-				}
+				feuille -> afficheImage(feuille.byteStream())
 		);
 	}
 
@@ -106,18 +100,11 @@ public class ImageActivity extends FSGT38PopupActivity {
 			}
 			catch (final IOException e) {
 				// Gestion des erreurs
-				runOnUiThread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						new AlertDialog.Builder(ImageActivity.this)
-								.setTitle(R.string.erreur)
-								.setMessage(e.getLocalizedMessage())
-								.setPositiveButton(android.R.string.yes, null)
-								.show();
-					}
-				});
+				runOnUiThread(() -> new AlertDialog.Builder(ImageActivity.this)
+						.setTitle(R.string.erreur)
+						.setMessage(e.getLocalizedMessage())
+						.setPositiveButton(android.R.string.yes, null)
+						.show());
 			}
 		}
 		else {

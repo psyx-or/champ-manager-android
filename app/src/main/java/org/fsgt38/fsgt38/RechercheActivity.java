@@ -85,12 +85,7 @@ public class RechercheActivity extends FSGT38Activity {
 		// Init contrôles
 		initFavoris();
 		equipeSearchTxt.setThreshold(2);
-		equipeSearchTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				selectionEquipe(parent, position);
-			}
-		});
+		equipeSearchTxt.setOnItemClickListener((parent, view, position, id) -> selectionEquipe(parent, position));
 		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
 		this.championnats.setVisibility(View.INVISIBLE);
 
@@ -107,12 +102,7 @@ public class RechercheActivity extends FSGT38Activity {
 			ApiUtils.appel(
 					this,
 					retrofit.create(ChampionnatService.class).getChampionnats(Utils.getSaison()),
-					new ApiUtils.Action<List<Championnat>>() {
-						@Override
-						public void action(List<Championnat> championnats) {
-							initChampionnats(championnats);
-						}
-					},
+					this::initChampionnats,
 					false
 			);
 		}

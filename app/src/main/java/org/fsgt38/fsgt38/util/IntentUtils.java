@@ -79,6 +79,7 @@ public class IntentUtils
 	 * @param fichier Le fichier dans lequel écrire la photo
 	 * @return Vrai si l'appareil dispose d'un appareil photo, faux sinon
 	 */
+	@SuppressWarnings("JavadocReference")
 	public static boolean ouvreAppareilPhoto(Activity activity, File fichier)
 	{
 		final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

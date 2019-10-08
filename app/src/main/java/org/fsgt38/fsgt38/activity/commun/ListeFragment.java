@@ -128,17 +128,14 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 		ApiUtils.appel(
 				getActivity(),
 				getData(retrofit),
-				new ApiUtils.Action<T>() {
-					@Override
-					public void action(T obj) {
-						RecyclerView.Adapter adapter = getAdapter(obj);
-						if (adapter.getItemCount() == 0) {
-							liste.setVisibility(View.GONE);
-							txtVide.setVisibility(View.VISIBLE);
-						}
-						else {
-							liste.setAdapter(adapter);
-						}
+				obj -> {
+					RecyclerView.Adapter adapter = getAdapter(obj);
+					if (adapter.getItemCount() == 0) {
+						liste.setVisibility(View.GONE);
+						txtVide.setVisibility(View.VISIBLE);
+					}
+					else {
+						liste.setAdapter(adapter);
 					}
 				}
 		);

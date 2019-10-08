@@ -63,12 +63,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 				cellule = addCellule(ligne, responsable.getTel1());
 				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 				cellule.setTextColor(getColor(R.color.text_lien));
-				cellule.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						IntentUtils.ouvreTelephone(itemView.getContext(), responsable.getTel1());
-					}
-				});
+				cellule.setOnClickListener(view -> IntentUtils.ouvreTelephone(itemView.getContext(), responsable.getTel1()));
 			}
 
 			// Mail
@@ -78,12 +73,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 				cellule = addCellule(ligne, responsable.getMail());
 				cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 				cellule.setTextColor(getColor(R.color.text_lien));
-				cellule.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						IntentUtils.ouvreMail(itemView.getContext(), responsable.getMail());
-					}
-				});
+				cellule.setOnClickListener(view -> IntentUtils.ouvreMail(itemView.getContext(), responsable.getMail()));
 			}
 
 			i++;
@@ -109,12 +99,7 @@ public class InfoEquipeViewHolder extends TableauViewHolder<Equipe, Equipe> {
 			cellule = addCellule(ligne, data.getTerrain());
 			cellule.setPaintFlags(cellule.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 			cellule.setTextColor(getColor(R.color.text_lien));
-			cellule.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					IntentUtils.ouvreGMaps(itemView.getContext(), data.getPosition() != null ? data.getPosition() : data.getTerrain());
-				}
-			});
+			cellule.setOnClickListener(view -> IntentUtils.ouvreGMaps(itemView.getContext(), data.getPosition() != null ? data.getPosition() : data.getTerrain()));
 		}
 
 		// Créneaux

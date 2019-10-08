@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.fsgt38.fsgt38.activity.resultats.ResultatsViewHolder;
-import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.rest.MatchesService;
 import org.fsgt38.fsgt38.rest.ParametreService;
 import org.fsgt38.fsgt38.util.ApiUtils;
@@ -57,12 +56,9 @@ public class ResultatsActivity extends FSGT38Activity {
 			ApiUtils.appel(
 					this,
 					retrofit.create(ParametreService.class).get(PARAM_DUREE_SAISIE),
-					new ApiUtils.Action<String>() {
-						@Override
-						public void action(String valeur) {
-							FSGT38Application.setDureeSaisie(Integer.valueOf(valeur));
-							chargeMatches(retrofit);
-						}
+					valeur -> {
+						FSGT38Application.setDureeSaisie(Integer.valueOf(valeur));
+						chargeMatches(retrofit);
 					}
 			);
 		}
@@ -108,17 +104,14 @@ public class ResultatsActivity extends FSGT38Activity {
 		ApiUtils.appel(
 				this,
 				retrofit.create(MatchesService.class).listeEquipe(FSGT38Application.getEquipe().getId(), Utils.getSaison()),
-				new ApiUtils.Action<Championnat[]>() {
-					@Override
-					public void action(Championnat[] data) {
-						RecyclerView.Adapter adapter = new SimpleAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
-						if (adapter.getItemCount() == 0) {
-							liste.setVisibility(View.GONE);
-							txtVide.setVisibility(View.VISIBLE);
-						}
-						else {
-							liste.setAdapter(adapter);
-						}
+				data -> {
+					RecyclerView.Adapter adapter = new SimpleAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
+					if (adapter.getItemCount() == 0) {
+						liste.setVisibility(View.GONE);
+						txtVide.setVisibility(View.VISIBLE);
+					}
+					else {
+						liste.setAdapter(adapter);
 					}
 				}
 		);

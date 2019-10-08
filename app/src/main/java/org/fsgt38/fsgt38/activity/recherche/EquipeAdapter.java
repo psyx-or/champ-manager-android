@@ -42,13 +42,10 @@ public class EquipeAdapter extends RecyclerView.Adapter {
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_equipe, parent, false);
-		view.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(view.getContext(), EquipeActivity.class);
-				intent.putExtra(EquipeActivity.KEY_EQUIPE, (Equipe)view.getTag());
-				view.getContext().startActivity(intent);
-			}
+		view.setOnClickListener(view1 -> {
+			Intent intent = new Intent(view1.getContext(), EquipeActivity.class);
+			intent.putExtra(EquipeActivity.KEY_EQUIPE, (Equipe) view1.getTag());
+			view1.getContext().startActivity(intent);
 		});
 		return new RecyclerView.ViewHolder(view) {};
 	}

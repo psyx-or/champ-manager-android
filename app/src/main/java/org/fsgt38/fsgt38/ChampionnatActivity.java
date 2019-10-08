@@ -3,7 +3,6 @@ package org.fsgt38.fsgt38;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,7 +11,6 @@ import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
-import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 
 /**
@@ -60,12 +58,7 @@ public class ChampionnatActivity extends FSGT38Activity {
 		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
-		navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				return navigate(item.getItemId());
-			}
-		});
+		navigation.setOnNavigationItemSelectedListener(item -> navigate(item.getItemId()));
 
 		// Navigation vers le bon fragment
 		if (savedInstanceState == null)

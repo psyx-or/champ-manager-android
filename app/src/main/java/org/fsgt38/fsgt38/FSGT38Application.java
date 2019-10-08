@@ -183,7 +183,7 @@ public class FSGT38Application extends Application {
 
 		if (equipesPreferees == null) {
 			equipesPreferees = new HashSet<>();
-			for (String equipeStr: sp.getStringSet(PREF_EQUIPES_PREFEREES, new HashSet<String>()))
+			for (String equipeStr: sp.getStringSet(PREF_EQUIPES_PREFEREES, new HashSet<>()))
 				equipesPreferees.add(new Equipe(equipeStr));
 		}
 

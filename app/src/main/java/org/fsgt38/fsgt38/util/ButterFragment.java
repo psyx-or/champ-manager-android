@@ -30,6 +30,7 @@ public abstract class ButterFragment extends Fragment {
 	 * Constructeur
 	 * @param layout Layout
 	 */
+	@SuppressWarnings("deprecation")
 	protected ButterFragment(int layout) {
 		this.layout = layout;
 	}
