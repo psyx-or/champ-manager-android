@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
 
-<!--	<string name="url_api">https://clubs.fsgt38.org/api/</string>-->
-	<string name="url_api">http://10.0.2.2/champ-manager/api/</string>
+	<string name="url_api">https://clubs.fsgt38.org/api/</string>
+<!--	<string name="url_api">http://10.0.2.2/champ-manager/api/</string>-->
 
 	<!-- Global -->
 	<string name="app_name">FSGT 38</string>
