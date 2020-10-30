@@ -32,7 +32,7 @@ public class MatchesChampionnatViewHolder extends TableauViewHolder<Championnat,
 	 * @param journee Journee
 	 */
 	public void affiche(Championnat championnat, Journee journee) {
-		init(getString(R.string.journee_i, journee.getNumero()));
+		init(journee.getLibelle());
 		tableau.setShrinkAllColumns(false);
 		tableau.setColumnShrinkable(0, true);
 		tableau.setColumnShrinkable(1, false);

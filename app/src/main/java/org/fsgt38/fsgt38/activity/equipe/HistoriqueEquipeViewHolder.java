@@ -11,6 +11,8 @@ import org.fsgt38.fsgt38.model.Classement;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
 
+import static org.fsgt38.fsgt38.model.Championnat.ChampType.COUPE;
+
 /**
  * L'historique d'une équipe
  */
@@ -72,13 +74,23 @@ public class HistoriqueEquipeViewHolder extends TableauViewHolder<Equipe, Champi
 
 				addCellule(ligne, championnat.getSaison());
 				addCellule(ligne, championnat.getNom());
-				addCellule(ligne, classement.getPosition(), R.layout.tableau_cellule_gras);
+
+				if (classement.getNomJournee() != null)
+					addCellule(ligne, classement.getNomJournee(), R.layout.tableau_cellule_gras);
+				else
+					addCellule(ligne, classement.getPosition(), R.layout.tableau_cellule_gras);
+
 				if (grandEcran) {
-					addCellule(ligne, classement.getPts());
+					if (championnat.getType() == COUPE)
+						addCellule(ligne, "");
+					else
+						addCellule(ligne, classement.getPts());
 					addCellule(ligne, classement.getMTotal());
 					addCellule(ligne, classement.getMVict());
 					if (championnat.getPtnul() != null)
 						addCellule(ligne, classement.getMNul());
+					else
+						addCellule(ligne, "-");
 					addCellule(ligne, classement.getMDef());
 					addCellule(ligne, classement.getMFo());
 					addCellule(ligne, classement.getPour());

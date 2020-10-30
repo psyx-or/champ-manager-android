@@ -20,4 +20,5 @@ public class Classement {
 	private Integer mNul;
 	private int mDef;
 	private int mFo;
+	private String nomJournee;
 }
