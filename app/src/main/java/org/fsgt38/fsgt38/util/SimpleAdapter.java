@@ -4,10 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.fsgt38.fsgt38.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.fsgt38.fsgt38.R;
+
 import butterknife.ButterKnife;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 
 	public static abstract class ViewHolder<K,T> extends RecyclerView.ViewHolder {
 
-		abstract public void affiche(K clef, T objet);
+		protected abstract void affiche(K clef, T objet);
 
 		/**
 		 * Constructeur
@@ -45,7 +46,6 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 	private final K clef;
 	private final T[] objs;
 	private final Class<V> clazz;
-	private int layout = R.layout.tableau;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 	@NonNull
 	@Override
 	public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tableau, parent, false);
 		try {
 			return clazz.getConstructor(View.class).newInstance(view);
 		}

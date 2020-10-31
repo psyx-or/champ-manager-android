@@ -1,5 +1,7 @@
 package org.fsgt38.fsgt38.model;
 
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -28,7 +30,6 @@ public class Championnat implements Serializable {
 	private FPForm fpForm;
 
 
-	@SuppressWarnings("unused")
 	public Championnat() {
 	}
 
@@ -49,7 +50,7 @@ public class Championnat implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public @NonNull String toString() {
 		return nom;
 	}
 }

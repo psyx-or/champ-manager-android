@@ -1,5 +1,7 @@
 package org.fsgt38.fsgt38.model;
 
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -17,7 +19,7 @@ public class Sport implements Serializable
 	private String nom;
 
 	@Override
-	public String toString() {
+	public @NonNull String toString() {
 		return nom;
 	}
 }

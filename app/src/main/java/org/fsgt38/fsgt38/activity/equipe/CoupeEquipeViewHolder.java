@@ -120,7 +120,7 @@ public class CoupeEquipeViewHolder extends TableauViewHolder<Equipe, Journee> {
 		int i = 0;
 		int lastNiveau = 0;
 		int iStyle = 0;
-		Map<Integer, Integer> index = new HashMap<>();
+		final Map<Integer, Integer> index = new HashMap<>();
 
 		Integer getIndex(Match match) {
 			return match == null ? null : index.get(match.getId());

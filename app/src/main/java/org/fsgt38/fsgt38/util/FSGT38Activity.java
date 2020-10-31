@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.LoginActivity;
 import org.fsgt38.fsgt38.R;
 import org.fsgt38.fsgt38.ResultatsActivity;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Activité gérant la barre d'action
@@ -36,7 +37,7 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 	 * @param outState Etat
 	 */
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
 		FSGT38Application.onSaveInstanceState(outState);
 	}

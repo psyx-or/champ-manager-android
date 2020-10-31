@@ -2,10 +2,11 @@ package org.fsgt38.fsgt38.util;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.fsgt38.fsgt38.FSGT38Application;
 import org.fsgt38.fsgt38.R;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Activité affichant une croix dans la barre d'action
@@ -36,7 +37,7 @@ public abstract class FSGT38PopupActivity extends AppCompatActivity {
 	 * @param outState Etat
 	 */
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
 		FSGT38Application.onSaveInstanceState(outState);
 	}

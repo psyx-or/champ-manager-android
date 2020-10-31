@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,7 +17,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -180,7 +181,7 @@ public class ApiUtils {
 	private static class AddCookiesInterceptor implements Interceptor {
 
 		@Override
-		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
+		public @NonNull okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
 			Request.Builder builder = chain.request().newBuilder();
 
 			if (FSGT38Application.getSessionId() != null)
@@ -198,7 +199,7 @@ public class ApiUtils {
 	private static class ReceivedCookiesInterceptor implements Interceptor {
 
 		@Override
-		public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
+		public @NonNull okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
 			okhttp3.Response originalResponse = chain.proceed(chain.request());
 
 			for (String cookieStr: originalResponse.headers("Set-Cookie")) {
