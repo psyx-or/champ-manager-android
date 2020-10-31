@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Journee {
-	int numero;
-	String libelle;
-	Date debut;
-	Date fin;
-	Match[] matches;
-	Championnat championnat;
+	private int numero;
+	private String libelle;
+	private Date debut;
+	private Date fin;
+	private Match[] matches;
+	private Championnat championnat;
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Creneau implements Serializable {
-	int id;
-	int jour;
-	Date heure;
+	private int id;
+	private int jour;
+	private Date heure;
 }

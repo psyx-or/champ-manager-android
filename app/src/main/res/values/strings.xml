@@ -58,9 +58,10 @@
 	<string name="dt_semaine">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty</string>
 	<string name="dt_sdf">Du %1$td/%1$tm/%1$ty au %2$td/%2$tm/%2$ty (pas de terrain)</string>
 	<string name="dt_jour">%1$ta %1$td/%1$tm/%1$ty à %2$tR</string>
+	<string name="dt_jour_seul">%1$ta %1$td/%1$tm/%1$ty</string>
+	<string name="dt_jour_seul_sdf">%1$ta %1$td/%1$tm/%1$ty (pas de terrain)</string>
 	<string name="finale">Finale</string>
 	<string name="niveau">1/%1$d finale</string>
-	<string name="journee_i">Journée %1$d</string>
 
 	<!-- Ecran d'information -->
 	<string name="responsable">Responsable %1$s</string>

@@ -12,19 +12,20 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Match implements Serializable {
-	int id;
-	Equipe equipe1;
-	Equipe equipe2;
-	Integer score1;
-	Integer score2;
-	String feuille;
-	Date dateSaisie;
-	Boolean valide;
-	boolean forfait1;
-	boolean forfait2;
-	Match match1;
-	Match match2;
-	Equipe exempt;
-	boolean hasFpFeuille1;
-	boolean hasFpFeuille2;
+	private int id;
+	private Equipe equipe1;
+	private Equipe equipe2;
+	private Integer score1;
+	private Integer score2;
+	private String feuille;
+	private Date dateSaisie;
+	private Boolean valide;
+	private boolean forfait1;
+	private boolean forfait2;
+	private Match match1;
+	private Match match2;
+	private Equipe exempt;
+	private boolean hasFpFeuille1;
+	private boolean hasFpFeuille2;
+	private Date dateReport;
 }

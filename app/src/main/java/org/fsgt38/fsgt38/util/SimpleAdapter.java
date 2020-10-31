@@ -46,6 +46,7 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 	private final K clef;
 	private final T[] objs;
 	private final Class<V> clazz;
+	private int layout = R.layout.tableau;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 	@NonNull
 	@Override
 	public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tableau, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 		try {
 			return clazz.getConstructor(View.class).newInstance(view);
 		}

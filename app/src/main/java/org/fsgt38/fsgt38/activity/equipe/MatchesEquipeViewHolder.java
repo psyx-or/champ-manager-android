@@ -14,6 +14,7 @@ import org.fsgt38.fsgt38.model.Journee;
 import org.fsgt38.fsgt38.model.Match;
 import org.fsgt38.fsgt38.util.TableauViewHolder;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MatchesEquipeViewHolder extends TableauViewHolder<Equipe, Championnat> {
@@ -93,8 +94,25 @@ public class MatchesEquipeViewHolder extends TableauViewHolder<Equipe, Championn
 	 * @return Une chaîne de caractères
 	 */
 	private String getDateJournee(Journee journee, Match match) {
+		if (match.getDateReport() != null) {
+			Calendar dateReport = Calendar.getInstance();
+			dateReport.setTime(match.getDateReport());
+			int jour = (dateReport.get(Calendar.DAY_OF_WEEK) + 6) % 7;
 
-		if (match.getEquipe1() == null) {
+			Creneau creneau = null;
+			if (match.getEquipe1() != null)
+				for (Creneau c: match.getEquipe1().getCreneaux())
+					if (c.getJour() == jour - 1)
+						creneau = c;
+
+			if (creneau != null)
+				return itemView.getContext().getString(R.string.dt_jour, match.getDateReport(), creneau.getHeure());
+			else if (match.getEquipe1() != null && match.getEquipe1().getCreneaux().length == 0)
+				return itemView.getContext().getString(R.string.dt_jour_seul_sdf, match.getDateReport());
+			else
+				return itemView.getContext().getString(R.string.dt_jour_seul, match.getDateReport());
+		}
+		else if (match.getEquipe1() == null) {
 			Date debut = new Date(journee.getDebut().getTime() + 24*3600*1000);
 			return itemView.getContext().getString(R.string.dt_semaine, debut, journee.getFin());
 		}
