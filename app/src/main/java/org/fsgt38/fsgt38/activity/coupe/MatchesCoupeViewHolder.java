@@ -1,12 +1,12 @@
-package org.fsgt38.fsgt38.activity.equipe;
+package org.fsgt38.fsgt38.activity.coupe;
 
 import android.view.View;
 
 import org.fsgt38.fsgt38.activity.commun.CoupeViewHolder;
-import org.fsgt38.fsgt38.model.Equipe;
+import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Journee;
 
-public class CoupeEquipeViewHolder extends CoupeViewHolder<Equipe> {
+public class MatchesCoupeViewHolder extends CoupeViewHolder<Championnat> {
 
 	// ----------------------------------------------------------------------------------------
 	//    Méthodes
@@ -16,16 +16,16 @@ public class CoupeEquipeViewHolder extends CoupeViewHolder<Equipe> {
 	 * Constructeur
 	 * @param itemView Vue
 	 */
-	public CoupeEquipeViewHolder(View itemView) {
+	public MatchesCoupeViewHolder(View itemView) {
 		super(itemView);
 	}
 
 	/**
 	 * Affiche les matches
-	 * @param equipe Equipe
+	 * @param championnat Championnat
 	 * @param journee Journee
 	 */
-	public void affiche(Equipe equipe, Journee journee) {
-		affiche(journee.getChampionnat(), journee, equipe);
+	public void affiche(Championnat championnat, Journee journee) {
+		affiche(championnat, journee, null);
 	}
 }

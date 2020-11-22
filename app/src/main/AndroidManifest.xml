@@ -50,6 +50,15 @@
 		</activity>
 
 		<activity
+			android:name=".CoupeActivity"
+			android:label="@string/app_name"
+			android:parentActivityName=".RechercheActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".RechercheActivity" />
+		</activity>
+
+		<activity
 			android:name=".LoginActivity"
 			android:label="@string/titre_login">
 		</activity>

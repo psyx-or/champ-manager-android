@@ -1,10 +1,9 @@
 package org.fsgt38.fsgt38.activity.commun;
 
-import android.content.Intent;
 import android.view.View;
 
-import org.fsgt38.fsgt38.ChampionnatActivity;
 import org.fsgt38.fsgt38.model.Championnat;
+import org.fsgt38.fsgt38.util.IntentUtils;
 
 /**
  * Affiche un écran pour une équipe suite à un clic sur un élément
@@ -32,9 +31,6 @@ public class ChampionnatClickListener implements View.OnClickListener {
 		if (championnat == null)
 			return;
 
-		Intent intent = new Intent(v.getContext(), ChampionnatActivity.class);
-		intent.putExtra(ChampionnatActivity.KEY_CHAMP, championnat);
-		intent.putExtra(ChampionnatActivity.KEY_ECRAN, ecran);
-		v.getContext().startActivity(intent);
+		IntentUtils.ouvreChampionnat(v.getContext(), championnat, ecran);
 	}
 }

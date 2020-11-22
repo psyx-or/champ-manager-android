@@ -14,12 +14,17 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Sport implements Serializable
+public class Sport implements Serializable, Comparable<Sport>
 {
 	private String nom;
 
 	@Override
 	public @NonNull String toString() {
 		return nom;
+	}
+
+	@Override
+	public int compareTo(Sport o) {
+		return this.nom.compareTo(o.nom);
 	}
 }

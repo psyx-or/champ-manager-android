@@ -8,17 +8,34 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import androidx.core.content.FileProvider;
+
+import org.fsgt38.fsgt38.ChampionnatActivity;
+import org.fsgt38.fsgt38.CoupeActivity;
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.model.Championnat;
 
 import java.io.File;
 
-import androidx.core.content.FileProvider;
+import static org.fsgt38.fsgt38.model.Championnat.ChampType.COUPE;
 
 /**
  * Fonctions permettant de faire le lien avec d'autres applications
  */
 public class IntentUtils
 {
+	// ----------------------------------------------------------------------------------------
+	//    Constantes
+	// ----------------------------------------------------------------------------------------
+
+	public static final String KEY_CHAMP = IntentUtils.class.getName() + ".championnat";
+	public static final String KEY_ECRAN = IntentUtils.class.getName() + ".ecran";
+
+
+	// ----------------------------------------------------------------------------------------
+	//    Méthodes
+	// ----------------------------------------------------------------------------------------
+
 	/**
 	 * Ouverture d'un fichier PDF
 	 * @param context Le contexte
@@ -109,5 +126,39 @@ public class IntentUtils
 				Uri.parse("http://maps.google.com/maps?q=" + coordonnees));
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
+	}
+
+	/**
+	 * Ouvre la bonne activité en fonction du type de championnat
+	 * @param context
+	 * @param championnat
+	 */
+	public static void ouvreChampionnat(Context context, Championnat championnat) {
+		ouvreChampionnat(context, championnat, null);
+	}
+
+	/**
+	 * Ouvre la bonne activité avec le bon écran en fonction du type de championnat
+	 * @param context
+	 * @param championnat
+	 * @param ecran
+	 */
+	public static void ouvreChampionnat(Context context, Championnat championnat, Integer ecran) {
+		Intent intent = new Intent(context, getActivityClass(championnat));
+		intent.putExtra(KEY_CHAMP, championnat);
+		if (ecran != null) intent.putExtra(KEY_ECRAN, (int)ecran);
+		context.startActivity(intent);
+	}
+
+	/**
+	 * Calcul de l'activité correspondant à un championnat
+	 * @param championnat
+	 * @return
+	 */
+	private static Class<?> getActivityClass(Championnat championnat) {
+		if (championnat.getType() == COUPE)
+			return CoupeActivity.class;
+		else
+			return ChampionnatActivity.class;
 	}
 }

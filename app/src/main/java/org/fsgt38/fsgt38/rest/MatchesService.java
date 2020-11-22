@@ -32,6 +32,13 @@ public interface MatchesService {
 	Call<Championnat[]> listeEquipe(@Path("id") int equipeId, @Query("saison") String saison);
 
 	/**
+	 * Renvoie la hiérarchie des matches d'une coupe
+	 * @param champId Championnat
+	 */
+	@GET("match/hierarchie/{id}")
+	Call<Journee> getHierarchie(@Path("id") int champId);
+
+	/**
 	 * Renvoie les hiérarchies de matches associées à une équipe
 	 * @param equipeId Equipe
 	 * @param saison Saison

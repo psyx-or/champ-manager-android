@@ -22,14 +22,15 @@ import org.fsgt38.fsgt38.rest.ChampionnatService;
 import org.fsgt38.fsgt38.rest.EquipeService;
 import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
+import org.fsgt38.fsgt38.util.IntentUtils;
 import org.fsgt38.fsgt38.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +63,7 @@ public class RechercheActivity extends FSGT38Activity {
 
 	private EquipeService equipeService;
 	private Call<?> callRechercheEquipe;
-	private HashMap<Sport, List<Championnat>> mapChampionnats = null;
+	private TreeMap<Sport, List<Championnat>> mapChampionnats = null;
 	private boolean clic = false;
 
 
@@ -96,7 +97,7 @@ public class RechercheActivity extends FSGT38Activity {
 
 		// Récupère les championnats
 		if (savedInstanceState != null && savedInstanceState.getSerializable(BAK_CHAMP) != null) {
-			mapChampionnats = (HashMap<Sport, List<Championnat>>) savedInstanceState.getSerializable(BAK_CHAMP);
+			mapChampionnats = (TreeMap<Sport, List<Championnat>>) savedInstanceState.getSerializable(BAK_CHAMP);
 			initChampionnatsSpinner();
 		}
 		else {
@@ -157,9 +158,7 @@ public class RechercheActivity extends FSGT38Activity {
 		Championnat championnat = (Championnat)championnats.getItemAtPosition(position);
 		if (championnat.getId() == null) return;
 
-		Intent intent = new Intent(this, ChampionnatActivity.class);
-		intent.putExtra(ChampionnatActivity.KEY_CHAMP, championnat);
-		startActivity(intent);
+		IntentUtils.ouvreChampionnat(this, championnat);
 	}
 
 
@@ -191,7 +190,7 @@ public class RechercheActivity extends FSGT38Activity {
 	 */
 	private void initChampionnats(List<Championnat> championnats) {
 		// Regroupement des championnats par sport
-		mapChampionnats = new HashMap<>();
+		mapChampionnats = new TreeMap<>();
 		for (Championnat champ: championnats) {
 			if (!mapChampionnats.containsKey(champ.getSport())) {
 				ArrayList<Championnat> liste = new ArrayList<>();
@@ -201,6 +200,9 @@ public class RechercheActivity extends FSGT38Activity {
 
 			mapChampionnats.get(champ.getSport()).add(champ);
 		}
+
+		for (List<Championnat> liste: mapChampionnats.values())
+			Collections.sort(liste);
 
 		initChampionnatsSpinner();
 	}

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Championnat implements Serializable {
+public class Championnat implements Serializable, Comparable<Championnat> {
 
 	public enum ChampType { ALLER, ALLER_RETOUR, COUPE }
 
@@ -46,11 +46,17 @@ public class Championnat implements Serializable {
 		obj.sport = this.sport;
 		obj.nom = this.nom;
 		obj.saison = this.saison;
+		obj.type = this.type;
 		return obj;
 	}
 
 	@Override
 	public @NonNull String toString() {
 		return nom;
+	}
+
+	@Override
+	public int compareTo(Championnat o) {
+		return this.nom.compareTo(o.nom);
 	}
 }

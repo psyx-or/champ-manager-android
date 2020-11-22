@@ -6,20 +6,18 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.fsgt38.fsgt38.activity.championnat.ClassementChampionnatFragment;
-import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
+import org.fsgt38.fsgt38.activity.coupe.MatchesCoupeFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
 import butterknife.ButterKnife;
 
 import static org.fsgt38.fsgt38.util.IntentUtils.KEY_CHAMP;
-import static org.fsgt38.fsgt38.util.IntentUtils.KEY_ECRAN;
 
 /**
- * Ecran affichant un championnat
+ * Ecran affichant une coupe
  */
-public class ChampionnatActivity extends FSGT38Activity {
+public class CoupeActivity extends FSGT38Activity {
 
 	// ----------------------------------------------------------------------------------------
 	//    Membres
@@ -43,13 +41,12 @@ public class ChampionnatActivity extends FSGT38Activity {
 
 		// Récupération des paramètres
 		championnat = (Championnat) getIntent().getSerializableExtra(KEY_CHAMP);
-		int ecran = getIntent().getIntExtra(KEY_ECRAN, R.id.navigation_classement);
 
 		// Mise en place de l'écran
 		if (getSupportActionBar() != null)
 			getSupportActionBar().setTitle(championnat.getNom());
 
-		setContentView(R.layout.activity_championnat);
+		setContentView(R.layout.activity_coupe);
 		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -57,7 +54,7 @@ public class ChampionnatActivity extends FSGT38Activity {
 
 		// Navigation vers le bon fragment
 		if (savedInstanceState == null)
-			navigation.setSelectedItemId(ecran);
+			navigation.setSelectedItemId(R.id.navigation_matches);
 	}
 
 
@@ -73,11 +70,8 @@ public class ChampionnatActivity extends FSGT38Activity {
 	private boolean navigate(int id) {
 
 		Fragment fragment;
-		if (id == R.id.navigation_classement) {
-			fragment = ClassementChampionnatFragment.newInstance(ClassementChampionnatFragment.class, championnat);
-		}
-		else if (id == R.id.navigation_matches) {
-			fragment = MatchesChampionnatFragment.newInstance(MatchesChampionnatFragment.class, championnat);
+		if (id == R.id.navigation_matches) {
+			fragment = MatchesCoupeFragment.newInstance(MatchesCoupeFragment.class, championnat);
 		}
 		else {
 			return false;
