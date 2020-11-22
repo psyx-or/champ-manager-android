@@ -95,19 +95,18 @@ public class EquipeActivity extends FSGT38Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		switch (item.getItemId()) {
-			case R.id.action_fav_on:
-				FSGT38Application.ajouteEquipePreferee(equipe);
-				invalidateOptionsMenu();
-				return true;
-
-			case R.id.action_fav_off:
-				invalidateOptionsMenu();
-				FSGT38Application.retireEquipePreferee(equipe);
-				return true;
-
-			default:
-				return super.onOptionsItemSelected(item);
+		if (item.getItemId() == R.id.action_fav_on) {
+			FSGT38Application.ajouteEquipePreferee(equipe);
+			invalidateOptionsMenu();
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_fav_off) {
+			invalidateOptionsMenu();
+			FSGT38Application.retireEquipePreferee(equipe);
+			return true;
+		}
+		else {
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -123,28 +122,25 @@ public class EquipeActivity extends FSGT38Activity {
 	 */
 	private boolean navigate(int id) {
 
-		Fragment fragment = null;
-		switch (id)
-		{
-			case R.id.navigation_classement:
-				fragment = ClassementEquipeFragment.newInstance(ClassementEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_coupes:
-				fragment = CoupeEquipeFragment.newInstance(CoupeEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_matches:
-				fragment = MatchesEquipeFragment.newInstance(MatchesEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_historique:
-				fragment = HistoriqueEquipeFragment.newInstance(HistoriqueEquipeFragment.class, equipe);
-				break;
-			case R.id.navigation_contact:
-				fragment = InfoEquipeFragment.newInstance(InfoEquipeFragment.class, equipe);
-				break;
+		Fragment fragment;
+		if (id == R.id.navigation_classement) {
+			fragment = ClassementEquipeFragment.newInstance(ClassementEquipeFragment.class, equipe);
 		}
-
-		if (fragment == null)
+		else if (id == R.id.navigation_coupes) {
+			fragment = CoupeEquipeFragment.newInstance(CoupeEquipeFragment.class, equipe);
+		}
+		else if (id == R.id.navigation_matches) {
+			fragment = MatchesEquipeFragment.newInstance(MatchesEquipeFragment.class, equipe);
+		}
+		else if (id == R.id.navigation_historique) {
+			fragment = HistoriqueEquipeFragment.newInstance(HistoriqueEquipeFragment.class, equipe);
+		}
+		else if (id == R.id.navigation_contact) {
+			fragment = InfoEquipeFragment.newInstance(InfoEquipeFragment.class, equipe);
+		}
+		else {
 			return false;
+		}
 
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame, fragment);

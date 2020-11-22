@@ -81,31 +81,30 @@ public abstract class FSGT38Activity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		switch (item.getItemId()) {
-			case R.id.action_refresh:
-				ApiUtils.videCache();
-				recreate();
-				return true;
-
-			case R.id.action_login:
-				Intent intent = new Intent(this, LoginActivity.class);
-				startActivity(intent);
-				return true;
-
-			case R.id.action_saisie:
-				intent = new Intent(this, ResultatsActivity.class);
-				startActivity(intent);
-				return true;
-
-			case R.id.action_logout:
-				FSGT38Application.setEquipe(null);
-				FSGT38Application.setSessionId(null);
-				FSGT38Application.setRememberMe(null);
-				invalidateOptionsMenu();
-				return true;
-
-			default:
-				return false;
+		if (item.getItemId() == R.id.action_refresh) {
+			ApiUtils.videCache();
+			recreate();
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_login) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_saisie) {
+			Intent intent = new Intent(this, ResultatsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_logout) {
+			FSGT38Application.setEquipe(null);
+			FSGT38Application.setSessionId(null);
+			FSGT38Application.setRememberMe(null);
+			invalidateOptionsMenu();
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 }

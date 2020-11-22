@@ -77,19 +77,16 @@ public class ChampionnatActivity extends FSGT38Activity {
 	 */
 	private boolean navigate(int id) {
 
-		Fragment fragment = null;
-		switch (id)
-		{
-			case R.id.navigation_classement:
-				fragment = ClassementChampionnatFragment.newInstance(ClassementChampionnatFragment.class, championnat);
-				break;
-			case R.id.navigation_matches:
-				fragment = MatchesChampionnatFragment.newInstance(MatchesChampionnatFragment.class, championnat);
-				break;
+		Fragment fragment;
+		if (id == R.id.navigation_classement) {
+			fragment = ClassementChampionnatFragment.newInstance(ClassementChampionnatFragment.class, championnat);
 		}
-
-		if (fragment == null)
+		else if (id == R.id.navigation_matches) {
+			fragment = MatchesChampionnatFragment.newInstance(MatchesChampionnatFragment.class, championnat);
+		}
+		else {
 			return false;
+		}
 
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame, fragment);
