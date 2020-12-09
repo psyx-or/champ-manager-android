@@ -107,7 +107,7 @@ public class ResultatsActivity extends FSGT38Activity {
 					RecyclerView.Adapter adapter = new SimpleAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
 					if (adapter.getItemCount() == 0) {
 						binding.liste.setVisibility(View.GONE);
-						binding.vide.setVisibility(View.VISIBLE);
+						binding.txtVide.setVisibility(View.VISIBLE);
 					}
 					else {
 						binding.liste.setAdapter(adapter);

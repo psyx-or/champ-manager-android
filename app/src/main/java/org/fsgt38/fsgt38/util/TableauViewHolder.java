@@ -4,15 +4,13 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.databinding.TableauBinding;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Match;
-
-import butterknife.BindView;
 
 /**
  * Viewholder pour le layout "tableau"
@@ -23,9 +21,7 @@ public abstract class TableauViewHolder<K,T> extends SimpleAdapter.ViewHolder<K,
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.titre)	    TextView txtTitre;
-	@BindView(R.id.separateur)  View separateur;
-	@BindView(R.id.tableau)	    protected TableLayout tableau;
+	protected TableauBinding binding;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -38,6 +34,7 @@ public abstract class TableauViewHolder<K,T> extends SimpleAdapter.ViewHolder<K,
 	 */
 	protected TableauViewHolder(View itemView) {
 		super(itemView);
+		binding = TableauBinding.bind(itemView);
 	}
 
 	/**
@@ -46,14 +43,14 @@ public abstract class TableauViewHolder<K,T> extends SimpleAdapter.ViewHolder<K,
 	 */
 	protected void init(String titre) {
 		if (titre == null) {
-			txtTitre.setVisibility(View.GONE);
-			separateur.setVisibility(View.GONE);
+			binding.txtTitre.setVisibility(View.GONE);
+			binding.separateur.setVisibility(View.GONE);
 		}
 		else {
-			txtTitre.setText(titre);
+			binding.txtTitre.setText(titre);
 		}
 
-		tableau.removeAllViews();
+		binding.tableau.removeAllViews();
 	}
 
 	/**
@@ -86,7 +83,7 @@ public abstract class TableauViewHolder<K,T> extends SimpleAdapter.ViewHolder<K,
 	protected TableRow addLigne(int layout)
 	{
 		TableRow ligne = (TableRow) LayoutInflater.from(itemView.getContext()).inflate(layout, null);
-		tableau.addView(ligne);
+		binding.tableau.addView(ligne);
 		return ligne;
 	}
 

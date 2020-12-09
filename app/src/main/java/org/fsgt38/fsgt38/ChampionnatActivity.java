@@ -1,8 +1,9 @@
 package org.fsgt38.fsgt38;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -80,7 +81,7 @@ public class ChampionnatActivity extends FSGT38Activity {
 			return false;
 		}
 
-		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame, fragment);
 		transaction.commit();
 

@@ -40,10 +40,10 @@ public class ResultatsViewHolder extends TableauViewHolder<Equipe, Championnat> 
 	 */
 	public void affiche(final Equipe equipe, final Championnat championnat) {
 		init(championnat.getNom());
-		tableau.setShrinkAllColumns(false);
-		tableau.setColumnShrinkable(0, true);
-		tableau.setColumnShrinkable(1, false);
-		tableau.setColumnShrinkable(2, true);
+		binding.tableau.setShrinkAllColumns(false);
+		binding.tableau.setColumnShrinkable(0, true);
+		binding.tableau.setColumnShrinkable(1, false);
+		binding.tableau.setColumnShrinkable(2, true);
 
 		int i = 0;
 		for (Journee journee: championnat.getJournees()) {
