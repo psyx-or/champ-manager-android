@@ -4,15 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.textfield.TextInputEditText;
-
+import org.fsgt38.fsgt38.databinding.ActivityLoginBinding;
 import org.fsgt38.fsgt38.rest.AuthentService;
 import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38PopupActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Retrofit;
 
 public class LoginActivity extends FSGT38PopupActivity {
@@ -21,8 +17,7 @@ public class LoginActivity extends FSGT38PopupActivity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.txtLogin)	TextInputEditText txtLogin;
-	@BindView(R.id.txtMdp)  	TextInputEditText txtMdp;
+	private ActivityLoginBinding binding;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -37,19 +32,20 @@ public class LoginActivity extends FSGT38PopupActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_login);
-		ButterKnife.bind(this);
+		binding = ActivityLoginBinding.inflate(getLayoutInflater());
+		binding.setActivity(this);
+		setContentView(binding.getRoot());
 	}
 
 	/**
 	 * Lance l'authentification
 	 */
-	@OnClick(R.id.btnAuthentifie)
 	public void authentifie() {
+
 		Retrofit retrofit = ApiUtils.getApi(this);
 		ApiUtils.appel(
 				this,
-				retrofit.create(AuthentService.class).authentifie(txtLogin.getText().toString(), txtMdp.getText().toString(), "on"),
+				retrofit.create(AuthentService.class).authentifie(binding.txtLogin.getText().toString(), binding.txtMdp.getText().toString(), "on"),
 				equipe -> {
 					if (equipe == null) {
 						runOnUiThread(() -> new AlertDialog.Builder(LoginActivity.this)

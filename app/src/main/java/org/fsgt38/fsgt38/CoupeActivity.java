@@ -10,8 +10,6 @@ import org.fsgt38.fsgt38.activity.coupe.MatchesCoupeFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
-import butterknife.ButterKnife;
-
 import static org.fsgt38.fsgt38.util.IntentUtils.KEY_CHAMP;
 
 /**
@@ -47,7 +45,6 @@ public class CoupeActivity extends FSGT38Activity {
 			getSupportActionBar().setTitle(championnat.getNom());
 
 		setContentView(R.layout.activity_coupe);
-		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(item -> navigate(item.getItemId()));

@@ -11,8 +11,6 @@ import org.fsgt38.fsgt38.activity.championnat.MatchesChampionnatFragment;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
 
-import butterknife.ButterKnife;
-
 import static org.fsgt38.fsgt38.util.IntentUtils.KEY_CHAMP;
 import static org.fsgt38.fsgt38.util.IntentUtils.KEY_ECRAN;
 
@@ -50,7 +48,6 @@ public class ChampionnatActivity extends FSGT38Activity {
 			getSupportActionBar().setTitle(championnat.getNom());
 
 		setContentView(R.layout.activity_championnat);
-		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(item -> navigate(item.getItemId()));
