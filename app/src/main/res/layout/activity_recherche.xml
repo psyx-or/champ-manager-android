@@ -6,7 +6,6 @@
 	<data>
 		<import type="org.fsgt38.fsgt38.model.Championnat"/>
 		<import type="org.fsgt38.fsgt38.model.Equipe"/>
-		<import type="org.fsgt38.fsgt38.model.Sport"/>
 		<variable name="activity" type="org.fsgt38.fsgt38.RechercheActivity"/>
 	</data>
 
