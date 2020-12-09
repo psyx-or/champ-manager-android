@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.fsgt38.fsgt38.R;
 
-import butterknife.ButterKnife;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -34,8 +33,6 @@ public class SimpleAdapter<K,T,V extends SimpleAdapter.ViewHolder<K,T>> extends 
 		 */
 		protected ViewHolder(View itemView) {
 			super(itemView);
-
-			ButterKnife.bind(this, itemView);
 		}
 	}
 
