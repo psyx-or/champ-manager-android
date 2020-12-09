@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.fsgt38.fsgt38.activity.recherche.EquipeAdapter;
+import org.fsgt38.fsgt38.databinding.ActivityRechercheBinding;
 import org.fsgt38.fsgt38.model.Championnat;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.model.Sport;
@@ -32,10 +29,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -55,11 +48,7 @@ public class RechercheActivity extends FSGT38Activity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.favoris)         View zoneFavoris;
-	@BindView(R.id.listeFavoris)    RecyclerView listeEquipes;
-	@BindView(R.id.equipeSearchTxt) AutoCompleteTextView equipeSearchTxt;
-	@BindView(R.id.spinSport)   	Spinner sports;
-	@BindView(R.id.spinChampionnat)	Spinner championnats;
+	private ActivityRechercheBinding binding;
 
 	private EquipeService equipeService;
 	private Call<?> callRechercheEquipe;
@@ -81,15 +70,14 @@ public class RechercheActivity extends FSGT38Activity {
 
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_recherche);
-		ButterKnife.bind(this);
+		binding = ActivityRechercheBinding.inflate(getLayoutInflater());
+		binding.setActivity(this);
+		setContentView(binding.getRoot());
 
 		// Init contrôles
 		initFavoris();
-		equipeSearchTxt.setThreshold(2);
-		equipeSearchTxt.setOnItemClickListener((parent, view, position, id) -> selectionEquipe(parent, position));
-		sports.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
-		this.championnats.setVisibility(View.INVISIBLE);
+		binding.spinSport.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(getString(R.string.label_chargement))));
+		binding.spinChampionnat.setVisibility(View.INVISIBLE);
 
 		// Init API
 		Retrofit retrofit = ApiUtils.getApi(this);
@@ -117,8 +105,8 @@ public class RechercheActivity extends FSGT38Activity {
 	protected void onResume() {
 		super.onResume();
 		initFavoris();
-		equipeSearchTxt.setText("");
-		championnats.setSelection(0);
+		binding.equipeSearchTxt.setText("");
+		binding.spinChampionnat.setSelection(0);
 		clic = false;
 	}
 
@@ -134,28 +122,25 @@ public class RechercheActivity extends FSGT38Activity {
 
 	/**
 	 * Sélection d'un sport
-	 * @param position Index de l'élément sélectionné
+	 * @param sel Elément sélectionné
 	 */
-	@OnItemSelected(R.id.spinSport)
-	public void selectionSport(int position) {
+	public void selectionSport(Object sel) {
 
-		if (mapChampionnats == null) return;
+		if (sel instanceof String) return;
 
 		// On affiche les championnats du sport
-		Sport sport = (Sport)sports.getItemAtPosition(position);
+		Sport sport = (Sport) sel;
 		ArrayAdapter<Championnat> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mapChampionnats.get(sport));
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		championnats.setAdapter(adapter);
+		binding.spinChampionnat.setAdapter(adapter);
 	}
 
 	/**
 	 * Sélection d'un championnat
-	 * @param position Index de l'élément sélectionné
+	 * @param championnat Championnat sélectionné
 	 */
-	@OnItemSelected(R.id.spinChampionnat)
-	public void selectionChampionnat(int position) {
+	public void selectionChampionnat(Championnat championnat) {
 
-		Championnat championnat = (Championnat)championnats.getItemAtPosition(position);
 		if (championnat.getId() == null) return;
 
 		IntentUtils.ouvreChampionnat(this, championnat);
@@ -173,14 +158,14 @@ public class RechercheActivity extends FSGT38Activity {
 		// Init favoris
 		Set<Equipe> favoris = FSGT38Application.getEquipesPreferees();
 		if (favoris.isEmpty()) {
-			zoneFavoris.setVisibility(View.GONE);
+			binding.listeFavoris.setVisibility(View.GONE);
 		}
 		else {
 			Equipe[] equipes = favoris.toArray(new Equipe[]{});
 			Arrays.sort(equipes);
 
-			zoneFavoris.setVisibility(View.VISIBLE);
-			listeEquipes.setAdapter(new EquipeAdapter(equipes));
+			binding.listeFavoris.setVisibility(View.VISIBLE);
+			binding.listeFavoris.setAdapter(new EquipeAdapter(equipes));
 		}
 	}
 
@@ -214,15 +199,14 @@ public class RechercheActivity extends FSGT38Activity {
 		// Remplissage de la liste des sports
 		ArrayAdapter<Sport> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(mapChampionnats.keySet()));
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sports.setAdapter(adapter);
-		championnats.setVisibility(View.VISIBLE);
+		binding.spinSport.setAdapter(adapter);
+		binding.spinChampionnat.setVisibility(View.VISIBLE);
 	}
 
 	/**
 	 * Recherche d'équipe
 	 * @param s Texte de la recherche
 	 */
-	@OnTextChanged(R.id.equipeSearchTxt)
 	public void rechercheEquipe(CharSequence s) {
 
 		if (callRechercheEquipe != null) callRechercheEquipe.cancel();
@@ -236,7 +220,7 @@ public class RechercheActivity extends FSGT38Activity {
 				@Override
 				public void action(List<Equipe> equipes) {
 
-					equipeSearchTxt.setAdapter(new ArrayAdapter<Equipe>(RechercheActivity.this,android.R.layout.simple_dropdown_item_1line, equipes) {
+					binding.equipeSearchTxt.setAdapter(new ArrayAdapter<Equipe>(RechercheActivity.this,android.R.layout.simple_dropdown_item_1line, equipes) {
 						@NonNull
 						@Override
 						public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -249,7 +233,7 @@ public class RechercheActivity extends FSGT38Activity {
 					});
 
 					try {
-						equipeSearchTxt.showDropDown();
+						binding.equipeSearchTxt.showDropDown();
 					}
 					catch (WindowManager.BadTokenException ignore) {
 					}
@@ -260,13 +244,11 @@ public class RechercheActivity extends FSGT38Activity {
 
 	/**
 	 * Sélection d'une équipe
-	 * @param parent Liste des équipes
-	 * @param position Index de l'élément sélectionné
+	 * @param equipe Equipe sélectionnée
 	 */
-	private void selectionEquipe(AdapterView<?> parent, int position) {
+	public void selectionEquipe(Equipe equipe) {
 		clic = true;
-		Equipe equipe = (Equipe) parent.getItemAtPosition(position);
-		equipeSearchTxt.setText(equipe.getNom());
+		binding.equipeSearchTxt.setText(equipe.getNom());
 
 		Intent intent = new Intent(this, EquipeActivity.class);
 		intent.putExtra(EquipeActivity.KEY_EQUIPE, equipe);

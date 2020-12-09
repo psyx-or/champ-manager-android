@@ -1,95 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context=".RechercheActivity"
-	>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-	<!-- Favoris -->
+	<data>
+		<import type="org.fsgt38.fsgt38.model.Championnat"/>
+		<import type="org.fsgt38.fsgt38.model.Equipe"/>
+		<import type="org.fsgt38.fsgt38.model.Sport"/>
+		<variable name="activity" type="org.fsgt38.fsgt38.RechercheActivity"/>
+	</data>
 
 	<LinearLayout
-		android:id="@+id/favoris"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+				  android:gravity="center_horizontal"
+				  android:orientation="vertical"
+				  android:paddingBottom="@dimen/activity_vertical_margin"
+				  android:paddingLeft="@dimen/activity_horizontal_margin"
+				  android:paddingRight="@dimen/activity_horizontal_margin"
+				  android:paddingTop="@dimen/activity_vertical_margin"
+				  tools:context=".RechercheActivity"
+		>
+
+		<!-- Favoris -->
+
+		<LinearLayout
+			android:id="@+id/favoris"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/favoris"
+				android:textAlignment="center"/>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/listeFavoris"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+			<Space
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="30dp"/>
+
+		</LinearLayout>
+
+
+		<!-- Sélection équipe -->
 
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/favoris"
-			android:textAlignment="center"/>
+			android:text="@string/rechercher_equipe"
+			android:textAlignment="center"
+			android:labelFor="@id/equipeSearchTxt"/>
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/listeFavoris"
+		<AutoCompleteTextView
+			android:id="@+id/equipeSearchTxt"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+			android:completionThreshold="2"
+			android:text=""
+			app:textChanged="@{txt -> activity.rechercheEquipe((CharSequence)txt)}"
+			app:itemSelected="@{e -> activity.selectionEquipe((Equipe)e)}" />
 
 		<Space
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="30dp"/>
+			android:layout_marginBottom="20dp"/>
 
+
+		<!-- Sélection championnat -->
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/champ_selection"
+			android:textAlignment="center"
+			android:labelFor="@id/spinSport"/>
+
+		<Space
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"/>
+
+		<Spinner
+			android:id="@+id/spinSport"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:itemSelected="@{s -> activity.selectionSport(s)}"/>
+
+		<Space
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"/>
+
+		<Spinner
+			android:id="@+id/spinChampionnat"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:itemSelected="@{c -> activity.selectionChampionnat((Championnat)c)}"/>
 	</LinearLayout>
-
-
-	<!-- Sélection équipe -->
-
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/rechercher_equipe"
-		android:textAlignment="center"
-		android:labelFor="@id/equipeSearchTxt"/>
-
-	<AutoCompleteTextView
-		android:id="@+id/equipeSearchTxt"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text=""/>
-
-	<Space
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="20dp"/>
-
-
-	<!-- Sélection championnat -->
-
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/champ_selection"
-		android:textAlignment="center"
-		android:labelFor="@id/spinSport"/>
-
-	<Space
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"/>
-
-	<Spinner
-		android:id="@+id/spinSport"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-
-	<Space
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"/>
-
-	<Spinner
-		android:id="@+id/spinChampionnat"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-</LinearLayout>
+</layout>
