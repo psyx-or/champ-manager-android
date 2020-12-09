@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context="org.fsgt38.fsgt38.activity.fairplay.FPCategorieViewHolder">
 
-	<TextView
-		android:id="@+id/titre"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+	<data>
+		<variable name="holder" type="org.fsgt38.fsgt38.activity.fairplay.FPCategorieViewHolder" />
+	</data>
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="2dip"
-		android:layout_marginStart="16dp"
-		android:layout_marginEnd="16dp"
-		android:background="#000000"/>
+	<LinearLayout android:orientation="vertical"
+				  android:layout_width="match_parent"
+				  android:layout_height="wrap_content"
+				  android:layout_marginBottom="16dp">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/liste"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+		<TextView
+			android:id="@+id/txtTitre"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
-	<EditText
-		android:id="@+id/editText"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginEnd="16dp"
-		android:ems="10"
-		android:inputType="textMultiLine"
-		android:hint="@string/hint_commentaire"
-		android:importantForAutofill="no"
-		tools:targetApi="o"/>
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="2dip"
+			android:layout_marginStart="16dp"
+			android:layout_marginEnd="16dp"
+			android:background="#000000"/>
 
-</LinearLayout>
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/liste"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+		<EditText
+			android:id="@+id/editText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginEnd="16dp"
+			android:ems="10"
+			android:inputType="textMultiLine"
+			android:hint="@string/hint_commentaire"
+			android:importantForAutofill="no"
+			tools:targetApi="o"
+			app:textChanged="@{s -> holder.setCommentaire((CharSequence)s)}"/>
+
+	</LinearLayout>
+</layout>
