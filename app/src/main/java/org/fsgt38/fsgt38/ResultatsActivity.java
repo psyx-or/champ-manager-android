@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.fsgt38.fsgt38.activity.resultats.ResultatsViewHolder;
+import org.fsgt38.fsgt38.databinding.FragmentListeBinding;
 import org.fsgt38.fsgt38.rest.MatchesService;
 import org.fsgt38.fsgt38.rest.ParametreService;
 import org.fsgt38.fsgt38.util.ApiUtils;
@@ -14,9 +16,6 @@ import org.fsgt38.fsgt38.util.FSGT38Activity;
 import org.fsgt38.fsgt38.util.SimpleAdapter;
 import org.fsgt38.fsgt38.util.Utils;
 
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
 import static org.fsgt38.fsgt38.FSGT38Application.PARAM_DUREE_SAISIE;
@@ -30,8 +29,7 @@ public class ResultatsActivity extends FSGT38Activity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.liste)	RecyclerView liste;
-	@BindView(R.id.vide)	TextView txtVide;
+	private FragmentListeBinding binding;
 
 
 	// ----------------------------------------------------------------------------------------
@@ -47,8 +45,8 @@ public class ResultatsActivity extends FSGT38Activity {
 	{
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.fragment_liste);
-		ButterKnife.bind(this);
+		binding = FragmentListeBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 
 		final Retrofit retrofit = ApiUtils.getApi(this);
 
@@ -105,13 +103,14 @@ public class ResultatsActivity extends FSGT38Activity {
 				this,
 				retrofit.create(MatchesService.class).listeEquipe(FSGT38Application.getEquipe().getId(), Utils.getSaison()),
 				data -> {
+					@SuppressWarnings("rawtypes")
 					RecyclerView.Adapter adapter = new SimpleAdapter<>(FSGT38Application.getEquipe(), data, ResultatsViewHolder.class);
 					if (adapter.getItemCount() == 0) {
-						liste.setVisibility(View.GONE);
-						txtVide.setVisibility(View.VISIBLE);
+						binding.liste.setVisibility(View.GONE);
+						binding.vide.setVisibility(View.VISIBLE);
 					}
 					else {
-						liste.setAdapter(adapter);
+						binding.liste.setAdapter(adapter);
 					}
 				}
 		);

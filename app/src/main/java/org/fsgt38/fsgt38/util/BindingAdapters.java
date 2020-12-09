@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -52,5 +53,10 @@ public class BindingAdapters {
                 consumer.accept(s);
             }
         });
+    }
+
+    @BindingAdapter("checkChanged")
+    public static void setCheckChangedListener(CheckBox view, Consumer<Object> consumer) {
+        view.setOnCheckedChangeListener((v, isChecked) -> consumer.accept(isChecked));
     }
 }
