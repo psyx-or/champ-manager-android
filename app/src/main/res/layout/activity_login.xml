@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-			  android:padding="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context=".LoginActivity">
 
-	<com.google.android.material.textfield.TextInputLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+	<data>
+		<variable name="activity" type="org.fsgt38.fsgt38.LoginActivity"/>
+	</data>
 
-		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/txtLogin"
+	<LinearLayout android:orientation="vertical"
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+				  android:padding="16dp">
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/txtLogin"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/hint_login"/>
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="@string/hint_login"/>
+			android:layout_marginTop="16dp">
 
-	</com.google.android.material.textfield.TextInputLayout>
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/txtMdp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textPassword"
+				android:hint="@string/hint_mdp"/>
 
-	<com.google.android.material.textfield.TextInputLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp">
+		</com.google.android.material.textfield.TextInputLayout>
 
-		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/txtMdp"
+		<Button
+			android:id="@+id/btnAuthentifie"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:inputType="textPassword"
-			android:hint="@string/hint_mdp"/>
+			android:layout_marginTop="16dp"
+			android:text="@string/btn_connexion"
+			android:onClick="@{() -> activity.authentifie()}"/>
 
-	</com.google.android.material.textfield.TextInputLayout>
-
-	<Button
-		android:id="@+id/btnAuthentifie"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp"
-		android:text="@string/btn_connexion"/>
-
-</LinearLayout>
+	</LinearLayout>
+</layout>

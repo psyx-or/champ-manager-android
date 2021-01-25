@@ -2,16 +2,12 @@ package org.fsgt38.fsgt38.activity.fairplay;
 
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import org.fsgt38.fsgt38.FairplayActivity;
 import org.fsgt38.fsgt38.R;
+import org.fsgt38.fsgt38.databinding.LayoutQuestionEvalBinding;
 import org.fsgt38.fsgt38.model.FPQuestion;
 import org.fsgt38.fsgt38.util.SimpleAdapter;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Une question
@@ -22,13 +18,7 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.question)	TextView txtQuestion;
-	@BindView(R.id.description) TextView txtDescription;
-	@BindView(R.id.grpEval) 	RadioGroup grpEval;
-	@BindView(R.id.btnKO) 	    RadioButton btnKO;
-	@BindView(R.id.btnNormal) 	RadioButton btnNormal;
-	@BindView(R.id.btnOK)   	RadioButton btnOK;
-
+	private LayoutQuestionEvalBinding binding;
 	private FairplayActivity activity;
 	private FPQuestion question;
 
@@ -43,6 +33,8 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 	 */
 	public FPQuestionViewHolder(View itemView) {
 		super(itemView);
+		binding = LayoutQuestionEvalBinding.bind(itemView);
+		binding.setHolder(this);
 	}
 
 	/**
@@ -55,33 +47,33 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 		this.activity = activity;
 		this.question = question;
 
-		txtQuestion.setText(question.getTitre());
-		txtDescription.setText(question.getLibelle());
-		txtDescription.setVisibility(question.getLibelle()==null ? View.GONE : View.VISIBLE);
+		binding.txtQuestion.setText(question.getTitre());
+		binding.txtDescription.setText(question.getLibelle());
+		binding.txtDescription.setVisibility(question.getLibelle()==null ? View.GONE : View.VISIBLE);
 
 		switch (question.getType()) {
 			case EVAL:
-				btnKO.setText(R.string.eval_ko);
-				btnNormal.setVisibility(View.VISIBLE);
-				btnOK.setText(R.string.eval_ok);
+				binding.btnKO.setText(R.string.eval_ko);
+				binding.btnNormal.setVisibility(View.VISIBLE);
+				binding.btnOK.setText(R.string.eval_ok);
 				break;
 
 			case BOOLEEN:
-				btnKO.setText(R.string.eval_non);
-				btnNormal.setVisibility(View.GONE);
-				btnOK.setText(R.string.eval_oui);
+				binding.btnKO.setText(R.string.eval_non);
+				binding.btnNormal.setVisibility(View.GONE);
+				binding.btnOK.setText(R.string.eval_oui);
 				break;
 		}
 
 		Integer reponse = activity.getReponse(question.getId());
 		if (reponse == null) {
-			grpEval.clearCheck();
+			binding.grpEval.clearCheck();
 		}
 		else {
 			switch (reponse) {
-				case -1:grpEval.check(R.id.btnKO);break;
-				case  0:grpEval.check(R.id.btnNormal);break;
-				case  1:grpEval.check(R.id.btnOK);break;
+				case -1:binding.grpEval.check(R.id.btnKO);break;
+				case  0:binding.grpEval.check(R.id.btnNormal);break;
+				case  1:binding.grpEval.check(R.id.btnOK);break;
 			}
 		}
 	}
@@ -95,8 +87,7 @@ public class FPQuestionViewHolder extends SimpleAdapter.ViewHolder<FairplayActiv
 	 * Appui sur un bouton de réponse
 	 * @param radioButton Bouton appuyé
 	 */
-	@OnClick({R.id.btnKO, R.id.btnNormal, R.id.btnOK})
-	protected void onCheckedChanged(RadioButton radioButton) {
+	public void onCheckedChanged(RadioButton radioButton) {
 		activity.setReponse(question.getId(), Integer.parseInt((String)radioButton.getTag()));
 	}
 }

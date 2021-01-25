@@ -4,8 +4,7 @@ import android.app.AlertDialog;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import com.github.chrisbanes.photoview.PhotoView;
-
+import org.fsgt38.fsgt38.databinding.ActivityImageBinding;
 import org.fsgt38.fsgt38.rest.MatchesService;
 import org.fsgt38.fsgt38.util.ApiUtils;
 import org.fsgt38.fsgt38.util.FSGT38PopupActivity;
@@ -17,8 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
 /**
@@ -37,9 +34,7 @@ public class ImageActivity extends FSGT38PopupActivity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	/** Le conteneur de l'image */
-	@BindView(R.id.photoView)	public PhotoView image;
-
+	private ActivityImageBinding binding;
 	/** Nom du fichier à télécharger */
 	private String fichier;
 
@@ -59,8 +54,8 @@ public class ImageActivity extends FSGT38PopupActivity {
 
 		fichier = getIntent().getStringExtra(KEY_FICHIER);
 
-		setContentView(R.layout.activity_image);
-		ButterKnife.bind(this);
+		binding = ActivityImageBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 
 		// Chargement de l'image
 		Retrofit retrofit = ApiUtils.getApi(this);
@@ -109,7 +104,7 @@ public class ImageActivity extends FSGT38PopupActivity {
 		}
 		else {
 			// Image clasique (a priori) => on l'affiche directement
-			image.setImageBitmap(BitmapFactory.decodeStream(feuille));
+			binding.photoView.setImageBitmap(BitmapFactory.decodeStream(feuille));
 		}
 	}
 }

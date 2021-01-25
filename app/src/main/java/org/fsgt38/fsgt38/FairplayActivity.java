@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.fsgt38.fsgt38.activity.fairplay.FPCategorieViewHolder;
+import org.fsgt38.fsgt38.databinding.FragmentListeBinding;
 import org.fsgt38.fsgt38.model.FPCategorie;
 import org.fsgt38.fsgt38.model.FPQuestion;
 import org.fsgt38.fsgt38.model.Match;
@@ -19,9 +20,6 @@ import org.fsgt38.fsgt38.util.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
 /**
@@ -42,7 +40,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.liste)	RecyclerView liste;
+	private FragmentListeBinding binding;
 
 	private Match match;
 	private FPFeuilleAfficheDTO dto;
@@ -83,8 +81,8 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		super.onCreate(savedInstanceState);
 
 		// Mise en place de l'écran
-		setContentView(R.layout.fragment_liste);
-		ButterKnife.bind(this);
+		binding = FragmentListeBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 
 		// Récupération des données
 		match = (Match) getIntent().getSerializableExtra(KEY_MATCH);
@@ -172,7 +170,7 @@ public class FairplayActivity extends FSGT38PopupActivity {
 		catCommentaire.setLibelle(getString(R.string.lbl_commentaire));
 		categories.add(catCommentaire);
 
-		liste.setAdapter(new SimpleAdapter<>(this, categories.toArray(new FPCategorie[0]), FPCategorieViewHolder.class, R.layout.layout_categorie));
+		binding.liste.setAdapter(new SimpleAdapter<>(this, categories.toArray(new FPCategorie[0]), FPCategorieViewHolder.class, R.layout.layout_categorie));
 	}
 
 	/**

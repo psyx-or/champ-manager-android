@@ -38,10 +38,10 @@ public class MatchesEquipeViewHolder extends TableauViewHolder<Equipe, Championn
 	 */
 	public void affiche(Equipe equipe, Championnat championnat) {
 		init(championnat.getNom());
-		tableau.setShrinkAllColumns(false);
-		tableau.setColumnShrinkable(0, true);
-		tableau.setColumnShrinkable(1, false);
-		tableau.setColumnShrinkable(2, true);
+		binding.tableau.setShrinkAllColumns(false);
+		binding.tableau.setColumnShrinkable(0, true);
+		binding.tableau.setColumnShrinkable(1, false);
+		binding.tableau.setColumnShrinkable(2, true);
 
 		int i = 0;
 		EquipeClickListener clickListenerMatch = new EquipeClickListener(R.id.navigation_matches);

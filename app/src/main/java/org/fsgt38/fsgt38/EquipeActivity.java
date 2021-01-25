@@ -1,10 +1,11 @@
 package org.fsgt38.fsgt38;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -15,8 +16,6 @@ import org.fsgt38.fsgt38.activity.equipe.InfoEquipeFragment;
 import org.fsgt38.fsgt38.activity.equipe.MatchesEquipeFragment;
 import org.fsgt38.fsgt38.model.Equipe;
 import org.fsgt38.fsgt38.util.FSGT38Activity;
-
-import butterknife.ButterKnife;
 
 /**
  * Ecran affichant une équipe
@@ -60,7 +59,6 @@ public class EquipeActivity extends FSGT38Activity {
 			getSupportActionBar().setTitle(equipe.getNom());
 
 		setContentView(R.layout.activity_equipe);
-		ButterKnife.bind(this);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(item -> navigate(item.getItemId()));
@@ -142,7 +140,7 @@ public class EquipeActivity extends FSGT38Activity {
 			return false;
 		}
 
-		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame, fragment);
 		transaction.commit();
 

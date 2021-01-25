@@ -1,20 +1,19 @@
 package org.fsgt38.fsgt38.activity.commun;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import org.fsgt38.fsgt38.R;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.fsgt38.fsgt38.databinding.FragmentListeBinding;
 import org.fsgt38.fsgt38.util.ApiUtils;
-import org.fsgt38.fsgt38.util.ButterFragment;
 
 import java.io.Serializable;
 
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,7 +21,7 @@ import retrofit2.Retrofit;
 /**
  * Un fragment possédant un objet interne et affichant une liste
  */
-public abstract class ListeFragment<E extends Serializable, T> extends ButterFragment {
+public abstract class ListeFragment<E extends Serializable, T> extends Fragment {
 
 	// ----------------------------------------------------------------------------------------
 	//    Constantes
@@ -79,8 +78,7 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 	//    Membres
 	// ----------------------------------------------------------------------------------------
 
-	@BindView(R.id.liste)   RecyclerView liste;
-	@BindView(R.id.vide)	TextView txtVide;
+	private FragmentListeBinding binding;
 
 	@Getter
 	private E objet;
@@ -89,13 +87,6 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 	// ----------------------------------------------------------------------------------------
 	//    Gestion des événements
 	// ----------------------------------------------------------------------------------------
-
-	/**
-	 * Constructeur
-	 */
-	public ListeFragment() {
-		super(R.layout.fragment_liste);
-	}
 
 	/**
 	 * Initialisation de l'écran
@@ -120,7 +111,8 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 	 * @return Les objets à afficher
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		binding = FragmentListeBinding.inflate(inflater, container, false);
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
 		Retrofit retrofit = ApiUtils.getApi(getActivity());
@@ -131,15 +123,15 @@ public abstract class ListeFragment<E extends Serializable, T> extends ButterFra
 				obj -> {
 					RecyclerView.Adapter adapter = getAdapter(obj);
 					if (adapter.getItemCount() == 0) {
-						liste.setVisibility(View.GONE);
-						txtVide.setVisibility(View.VISIBLE);
+						binding.liste.setVisibility(View.GONE);
+						binding.txtVide.setVisibility(View.VISIBLE);
 					}
 					else {
-						liste.setAdapter(adapter);
+						binding.liste.setAdapter(adapter);
 					}
 				}
 		);
 
-		return view;
+		return binding.getRoot();
 	}
 }
